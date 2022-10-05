@@ -16,7 +16,6 @@ export default ({ categories, categoryId, setCategoryId }) => {
                     style={{ cursor: 'pointer' }}
                   >
                     <div>{item?.title}</div>
-                    <span>({item?.amount})</span>
                   </li>
                 )
               })}
