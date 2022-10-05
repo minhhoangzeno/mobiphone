@@ -18,7 +18,7 @@ let AppService = class AppService {
             service: "Gmail",
             auth: {
                 user: 'zenominhhoang@gmail.com',
-                pass: 'Dalecarnegie521985',
+                pass: 'hoangtnm@bfast',
             },
         });
         transport.sendMail({

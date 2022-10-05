@@ -2,6 +2,7 @@
 /backend/node_modules
 /backend/uploads
 /admin/node_modules
+/api/node_modules
 /web/node_modules
 /webv2/node_modules
 # IDE - VSCode

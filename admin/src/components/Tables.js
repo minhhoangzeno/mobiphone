@@ -240,16 +240,15 @@ export const TransactionsTable = () => {
                 <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
               </Dropdown.Item>
               <Dropdown.Item>
-                <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
+                <FontAwesomeIcon icon={faEdit} className="me-2" /> Chỉnh sửa
               </Dropdown.Item>
               <Dropdown.Item className="text-danger">
-                <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
+                <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Xóa
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </td>
       </tr>
-    
     );
   };
 
@@ -264,7 +263,7 @@ export const TransactionsTable = () => {
               <th className="border-bottom">Issue Date</th>
               <th className="border-bottom">Due Date</th>
               <th className="border-bottom">Total</th>
-              <th className="border-bottom">Status</th>
+              <th className="border-bottom">Trạng thái</th>
               <th className="border-bottom">Action</th>
             </tr>
           </thead>
@@ -289,7 +288,7 @@ export const TransactionsTable = () => {
             </Pagination>
           </Nav>
           <small className="fw-bold">
-            Showing <b>{totalTransactions}</b> out of <b>25</b> entries
+            Hiển thị <b>{totalTransactions}</b> trong tổng số <b>25</b> mục
           </small>
         </Card.Footer>
       </Card.Body>
@@ -331,7 +330,7 @@ export const CommandsTable = () => {
         <Table responsive className="table-centered rounded" style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
           <thead className="thead-light">
             <tr>
-              <th className="border-0" style={{ width: '5%' }}>Name</th>
+              <th className="border-0" style={{ width: '5%' }}>Tên</th>
               <th className="border-0" style={{ width: '5%' }}>Usage</th>
               <th className="border-0" style={{ width: '50%' }}>Description</th>
               <th className="border-0" style={{ width: '40%' }}>Extra</th>

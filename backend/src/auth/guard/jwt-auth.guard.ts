@@ -8,11 +8,8 @@ export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
     constructor(private userService: UserService) {
         super()
     }
-  
 
     canActivate(context: ExecutionContext) {
-        // Add your custom authentication logic here
-        // for example, call super.logIn(request) to establish a session.
 
         const http = context.switchToHttp();
         const { headers } = http.getRequest();
@@ -22,17 +19,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
         if (!headers.authorization) {
             return false
         }
-        // const ctx = M
-        // let token = headers.authorization.slice(7);
-        // jwt.verify(token, 'secretKey', (err: any, decoded: any) => {
-        //     if (err) {
-        //         throw new HttpException('Token is expired', 401)
-        //     } else {
-        //         return true
-        //         // console.log(decoded)
-        //     }
-        // })
-
         return super.canActivate(context);
     }
 

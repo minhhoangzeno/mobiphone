@@ -2,10 +2,6 @@
  * = Cards
  */
 
-img.card-img-top{
-    height: 200px;
-} 
-
 .card {
     position: relative;
     .card-header{
@@ -264,21 +260,4 @@ img.card-img-top{
         background: $gray-200;
         cursor: pointer;
     }
-}
-
-.custom-title{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    height: 50px;
-}
-.custom-description{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    height: 150px;
 }

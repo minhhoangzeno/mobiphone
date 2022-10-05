@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title,
   Tooltip
@@ -6,7 +7,8 @@ import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import DatePicker from "react-multi-date-picker";
 import { useDispatch } from 'react-redux';
-import { getDashboardOrderByRenevueThunk } from '../../redux/dashboardSlice';
+import { apiUrl } from '../../enviroment';
+import { request } from '../../helper/request.helper';
 
 
 ChartJS.register(
@@ -17,6 +19,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+const access_token = localStorage.getItem("token");
 
 export default () => {
 
@@ -25,36 +28,25 @@ export default () => {
   const [dataAmount, setDataAmount] = useState([]);
   let dispatch = useDispatch();
   const search = async () => {
-    if (year.year) {
-      let resp = await dispatch(getDashboardOrderByRenevueThunk(year.year));
-      if (resp) {
-        let respLabels = [];
-        let respData = [];
-        resp[0].forEach(item => {
-          respLabels.push(item.label)
-          respData.push(item.revenue)
-        })
-        setLabels(respLabels)
-        setDataAmount(respData)
+    request({
+      method: 'GET',
+      url: 'Orders/statistic-revenue',
+      params: {
+        year: year.getFullYear()
       }
-    } else {
-      let date = new Date();
-      let resp = await dispatch(getDashboardOrderByRenevueThunk(date.getFullYear()));
-      if (resp) {
-        let respLabels = [];
-        let respData = [];
-        resp[0].forEach(item => {
-          respLabels.push(item.label)
-          respData.push(item.revenue)
-        })
-        setLabels(respLabels)
-        setDataAmount(respData)
-      }
-    }
-
+    }).then(result => {
+      let respLabels = [];
+      let respData = [];
+      result.data.forEach(item => {
+        respLabels.push(item.label)
+        respData.push(item.revenue)
+      })
+      setLabels(respLabels)
+      setDataAmount(respData)
+    })
   }
   useEffect(() => {
-    search() // eslint-disable-next-line
+    search()
   }, [year])
 
   const data = {

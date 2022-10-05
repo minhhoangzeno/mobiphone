@@ -8,14 +8,16 @@ import Navbar from "../components/Navbar";
 import Preloader from "../components/Preloader";
 import Sidebar from "../components/Sidebar";
 import { Routes } from "../routes";
+import Account from "./account/Account";
+import Banner from "./banner/Banner";
+import BannerAdd from "./banner/BannerAdd";
 import Blog from "./blog/Blog";
-import BlogAdd from './blog/BlogAdd';
+import BlogAdd from "./blog/BlogAdd";
 import BlogDetail from "./blog/BlogDetail";
 import BlogEdit from "./blog/BlogEdit";
-import Category from "./category/Category";
-import CategoryAdd from "./category/CategoryAdd";
-import CategoryDetail from "./category/CategoryDetail";
-import CategoryEdit from "./category/CategoryEdit";
+import CategoryProduct from "./category-product/CategoryProduct";
+import CategoryProductAdd from "./category-product/CategoryProductAdd";
+import CategoryProductEdit from "./category-product/CategoryProductEdit";
 import Accordion from "./components/Accordion";
 import Alerts from "./components/Alerts";
 import Badges from "./components/Badges";
@@ -33,20 +35,29 @@ import Tabs from "./components/Tabs";
 import Toasts from "./components/Toasts";
 import Tooltips from "./components/Tooltips";
 import Contact from "./contact/Contact";
+import ContactDetail from "./contact/ContactDetail";
 import DashboardOverview from "./dashboard/DashboardOverview";
-import ChangePassword from "./examples/ChangePassword";
 import Feedback from "./feedback/Feedback";
-import FeedbackUser from "./feedback/FeedbackUser";
+import FeedbackDetail from "./feedback/FeedbackDetail";
+import Order from "./order/Order";
+import OrderDetail from "./order/OrderDetail";
 import Product from "./product/Product";
 import ProductAdd from "./product/ProductAdd";
 import ProductDetail from "./product/ProductDetail";
 import ProductEdit from "./product/ProductEdit";
-import Order from './order/Order';
-import OrderDetail from "./order/OrderDetail";
 import Settings from './Settings';
 import BootstrapTables from "./tables/BootstrapTables";
+import Tag from "./tag/Tag";
+import TagAdd from "./tag/TagAdd";
+import TagEdit from "./tag/TagEdit";
 import Transactions from "./Transactions";
 import User from "./user/User";
+
+
+
+
+
+
 
 
 
@@ -97,6 +108,52 @@ export default function ProvideAuth() {
             <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions} />
             <RouteWithSidebar exact path={Routes.BootstrapTables.path} component={BootstrapTables} />
 
+            {/* auth */}
+            <RouteWithSidebar exact path={Routes.User.path} component={User} />
+            <RouteWithSidebar exact path={Routes.VerifyAccount.path} component={User} />
+
+
+            {/* tag */}
+            <RouteWithSidebar exact path={Routes.Tag.path} component={Tag} />
+            <RouteWithSidebar exact path={Routes.TagAdd.path} component={TagAdd} />
+            <RouteWithSidebar exact path={Routes.TagEdit.path} component={TagEdit} />
+
+            {/* category-product */}
+            <RouteWithSidebar exact path={Routes.CategoryProduct.path} component={CategoryProduct} />
+            <RouteWithSidebar exact path={Routes.CategoryProductAdd.path} component={CategoryProductAdd} />
+            <RouteWithSidebar exact path={Routes.CategoryProductEdit.path} component={CategoryProductEdit} />
+
+            {/* contact */}
+            <RouteWithSidebar exact path={Routes.Contact.path} component={Contact} />
+            <RouteWithSidebar exact path={Routes.ContactDetail.path} component={ContactDetail} />
+
+            {/* product */}
+            <RouteWithSidebar exact path={Routes.Product.path} component={Product} />
+            <RouteWithSidebar exact path={Routes.ProductAdd.path} component={ProductAdd} />
+            <RouteWithSidebar exact path={Routes.ProductEdit.path} component={ProductEdit} />
+            <RouteWithSidebar exact path={Routes.ProductDetail.path} component={ProductDetail} />
+
+            {/* blog */}
+            <RouteWithSidebar exact path={Routes.Blog.path} component={Blog} />
+            <RouteWithSidebar exact path={Routes.BlogAdd.path} component={BlogAdd} />
+            <RouteWithSidebar exact path={Routes.BlogEdit.path} component={BlogEdit} />
+            <RouteWithSidebar exact path={Routes.BlogDetail.path} component={BlogDetail} />
+
+            {/* feedback */}
+            <RouteWithSidebar exact path={Routes.Feedback.path} component={Feedback} />
+            <RouteWithSidebar exact path={Routes.FeedbackDetail.path} component={FeedbackDetail} />
+
+            {/* order */}
+            <RouteWithSidebar exact path={Routes.Order.path} component={Order} />
+            <RouteWithSidebar exact path={Routes.OrderDetail.path} component={OrderDetail} />
+
+            {/* banner */}
+            <RouteWithSidebar exact path={Routes.Banner.path} component={Banner} />
+            <RouteWithSidebar exact path={Routes.BannerAdd.path} component={BannerAdd} />
+            
+            {/* account */}
+            <RouteWithSidebar exact path={Routes.Account.path} component={Account} />
+
             {/* components */}
             <RouteWithSidebar exact path={Routes.Accordions.path} component={Accordion} />
             <RouteWithSidebar exact path={Routes.Alerts.path} component={Alerts} />
@@ -115,32 +172,10 @@ export default function ProvideAuth() {
             <RouteWithSidebar exact path={Routes.Tooltips.path} component={Tooltips} />
             <RouteWithSidebar exact path={Routes.Toasts.path} component={Toasts} />
             <RouteWithSidebar exact path={Routes.Settings.path} component={Settings} />
-            <RouteWithSidebar exact path={Routes.ChangePassword.path} component={ChangePassword} />
+
             {/* components */}
 
-            <RouteWithSidebar exact path={Routes.Blog.path} component={Blog} />
-            <RouteWithSidebar exact path={Routes.BlogAdd.path} component={BlogAdd} />
-            <RouteWithSidebar exact path={Routes.BlogDetail.path} component={BlogDetail} />
-            <RouteWithSidebar exact path={Routes.BlogEdit.path} component={BlogEdit} />
 
-            <RouteWithSidebar exact path={Routes.Category.path} component={Category} />
-            <RouteWithSidebar exact path={Routes.CategoryAdd.path} component={CategoryAdd} />
-            <RouteWithSidebar exact path={Routes.CategoryDetail.path} component={CategoryDetail} />
-            <RouteWithSidebar exact path={Routes.CategoryEdit.path} component={CategoryEdit} />
-
-            <RouteWithSidebar exact path={Routes.User.path} component={User} />
-            <RouteWithSidebar exact path={Routes.Feedback.path} component={Feedback} />
-            <RouteWithSidebar exact path={Routes.FeedbackUser.path} component={FeedbackUser} />
-
-            <RouteWithSidebar exact path={Routes.Product.path} component={Product} />
-            <RouteWithSidebar exact path={Routes.ProductAdd.path} component={ProductAdd} />
-            <RouteWithSidebar exact path={Routes.ProductDetail.path} component={ProductDetail} />
-            <RouteWithSidebar exact path={Routes.ProductEdit.path} component={ProductEdit} />
-
-            <RouteWithSidebar exact path={Routes.Contact.path} component={Contact} />
-
-            <RouteWithSidebar exact path={Routes.Order.path} component={Order} />
-            <RouteWithSidebar exact path={Routes.OrderDetail.path} component={OrderDetail} />
 
             <Redirect from="/" to="/" />
         </Switch>

@@ -28,8 +28,7 @@ export class UserService {
         }
         const saltOrRounds = 10;
         const hash = await bcrypt.hash(createUserDto.password, saltOrRounds)
-        const user = new this.userModel({ ...createUserDto, confirmationCode: token, fullName: `${createUserDto.firstName} ${createUserDto.lastName}`, password: hash });
-        this.sendEmailRegister(user.fullName, user.email, user.confirmationCode)
+        const user = new this.userModel({ ...createUserDto, confirmationCode: token, fullName: `${createUserDto.firstName} ${createUserDto.lastName}`, password: hash, status: UserStatus.Active });
         return user.save();
     }
 
@@ -43,26 +42,6 @@ export class UserService {
                 throw new HttpException("Username đã tồn tại", 201)
             }
         }
-    }
-
-    async sendEmailRegister(name: string, email: string, confirmationCode: string) {
-        const transport = nodemailer.createTransport({
-            service: "Gmail",
-            auth: {
-                user: 'zenominhhoang@gmail.com',
-                pass: 'Dalecarnegie521985',
-            }
-        })
-        transport.sendMail({
-            from: 'zenominhhoang@gmail.com',
-            to: email,
-            subject: "Vui lòng xác nhận tài khoản của bạn",
-            html: `<h1>Email xác nhận</h1>
-                <h2>Xin chào ${name}</h2>
-                <p>Cảm ơn bạn đã đăng ký. Vui lòng xác nhận tài khoản bằng cách nhấn vào đường link dưới đây</p>
-                <a href=http://localhost:3002/verify-email/${confirmationCode}>Link</a>
-                </div>`,
-        }).catch(err => console.log(err));
     }
 
     async verifyUser(confirmationCode: string) {
@@ -95,7 +74,7 @@ export class UserService {
                 user.save();
                 throw new HttpException("Thay đổi mật khẩu thành công", 200)
             }
-        }else{
+        } else {
             throw new HttpException("Mật khẩu cũ chưa đúng!", 201)
         }
     }
@@ -115,7 +94,7 @@ export class UserService {
             service: "Gmail",
             auth: {
                 user: 'zenominhhoang@gmail.com',
-                pass: 'Dalecarnegie521985',
+                pass: 'hoangtnm@bfast',
             }
         })
         transport.sendMail({
@@ -165,7 +144,7 @@ export class UserService {
     async updateById(user, updateUserDto, photoURL?: string) {
         let modelUser = await this.userModel.findById(user._id);
         if (photoURL) {
-            
+
             modelUser.photoURL = photoURL;
             modelUser.firstName = updateUserDto.firstName;
             modelUser.lastName = updateUserDto.lastName;

@@ -8,7 +8,6 @@ export declare class UserService {
     findOne(username: string): Promise<User | undefined>;
     register(createUserDto: CreateUserDto): Promise<User>;
     checkUniqueBeforeRegister(email: string, username: string): Promise<void>;
-    sendEmailRegister(name: string, email: string, confirmationCode: string): Promise<void>;
     verifyUser(confirmationCode: string): Promise<User & import("mongoose").Document<any, any, any> & {
         _id: any;
     }>;

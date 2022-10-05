@@ -1,17 +1,13 @@
+import axios from 'axios';
+import {
+  BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title,
+  Tooltip
+} from 'chart.js';
 import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { useDispatch } from 'react-redux';
-import DatePicker from "react-multi-date-picker"
-import { getDashboardOrderByAmountThunk } from '../../redux/dashboardSlice';
+import DatePicker from "react-multi-date-picker";
+import { apiUrl } from '../../enviroment';
+import { request } from '../../helper/request.helper';
 
 
 ChartJS.register(
@@ -23,44 +19,33 @@ ChartJS.register(
   Legend
 );
 
+const access_token = localStorage.getItem("token");
 export default () => {
-
   const [year, setYear] = useState(new Date());
   const [labels, setLabels] = useState([]);
   const [dataAmount, setDataAmount] = useState([]);
-  let dispatch = useDispatch();
-  const search = async () => {
-    if (year.year) {
-      let resp = await dispatch(getDashboardOrderByAmountThunk(year.year));
-      if (resp) {
-        let respLabels = [];
-        let respData = [];
-        resp[0].forEach(item => {
-          respLabels.push(item.label)
-          respData.push(item.amount)
-        })
-        setLabels(respLabels)
-        setDataAmount(respData)
-      }
-    } else {
-      let date = new Date();
-      let resp = await dispatch(getDashboardOrderByAmountThunk(date.getFullYear()));
-      if (resp) {
-        let respLabels = [];
-        let respData = [];
-        resp[0].forEach(item => {
-          respLabels.push(item.label)
-          respData.push(item.amount)
-        })
-        setLabels(respLabels)
-        setDataAmount(respData)
-      }
-    }
-
-  }
   useEffect(() => {
-    search() // eslint-disable-next-line
-  }, [year]) 
+    search()
+  }, [year])
+
+  const search = async () => {
+    request({
+      method: 'GET',
+      url: 'Orders/statistic-amount',
+      params: {
+        year: year.getFullYear()
+      }
+    }).then(result => {
+      let respLabels = [];
+      let respData = [];
+      result.data.forEach(item => {
+        respLabels.push(item.label)
+        respData.push(item.amount)
+      })
+      setLabels(respLabels)
+      setDataAmount(respData)
+    })
+  }
 
   const data = {
     labels,

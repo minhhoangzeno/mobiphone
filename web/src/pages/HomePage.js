@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Footer from '../components/Footer';
 import Preloader from "../components/Preloader";
 import { Routes } from "../routes";
@@ -84,12 +84,9 @@ export default () => {
 
 
 function PrivateRoute({ children, ...rest }) {
-  let token = localStorage.getItem("token")
 
-  if (token)
-    return <AppRoute {...rest} children={children} />
+  return <AppRoute {...rest} children={children} />
 
-  return <Redirect to={Routes.Signin.path} />
 }
 
 const AppRoute = (props) => {

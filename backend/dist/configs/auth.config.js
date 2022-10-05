@@ -1,5 +1,5 @@
 module.exports = {
     user: 'zenominhhoang@gmail.com',
-    pass: 'Dalecarnegie521985'
+    pass: 'hoangtnm@bfast'
 };
 //# sourceMappingURL=auth.config.js.map

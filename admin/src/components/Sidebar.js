@@ -1,11 +1,10 @@
 
-import { faFacebookMessenger } from "@fortawesome/free-brands-svg-icons";
-import { faStickyNote } from "@fortawesome/free-regular-svg-icons";
-import { faHandHoldingUsd } from "@fortawesome/free-solid-svg-icons";
-import { faBook, faChartPie, faMailBulk, faMobile, faSignOutAlt, faTimes, faUserAstronaut } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faChartPie, faSignOutAlt, faTags, faTimes, faVideo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Badge, Button, Dropdown, Image, Nav, Navbar } from '@themesberg/react-bootstrap';
+import { Badge, Button, Image, Nav, Navbar } from '@themesberg/react-bootstrap';
 import React, { useState } from "react";
+import { Dropdown } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
 import SimpleBar from 'simplebar-react';
@@ -19,8 +18,7 @@ export default (props = {}) => {
   const { pathname } = location;
   const [show, setShow] = useState(false);
   const showClass = show ? "show" : "";
-  const user = JSON.parse(localStorage.getItem("user"));
-
+  const role = localStorage.getItem("role");
   const onCollapse = () => setShow(!show);
 
 
@@ -66,9 +64,9 @@ export default (props = {}) => {
                   <Image src={ProfilePicture} className="card-img-top rounded-circle border-white" />
                 </div>
                 <div className="d-block">
-                  <h6>Hi, Jane</h6>
+                  <h6>Xin chào, Jane</h6>
                   <Button as={Link} variant="secondary" size="xs" to={Routes.Signin.path} className="text-dark">
-                    <FontAwesomeIcon icon={faSignOutAlt} className="me-2" /> Sign Out
+                    <FontAwesomeIcon icon={faSignOutAlt} className="me-2" /> Đăng xuất
                   </Button>
                 </div>
               </div>
@@ -77,19 +75,21 @@ export default (props = {}) => {
               </Nav.Link>
             </div>
             <Nav className="flex-column pt-3 pt-md-0">
-              <NavItem title="Overview" link={Routes.DashboardOverview.path} icon={faChartPie} />
-              <NavItem title="Bài viết" icon={faBook} link={Routes.Blog.path} />
-              <NavItem title="Danh mục" icon={faStickyNote} link={Routes.Category.path} />
 
-              {(user.roles === "superadmin") && <NavItem title="Role User" icon={faUserAstronaut} link={Routes.User.path} />}
-
-              {(user.roles === "admin" || user.roles === "superadmin") && <NavItem title="Phản hồi người dùng" icon={faFacebookMessenger} link={Routes.Feedback.path} />}
-              {(user.roles === "user") && <NavItem title="Phản hồi" icon={faFacebookMessenger} link={Routes.FeedbackUser.path} />}
-              <NavItem title="Sản phẩm" icon={faMobile} link={Routes.Product.path} />
-              <NavItem title="Liên hệ" icon={faMailBulk} link={Routes.Contact.path} />
-              <NavItem title="Order" icon={faHandHoldingUsd} link={Routes.Order.path} />
-
+              <NavItem title="Tổng quan" link={Routes.DashboardOverview.path} icon={faChartPie} />
               <Dropdown.Divider className="my-3 border-indigo" />
+              {role == 'SUPERADMIN' && <NavItem title="Người dùng" icon={faUser} link={Routes.Account.path} />}
+              <NavItem title="Đơn hàng" icon={faTags} link={Routes.Order.path} />
+              <Dropdown.Divider className="my-3 border-indigo" />
+              <NavItem title="Danh mục sản phẩm" icon={faTags} link={Routes.CategoryProduct.path} />
+              <NavItem title="Sản phẩm" icon={faTags} link={Routes.Product.path} />
+              <Dropdown.Divider className="my-3 border-indigo" />
+              <NavItem title="Thẻ tag" icon={faTags} link={Routes.Tag.path} />
+              <NavItem title="Bài viết" icon={faTags} link={Routes.Blog.path} />
+              <Dropdown.Divider className="my-3 border-indigo" />
+              <NavItem title="Banner" icon={faTags} link={Routes.Banner.path} />
+              <NavItem title="Liên hệ" icon={faTags} link={Routes.Contact.path} />
+              <NavItem title="Phản hồi" icon={faTags} link={Routes.Feedback.path} />
 
             </Nav>
           </div>

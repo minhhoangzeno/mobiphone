@@ -27,7 +27,7 @@ export class FeedbackService {
             service: "Gmail",
             auth: {
                 user: 'zenominhhoang@gmail.com',
-                pass: 'Dalecarnegie521985',
+                pass: 'hoangtnm@bfast',
             }
         })
         transport.sendMail({

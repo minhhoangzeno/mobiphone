@@ -3,19 +3,27 @@ export const Routes = {
     // pages
     DashboardOverview: { path: "/" },
     Transactions: { path: "/transactions" },
+    Settings: { path: "/settings" },
+    Upgrade: { path: "/upgrade" },
     BootstrapTables: { path: "/tables/bootstrap-tables" },
     Billing: { path: "/examples/billing" },
     Invoice: { path: "/examples/invoice" },
     Signin: { path: "/sign-in" },
-    VerifyEmail: { path: "/verify-email/:confirmationCode" },
-    VerifyPassword: { path: "/verify-password/:confirmationCode" },
     Signup: { path: "/sign-up" },
     ForgotPassword: { path: "/forgot-password" },
-    ResetPassword: { path: "/reset-password/:confirmationCode" },
+    ChangePassword: { path: "/change-password" },
     Lock: { path: "/lock" },
-    NotFound: { path: "/examples/404" },
-    PendingAccount: { path: "/pending-account" },
+    NotFound: { path: "/not-found" },
+    ServerError: { path: "/server-error" },
 
+    // docs
+    DocsOverview: { path: "/documentation/overview" },
+    DocsDownload: { path: "/documentation/download" },
+    DocsQuickStart: { path: "/documentation/quick-start" },
+    DocsLicense: { path: "/documentation/license" },
+    DocsFolderStructure: { path: "/documentation/folder-structure" },
+    DocsBuild: { path: "/documentation/build-tools" },
+    DocsChangelog: { path: "/documentation/changelog" },
 
     // components
     Accordions: { path: "/components/accordions" },
@@ -36,33 +44,57 @@ export const Routes = {
     Tooltips: { path: "/components/tooltips" },
     Toasts: { path: "/components/toasts" },
     WidgetsComponent: { path: "/components/widgets" },
-    Settings: { path: "/settings" },
-    ChangePassword: { path: "/change-password" },
-    // page - provide
 
-    Blog: { path: "/blog" },
-    BlogAdd: { path: "/blog/add" },
-    BlogDetail: { path: "/blog/detail" },
-    BlogEdit: { path: "/blog/edit" },
 
-    Feedback: { path: "/feedback" },
-    FeedbackUser: { path: "/feedback-user" },
 
-    User: { path: "/user" },
+    User: { path: "/users" },
+    VerifyAccount: { path: "/verify-account/:confirmationCode" },
 
-    Category: { path: "/category" },
-    CategoryAdd: { path: "/category/add" },
-    CategoryDetail: { path: "/category/detail" },
-    CategoryEdit: { path: "/category/edit" },
+    Tag: { path: "/tags" },
+    TagAdd: { path: "/tags/add" },
+    TagEdit: { path: "/tags/edit" },
+
+    Contact: { path: "/contact" },
+    ContactDetail: { path: "/contact/detail" },
+   
+    CategoryProduct: { path: "/category-product" },
+    CategoryProductAdd: { path: "/category-product/add" },
+    CategoryProductEdit: { path: "/category-product/edit" },
+
+    CategoryPortfolio: { path: "/category-portfolio" },
+    CategoryPortfolioAdd: { path: "/category-portfolio/add" },
+    CategoryPortfolioEdit: { path: "/category-portfolio/edit" },
 
     Product: { path: "/product" },
     ProductAdd: { path: "/product/add" },
-    ProductDetail: { path: "/product/detail" },
     ProductEdit: { path: "/product/edit" },
+    ProductDetail: { path: "/product/detail" },
 
-    Contact: { path: '/contact' },
+    Portfolio: { path: "/portfolio" },
+    PortfolioAdd: { path: "/portfolio/add" },
+    PortfolioEdit: { path: "/portfolio/edit" },
+    PortfolioDetail: { path: "/portfolio/detail" },
+
+    Blog: { path: "/blog" },
+    BlogAdd: { path: "/blog/add" },
+    BlogEdit: { path: "/blog/edit" },
+    BlogDetail: { path: "/blog/detail" },
+
+    About: { path: "/about" },
+    AboutAdd: { path: "/about/add" },
+    AboutEdit: { path: "/about/edit" },
+    AboutDetail: { path: "/about/detail" },
+
+    Banner: { path: "/banner" },
+    BannerAdd: { path: "/banner/add" },
+
+    Feedback: { path: "/feedback" },
+    FeedbackDetail: { path: "/feedback/detail" },
 
     Order: { path: "/order" },
     OrderDetail: { path: "/order/detail" },
+
+    Account: { path: "/user" },
+
 
 };

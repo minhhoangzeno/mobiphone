@@ -42,43 +42,54 @@
 // Components
 @import "volt/components";
 
-
-
-.order__detail{
-  table{
-      width: 100%;
-      background-color: #fff;
+.wrapper-paginate {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  ul {
+    li {
+      font-size: 14px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      a {
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+      }
+      &:nth-child(1) {
+        display: none;
+      }
+      &:nth-child(2) {
+        display: none;
+      }
+      &:nth-last-child(1) {
+        display: none;
+      }
+      &:nth-last-child(2) {
+        display: none;
+      }
+    }
+    li.active {
+      background-color: #262b3f !important;
+      a {
+        color: #fff;
+      }
+    }
   }
+}
+.feedback{
   table, th, td {
-      border: 1px solid;
+    border: 1px solid black;
   }
-  th,td{
-      padding-left: 10px;
+  th, td {
+    padding: 15px;
   }
 }
-.content__overflow{
-    color: #000;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    height: 125px;
-}
-
-.video-responsive {
-    overflow: hidden;
-    padding-bottom: 56.25%;
-    position: relative;
-    height: 0;
-  }
-  
-  .video-responsive iframe {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-  }
 
 // write your custom styles here!

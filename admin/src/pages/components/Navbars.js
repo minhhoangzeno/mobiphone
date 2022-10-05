@@ -1,10 +1,10 @@
 
-import { Card, Col, Container, Image, Nav, Navbar, Row } from '@themesberg/react-bootstrap';
 import React, { useEffect, useState } from 'react';
+import { Nav, Row, Col, Card, Image, Navbar, Container } from '@themesberg/react-bootstrap';
+
+import Documentation from "../../components/Documentation";
 import ReactLogoPrimary from "../../assets/img/technologies/react-logo-primary.svg";
 import ReactLogoTransparent from "../../assets/img/technologies/react-logo-transparent.svg";
-import Documentation from "../../components/Documentation";
-
 
 
 export default () => {

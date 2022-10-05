@@ -1,25 +1,35 @@
-import React from 'react';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Dropdown } from '@themesberg/react-bootstrap';
+import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
-import { Controller, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { useToasts } from 'react-toast-notifications';
-import { roleUserThunk } from '../../redux/userSlice';
+import { apiUrl, token } from '../../enviroment';
 
-export default ({ show, handleClose, user,search }) => {
-    let dispatch = useDispatch();
-    const { control, handleSubmit, formState: { errors } } = useForm();
+export default ({ show, handleClose, user, search }) => {
     let { addToast } = useToasts();
-    let changeRole = async (form) => {
-        let response = await dispatch(roleUserThunk({
-            id: user._id,
-            role: form.role
-        }));
-        if (response) {
-            addToast("Success", { appearance: 'success', autoDismiss: 1000 });
-            search()
-            handleClose()
-        }
+    const [role, setRole] = useState(user?.role);
+    let changeRole = () => {
+        axios({
+            method: 'POST',
+            url: `${apiUrl}/user/role/${user._id}`,
+            data: {
+                role
+            },
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(() => {
+            handleClose();
+            search();
+            addToast('Edit Role Success', { appearance: 'success', autoDismiss: 1000 })
+        }).catch(error => {
+            if (error.response) {
+                addToast(error.response.data.message, { appearance: 'error', autoDismiss: 2000 });
+            } else {
+                addToast("Error", { appearance: 'error', autoDismiss: 2000 });
+            }
+        })
     }
     return (
         <>
@@ -28,24 +38,15 @@ export default ({ show, handleClose, user,search }) => {
                     <Modal.Title>Thay đổi Role User</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Controller
-                        control={control}
-                        name="role"
-                        render={({
-                            field: { onChange, onBlur, value }
-                        }) => (
-                            <InputGroup style={{ border: errors.title?.type === "required" && '1px solid red' }}>
-                                <Form.Control autoFocus required type="text" onChange={e => onChange(e.target.value)}
-                                    onBlur={onBlur}
-                                    value={value}
-                                />
-                            </InputGroup>
-                        )}
-                        rules={{
-                            required: true
-                        }}
-                        defaultValue={user?.roles}
-                    />
+                    <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            {role}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item onClick={() => setRole('User')} >User</Dropdown.Item>
+                            <Dropdown.Item onClick={() => setRole('Admin')} >Admin</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => {
@@ -53,7 +54,7 @@ export default ({ show, handleClose, user,search }) => {
                     }}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit(changeRole)}>
+                    <Button variant="primary" onClick={changeRole}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

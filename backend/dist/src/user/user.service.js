@@ -40,8 +40,7 @@ let UserService = class UserService {
         }
         const saltOrRounds = 10;
         const hash = await bcrypt.hash(createUserDto.password, saltOrRounds);
-        const user = new this.userModel(Object.assign(Object.assign({}, createUserDto), { confirmationCode: token, fullName: `${createUserDto.firstName} ${createUserDto.lastName}`, password: hash }));
-        this.sendEmailRegister(user.fullName, user.email, user.confirmationCode);
+        const user = new this.userModel(Object.assign(Object.assign({}, createUserDto), { confirmationCode: token, fullName: `${createUserDto.firstName} ${createUserDto.lastName}`, password: hash, status: user_status_enum_1.UserStatus.Active }));
         return user.save();
     }
     async checkUniqueBeforeRegister(email, username) {
@@ -55,25 +54,6 @@ let UserService = class UserService {
                 throw new common_1.HttpException("Username đã tồn tại", 201);
             }
         }
-    }
-    async sendEmailRegister(name, email, confirmationCode) {
-        const transport = nodemailer.createTransport({
-            service: "Gmail",
-            auth: {
-                user: 'zenominhhoang@gmail.com',
-                pass: 'Dalecarnegie521985',
-            }
-        });
-        transport.sendMail({
-            from: 'zenominhhoang@gmail.com',
-            to: email,
-            subject: "Vui lòng xác nhận tài khoản của bạn",
-            html: `<h1>Email xác nhận</h1>
-                <h2>Xin chào ${name}</h2>
-                <p>Cảm ơn bạn đã đăng ký. Vui lòng xác nhận tài khoản bằng cách nhấn vào đường link dưới đây</p>
-                <a href=http://localhost:3002/verify-email/${confirmationCode}>Link</a>
-                </div>`,
-        }).catch(err => console.log(err));
     }
     async verifyUser(confirmationCode) {
         let user = await this.userModel.findOne({ confirmationCode });
@@ -125,7 +105,7 @@ let UserService = class UserService {
             service: "Gmail",
             auth: {
                 user: 'zenominhhoang@gmail.com',
-                pass: 'Dalecarnegie521985',
+                pass: 'hoangtnm@bfast',
             }
         });
         transport.sendMail({
