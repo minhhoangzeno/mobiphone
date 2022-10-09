@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const SERVER = {
     BASE_URL: "http://localhost:3000",//CHANGE HERE
-    token: JSON.parse(localStorage.getItem("token")),
+    // token: JSON.parse(localStorage.getItem("token")),
     URL_IMAGE: "http://localhost:3000/image/"
 }
 

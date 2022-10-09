@@ -7,7 +7,6 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import { useToasts } from "react-toast-notifications";
-import { forgotPasswordThunk } from "../../redux/authSlice";
 import { Routes } from "../../routes";
 
 
@@ -17,14 +16,14 @@ export default () => {
   let { addToast } = useToasts()
   let dispatch = useDispatch();
   let forgotPassword = async (form) => {
-    let data = await dispatch(forgotPasswordThunk(form.email))
+    // let data = await dispatch(forgotPasswordThunk(form.email))
   
-    if (data) {
-      addToast("Vui lòng check mail", { appearance: 'success', autoDismiss: 2000 })
-      reset()
-    } else {
-      addToast("Email không tồn tại", { appearance: 'error', autoDismiss: 2000 })
-    }
+    // if (data) {
+    //   addToast("Vui lòng check mail", { appearance: 'success', autoDismiss: 2000 })
+    //   reset()
+    // } else {
+    //   addToast("Email không tồn tại", { appearance: 'error', autoDismiss: 2000 })
+    // }
   }
   return (
     <main>

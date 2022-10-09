@@ -3,25 +3,15 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
-import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { SERVER } from "../../apis/API";
-// import Pagination from "react-js-pagination";
-// import { useDispatch } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
-// import { SERVER } from '../../apis/API';
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/layout/Header";
 import { apiUrl } from "../../enviroment";
-import { getBlogThunk } from "../../redux/blogSlice";
 import { Routes } from "../../routes";
-// import { getBlogThunk } from '../../redux/blogSlice';
-// import { Routes } from '../../routes';
 import "../../scss/pagination.scss";
 
 export default () => {
   let history = useHistory();
-  let dispatch = useDispatch();
   const [blogs, setBlogs] = useState();
   const [activePage, setActivePage] = useState(1);
   useEffect(() => {

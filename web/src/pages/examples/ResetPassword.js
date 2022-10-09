@@ -7,7 +7,6 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import { checkBeforePasswordThunk, resetPasswordThunk } from "../../redux/authSlice";
 import { Routes } from "../../routes";
 import NotFound from "./NotFound";
 
@@ -21,10 +20,10 @@ export default (props) => {
   const [checkVerify, setCheckVerify] = useState(false);
 
   let searchCheckBeforeResetPassword = async () => {
-    let data = await dispatch(checkBeforePasswordThunk(confirmationCode));
-    if (data) {
-      setCheckVerify(true)
-    }
+    // let data = await dispatch(checkBeforePasswordThunk(confirmationCode));
+    // if (data) {
+    //   setCheckVerify(true)
+    // }
   }
   useEffect(() => {
     searchCheckBeforeResetPassword() // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,17 +31,17 @@ export default (props) => {
   let history = useHistory()
   let { addToast } = useToasts()
   let resetPassword = async (form) => {
-    if (form.newPassword !== form.confirmPassword) {
-      addToast("Mật khẩu nhập lại chưa đúng", { appearance: 'error', autoDismiss: 2000 })
-    } else {
-      let data = await dispatch(resetPasswordThunk(confirmationCode, form.newPassword));
-      if (data) {
-        addToast("Thay đổi mật khẩu thành công", { appearance: 'success', autoDismiss: 2000 })
-        history.push(Routes.Signin.path)
-      }
+    // if (form.newPassword !== form.confirmPassword) {
+    //   addToast("Mật khẩu nhập lại chưa đúng", { appearance: 'error', autoDismiss: 2000 })
+    // } else {
+    //   let data = await dispatch(resetPasswordThunk(confirmationCode, form.newPassword));
+    //   if (data) {
+    //     addToast("Thay đổi mật khẩu thành công", { appearance: 'success', autoDismiss: 2000 })
+    //     history.push(Routes.Signin.path)
+    //   }
 
-      console.log(data)
-    }
+    //   console.log(data)
+    // }
 
 
   }

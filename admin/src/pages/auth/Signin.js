@@ -83,7 +83,7 @@ export default () => {
             >
               <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                 <div className="text-center text-md-center mb-4 mt-md-0">
-                  <h3 className="mb-0">Sign in to Aranoz.</h3>
+                  <h3 className="mb-0">Sign in to Mobiphone</h3>
                 </div>
                 <Form className="mt-4">
                   <Form.Group id="email" className="mb-4">

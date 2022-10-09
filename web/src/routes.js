@@ -9,11 +9,16 @@ export const Routes = {
     Signin: { path: "/sign-in" },
     VerifyEmail: { path: "/verify-email/:confirmationCode" },
     VerifyPassword: { path: "/verify-password/:confirmationCode" },
+    VerifyPassword: { path: "/verify-password/:confirmationCode" },
+    Order: { path: "/order" },
+    OrderDetail: { path: "/order-detail" },
     Signup: { path: "/sign-up" },
     ForgotPassword: { path: "/forgot-password" },
     ResetPassword: { path: "/reset-password/:confirmationCode" },
     Lock: { path: "/lock" },
     NotFound: { path: "/examples/404" },
+    PaymentSuccess: { path: "/payment-success" },
+
     PendingAccount: { path: "/pending-account" },
 
 

@@ -1,16 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { SERVER } from "../../apis/API";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/layout/Header";
 import { apiUrl } from "../../enviroment";
+import { addToCart } from "../../helper/addToCart";
 
 export default function ProductDetail() {
   const location = useLocation();
   const productId = location.state.id;
   const [product, setProduct] = useState();
+  const user = useSelector((state) => state.auth.data);
+
   useEffect(() => {
     if (productId) {
       axios({
@@ -25,48 +29,25 @@ export default function ProductDetail() {
         .then((res) => setProduct(res.data))
         .catch((err) => console.log(err));
     }
-  },[productId]);
+  }, [productId]);
   const currencyFormat = (num) => {
     return num?.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + " VNĐ";
   };
 
   let { addToast } = useToasts();
-  const addToCart = () => {
-    const cart = JSON.parse(localStorage.getItem("cart"));
-    if (cart) {
-      // eslint-disable-next-line
-      let isProductCart = cart.filter((item) => item.productId == product._id);
-      if (isProductCart.length > 0) {
-        addToast("Sản phẩm đã có trong giỏ hàng", {
-          appearance: "warning",
-          autoDismiss: "1000",
-        });
-      } else {
-        cart.push({
-          productId: product._id,
-          price: product?.price,
-          amount: 1,
-        });
-        localStorage.setItem("cart", JSON.stringify(cart));
-        addToast("Thêm vào giỏ hàng thành công", {
-          appearance: "success",
-          autoDismiss: "500",
-        });
-      }
+  const addCart = async (productParams) => {
+    if (user) {
+      let response = await addToCart({
+        productId: productParams.id,
+        price: productParams.price,
+        userId: user.id,
+      });
+      addToast(response, { appearance: "info", autoDismiss: true });
     } else {
-      let cartNew = [];
-      cartNew.push({
-        productId: product._id,
-        price: product?.price,
-        amount: 1,
-      });
-      localStorage.setItem("cart", JSON.stringify(cartNew));
-      addToast("Thêm vào giỏ hàng thành công", {
-        appearance: "success",
-        autoDismiss: "500",
-      });
+      addToast("Bạn cần đăng nhập!", { appearance: "info", autoDismiss: true });
     }
   };
+  console.log("user",user)
   return (
     <div>
       <Header />
@@ -114,12 +95,12 @@ export default function ProductDetail() {
                   </li>
                 </ul>
                 <br />
-                
+
                 <div className="card_area d-flex justify-content-between align-items-center">
                   <div
                     className="btn_3"
                     style={{ cursor: "pointer" }}
-                    onClick={addToCart}
+                    onClick={() => addCart(product)}
                   >
                     add to cart
                   </div>

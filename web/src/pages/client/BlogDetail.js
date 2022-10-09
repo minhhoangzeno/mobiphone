@@ -1,13 +1,11 @@
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { SERVER } from "../../apis/API";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/layout/Header";
 import { apiUrl } from "../../enviroment";
-import { getBlogOtherThunk } from "../../redux/blogSlice";
 import { Routes } from "../../routes";
 export default function BlogDetail() {
   const location = useLocation();

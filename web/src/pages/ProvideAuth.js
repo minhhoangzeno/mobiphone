@@ -7,13 +7,19 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Preloader from "../components/Preloader";
 import Sidebar from "../components/Sidebar";
-import { Routes } from "../routes";
-import Blog from "../pages/client/BlogPage";
-import BlogAdd from './blog/BlogAdd';
 import BlogDetail from "../pages/client/BlogDetail";
-import BlogEdit from "./blog/BlogEdit";
-
+import Blog from "../pages/client/BlogPage";
+import { Routes } from "../routes";
+import CartDetail from "./client/CartDetail";
+import Checkout from "./client/Checkout";
+import Confirmation from "./client/Confirmation";
+import Contact from "./client/Contact";
 import HomePageClient from "./client/HomePageClient";
+import Order from "./client/Order";
+import OrderDetail from "./client/OrderDetail";
+import PaymentSuccess from "./client/PaymentSuccess";
+import Product from "./client/Product";
+import ProductDetail from "./client/ProductDetail";
 import Accordion from "./components/Accordion";
 import Alerts from "./components/Alerts";
 import Badges from "./components/Badges";
@@ -30,22 +36,14 @@ import Tables from "./components/Tables";
 import Tabs from "./components/Tabs";
 import Toasts from "./components/Toasts";
 import Tooltips from "./components/Tooltips";
-
 import ChangePassword from "./examples/ChangePassword";
-
-import Product from "./client/Product";
-import ProductAdd from "./product/ProductAdd";
-import ProductEdit from "./product/ProductEdit";
-
 import Settings from './Settings';
 import BootstrapTables from "./tables/BootstrapTables";
 import Transactions from "./Transactions";
-import User from "./user/User";
-import CartDetail from "./client/CartDetail";
-import ProductDetail from "./client/ProductDetail";
-import Checkout from "./client/Checkout";
-import Confirmation from "./client/Confirmation";
-import Contact from "./client/Contact"
+
+
+
+
 
 const RouteWithSidebar = ({ component: Component, ...rest }) => {
     const [loaded, setLoaded] = useState(false);
@@ -117,31 +115,23 @@ export default function ProvideAuth() {
             {/* components */}
 
             <Route exact path={Routes.Blog.path} component={Blog} />
-            <RouteWithSidebar exact path={Routes.BlogAdd.path} component={BlogAdd} />
-            <Route exact path={Routes.BlogDetail.path} component={BlogDetail} />
-            <RouteWithSidebar exact path={Routes.BlogEdit.path} component={BlogEdit} />
-
             <Route exact path={Routes.BlogDetail.path} component={BlogDetail} />
 
 
-            {/* <Route exact path={Routes.Video.path} component={Video} />
-            <RouteWithSidebar exact path={Routes.VideoAdd.path} component={VideoAdd} />
-            <Route exact path={Routes.VideoDetail.path} component={VideoDetail} />
-            <RouteWithSidebar exact path={Routes.VideoEdit.path} component={VideoEdit} /> */}
 
             <Route exact path={Routes.Product.path} component={Product} />
             <RouteWithSidebar exact path={Routes.Product.path} component={Product} />
-            <RouteWithSidebar exact path={Routes.ProductAdd.path} component={ProductAdd} />
-            <RouteWithSidebar exact path={Routes.ProductEdit.path} component={ProductEdit} />
 
             <Route exact path={Routes.ProductDetail.path} component={ProductDetail} />
             <RouteWithSidebar exact path={Routes.ProductDetail.path} component={ProductDetail} />
 
-            <RouteWithSidebar exact path={Routes.User.path} component={User} />
 
             <Route exact path={Routes.Contact.path} component={Contact} />
+            <Route exact path={Routes.PaymentSuccess.path} component={PaymentSuccess} />
 
             <Route exact path={Routes.Cart.path} component={CartDetail} />
+            <Route exact path={Routes.Order.path} component={Order} />
+            <Route exact path={Routes.OrderDetail.path} component={OrderDetail} />
 
             <Route exact path={Routes.Checkout.path} component={Checkout} />
 

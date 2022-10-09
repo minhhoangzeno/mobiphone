@@ -5712,6 +5712,26 @@ paths:
           schema:
             $ref: '#/definitions/x-any'
       deprecated: false
+  /Orders/payment-order:
+    post:
+      tags:
+        - Order
+      summary: payment online
+      operationId: Order.paymentOrder
+      parameters:
+        - name: data
+          in: body
+          description: information payment
+          required: true
+          schema:
+            description: information payment
+            $ref: '#/definitions/x-any'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: string
+      deprecated: false
   /Banners:
     post:
       tags:

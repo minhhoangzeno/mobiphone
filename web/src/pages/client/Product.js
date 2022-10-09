@@ -3,17 +3,12 @@ import React, { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { SERVER } from "../../apis/API";
 import BestSeller from "../../components/home/BestSeller";
 // import { SERVER } from '../../apis/API';
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/layout/Header";
 import AmountProduct from "../../components/product/AmountProduct";
 import { apiUrl } from "../../enviroment";
-import {
-  getAmountProductCategoryThunk,
-  getProductThunkAdminSkip,
-} from "../../redux/productSlice";
 import { Routes } from "../../routes";
 import "../../scss/pagination.scss";
 export default function Product() {

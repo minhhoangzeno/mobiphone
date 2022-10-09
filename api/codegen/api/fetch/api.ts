@@ -10517,6 +10517,33 @@ export const OrderApiFetchParamCreator = {
     },
     /**
      * 
+     * @summary payment online
+     * @param data information payment
+     */
+    orderPaymentOrder(params: {  "data": any; }, options?: any): FetchArgs {
+        // verify required parameter "data" is set
+        if (params["data"] == null) {
+            throw new Error("Missing required parameter data when calling orderPaymentOrder");
+        }
+        const baseUrl = `/Orders/payment-order`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
      * @summary Counts product of Order.
      * @param id Order id
      * @param where Criteria to match model instances
@@ -11294,6 +11321,23 @@ export const OrderApiFp = {
     },
     /**
      * 
+     * @summary payment online
+     * @param data information payment
+     */
+    orderPaymentOrder(params: { "data": any;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<string> {
+        const fetchArgs = OrderApiFetchParamCreator.orderPaymentOrder(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
      * @summary Counts product of Order.
      * @param id Order id
      * @param where Criteria to match model instances
@@ -11754,6 +11798,14 @@ export class OrderApi extends BaseAPI {
     }
     /**
      * 
+     * @summary payment online
+     * @param data information payment
+     */
+    orderPaymentOrder(params: {  "data": any; }, options?: any) {
+        return OrderApiFp.orderPaymentOrder(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
      * @summary Counts product of Order.
      * @param id Order id
      * @param where Criteria to match model instances
@@ -12032,6 +12084,14 @@ export const OrderApiFactory = function (fetch?: FetchAPI, basePath?: string) {
          */
         orderPatchOrCreate(params: {  "data"?: Order; }, options?: any) {
             return OrderApiFp.orderPatchOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary payment online
+         * @param data information payment
+         */
+        orderPaymentOrder(params: {  "data": any; }, options?: any) {
+            return OrderApiFp.orderPaymentOrder(params, options)(fetch, basePath);
         },
         /**
          * 

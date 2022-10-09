@@ -3,7 +3,6 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom'
-import { getOrderByIdThunk } from '../../redux/orderSlice';
 
 export default function Confirmation() {
     const location = useLocation();
@@ -11,10 +10,10 @@ export default function Confirmation() {
     const [order, setOrder] = useState();
     const dispatch = useDispatch();
     const search = async () => {
-        let resp = await dispatch(getOrderByIdThunk(orderId));
-        if (resp) {
-            setOrder(resp)
-        }
+        // let resp = await dispatch(getOrderByIdThunk(orderId));
+        // if (resp) {
+        //     setOrder(resp)
+        // }
     }
 
     useEffect(() => {

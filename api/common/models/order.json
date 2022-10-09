@@ -80,9 +80,9 @@
       "permission": "ALLOW"
     },
     {
-      "accessType": "READ",
+      "accessType": "*",
       "principalType": "ROLE",
-      "principalId": "$everyone",
+      "principalId": "$authenticated",
       "permission": "ALLOW"
     }
   ],
@@ -183,6 +183,39 @@
         {
           "path": "/statistic-revenue",
           "verb": "get"
+        }
+      ]
+    },
+    "paymentOrder": {
+      "accepts": [
+        {
+          "arg": "ctx",
+          "type": "any",
+          "required": true,
+          "description": "context of request",
+          "http": {
+            "source": "context"
+          }
+        },
+        {
+          "arg": "data",
+          "type": "any",
+          "required": true,
+          "description": "information payment",
+          "http": {
+            "source": "body"
+          }
+        }
+      ],
+      "returns": {
+        "root": true,
+        "type": "string"
+      },
+      "description": "payment online",
+      "http": [
+        {
+          "path": "/payment-order",
+          "verb": "post"
         }
       ]
     }

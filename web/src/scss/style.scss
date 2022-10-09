@@ -51,10 +51,9 @@
                         display: none;
                         position: absolute;
                         width: 150px;
-                        height: 100px;
                         background-color: steelblue;
-                        left: 0;
-                        bottom: -100px;
+                        left: -80px;
+                        bottom: -166px;
                         &__item {
                             list-style: none;
                             padding: 0;
@@ -564,3 +563,31 @@ img{
 .post__boxshadow{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
+
+.quantity {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 100px;
+    max-width: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.feedback{
+    table, th, td {
+      border: 1px solid black;
+          img{
+              width: 150px;
+              height: auto;
+              object-fit: contain;
+          }
+    }
+      th, td {
+      padding: 15px;
+      }
+      
+  }
+  

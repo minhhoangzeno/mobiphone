@@ -12,3 +12,9 @@ export const NEW_PASSWORD_IS_DIFFERENT_FROM_OLD_MESSAGE =
 
 export const NEW_PASSWORD_IS_DIFFERENT_FROM_OLD =
   'NEW_PASSWORD_IS_DIFFERENT_FROM_OLD';
+
+
+  export const vnp_HashSecret = "KUWUDSYKSMEFHXIPNNVOGJDNPQQSYKLN";
+  export const vnp_TmnCode = "34ER31X7";
+  export const vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+  export const web_Url = "http://localhost:3003/"  

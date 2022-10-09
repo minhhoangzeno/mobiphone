@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import ErrorImage from "../../assets/img/illustrations/bs5-illustrations.svg";
-import { verifyEmailThunk } from "../../redux/authSlice";
 import { Routes } from "../../routes";
 import NotFound from "./NotFound";
 
@@ -18,10 +17,10 @@ export default (props) => {
   const [checkVerify, setCheckVerify] = useState(false);
 
   let searchVerifyEmail = async () => {
-    let data = await dispatch(verifyEmailThunk(confirmationCode));
-    if (data) {
-      setCheckVerify(true)
-    }
+    // let data = await dispatch(verifyEmailThunk(confirmationCode));
+    // if (data) {
+    //   setCheckVerify(true)
+    // }
   }
   useEffect(() => {
     searchVerifyEmail()

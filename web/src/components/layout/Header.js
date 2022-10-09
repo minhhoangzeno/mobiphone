@@ -1,11 +1,14 @@
+import { faAddressCard } from "@fortawesome/free-regular-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCog, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { apiUrl } from "../../enviroment";
 import logo from "../../images/logo.png";
+import { login } from "../../redux/authSlice";
 import { Routes } from "../../routes";
 import "../../scss/style.scss";
 export default () => {
@@ -16,6 +19,8 @@ export default () => {
   const [products, setProducts] = useState([]);
   const cart = JSON.parse(localStorage.getItem("cart"));
   const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
+
   const search = () => {
     if (cart) {
       setProducts(cart);
@@ -45,6 +50,26 @@ export default () => {
       }).then((result) => setBlog(result.data.data));
     } catch (error) {}
   };
+
+  useEffect(() => {
+    getMe()
+  }, [])
+  const getMe = () => {
+    if (token) {
+      axios({
+        method: 'GET',
+        url: `${apiUrl}/Accounts/get-me`,
+        params: {
+          access_token: token
+        }
+      }).then(result => {
+        dispatch(login(result.data))
+      }).catch(err => {
+        localStorage.clear();
+        console.log(err)
+      })
+    }
+  }
   return (
     <>
       <header style={{ width: "100%", height: 80 }}>
@@ -186,6 +211,16 @@ export default () => {
                                 className="me-2"
                               />{" "}
                               Cá nhân
+                            </li>
+                            <li
+                              className="sub__item--content"
+                              onClick={() => history.push(Routes.Order.path)}
+                            >
+                              <FontAwesomeIcon
+                                icon={faAddressCard}
+                                className="me-2"
+                              />{" "}
+                              Đơn hàng của tôi
                             </li>
                             <li
                               className="sub__item--content"

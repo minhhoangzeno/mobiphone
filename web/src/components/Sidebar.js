@@ -78,7 +78,7 @@ export default (props = {}) => {
 
               <NavItem title="Overview" link={Routes.DashboardOverview.path} icon={faChartPie} />
               <NavItem title="Blog" icon={faHandHoldingUsd} link={Routes.Blog.path} />
-              {(user.roles === "admin" || user.roles === "superadmin") && <NavItem title="Role User" icon={faUserAstronaut} link={Routes.User.path} />}
+              {(user?.roles === "admin" || user?.roles === "superadmin") && <NavItem title="Role User" icon={faUserAstronaut} link={Routes.User.path} />}
               <NavItem title="Video" icon={faHandHoldingUsd} link={Routes.Video.path} />
 
               <NavItem title="Product" icon={faHandHoldingUsd} link={Routes.Product.path} />
