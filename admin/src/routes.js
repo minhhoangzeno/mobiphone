@@ -50,6 +50,16 @@ export const Routes = {
     User: { path: "/users" },
     VerifyAccount: { path: "/verify-account/:confirmationCode" },
 
+    Fee: { path: "/fees" },
+    FeeAdd: { path: "/fees/add" },
+    FeeEdit: { path: "/fees/edit" },
+
+    Shipper: { path: "/shipeers" },
+    ShipperAdd: { path: "/shipeers/add" },
+    ShipperEdit: { path: "/shipeers/edit" },
+
+    Comment: { path: "/comments" },
+
     Tag: { path: "/tags" },
     TagAdd: { path: "/tags/add" },
     TagEdit: { path: "/tags/edit" },

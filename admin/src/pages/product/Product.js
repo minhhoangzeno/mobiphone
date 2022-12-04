@@ -33,7 +33,7 @@ export default () => {
     setLoading(true);
     axios({
       method: 'GET',
-      url: `${apiUrl}/Products`,
+      url: `${apiUrl}/Mobiphones`,
       params: {
         access_token: access_token,
         filter: {
@@ -99,10 +99,8 @@ export default () => {
               <thead>
                 <tr>
                   <th className="border-bottom">#</th>
-                  <th className="border-bottom">Tiêu đề</th>
-                  <th className="border-bottom">Màu sắc</th>
+                  <th className="border-bottom">Tên sản phẩm</th>
                   <th className="border-bottom">Giá</th>
-                  <th className="border-bottom">Xuất xứ</th>
                   <th className="border-bottom">Hình ảnh</th>
                   <th className="border-bottom">Cài đặt</th>
                 </tr>
@@ -151,7 +149,7 @@ function TableItem({ index, product, search }) {
   let deleteProduct = () => {
     request({
       method: 'DELETE',
-      url: `${apiUrl}/Products/${product.id}`,
+      url: `${apiUrl}/Mobiphones/${product.id}`,
     }).then(() => {
       search();
       addToast('Delete Product Success', { appearance: 'success', autoDismiss: 1000 })
@@ -177,10 +175,8 @@ function TableItem({ index, product, search }) {
       <td>
         <Card.Link href="#" className="text-primary fw-bold">{index}</Card.Link>
       </td>
-      <td>{product?.title}</td>
+      <td>{product?.name}</td>
       <td>{product?.price}</td>
-      <td>{product?.color}</td>
-      <td>{product?.origin}</td>
       <td>{product?.photoURL ? <Image src={product?.photoURL} alt="photoURL" className="user-avatar xl-avatar" /> : <Image src={Profile3} className="user-avatar xl-avatar" />}</td>
       <td>
         <Dropdown as={ButtonGroup}>

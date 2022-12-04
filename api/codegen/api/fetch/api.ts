@@ -94,11 +94,37 @@ export interface CategoryProduct {
     "updatedAt"?: Date;
 }
 
+export interface Comment {
+    "content"?: string;
+    "id"?: number;
+    "accountId"?: number;
+    "createdAt"?: Date;
+    "updatedAt"?: Date;
+}
+
 export interface Contact {
     "name"?: string;
     "email"?: string;
     "subject"?: string;
     "message"?: string;
+    "id"?: number;
+    "createdAt"?: Date;
+    "updatedAt"?: Date;
+}
+
+export interface DetailPayment {
+    "amount"?: number;
+    "price"?: number;
+    "id"?: number;
+    "paymentId"?: number;
+    "mobiphoneId"?: number;
+    "createdAt"?: Date;
+    "updatedAt"?: Date;
+}
+
+export interface Fee {
+    "name"?: string;
+    "price"?: string;
     "id"?: number;
     "createdAt"?: Date;
     "updatedAt"?: Date;
@@ -138,6 +164,18 @@ export interface InlineResponse2004 {
     "count"?: number;
 }
 
+export interface Mobiphone {
+    "name"?: string;
+    "price"?: number;
+    "promotion"?: string;
+    "photoURL"?: string;
+    "characteristic"?: string;
+    "id"?: number;
+    "categoryProductId"?: number;
+    "createdAt"?: Date;
+    "updatedAt"?: Date;
+}
+
 export interface Order {
     "code"?: string;
     "firstName"?: string;
@@ -164,6 +202,23 @@ export interface OrderProduct {
     "createdAt"?: Date;
     "updatedAt"?: Date;
     "orderId"?: number;
+}
+
+export interface Payment {
+    "code"?: string;
+    "name"?: string;
+    "phone"?: number;
+    "email"?: string;
+    "address"?: string;
+    "city"?: number;
+    "district"?: number;
+    "note"?: string;
+    "status"?: string;
+    "price"?: number;
+    "id"?: number;
+    "accountId"?: number;
+    "createdAt"?: Date;
+    "updatedAt"?: Date;
 }
 
 export interface Product {
@@ -200,6 +255,16 @@ export interface RoleMapping {
     "principalType"?: string;
     "principalId"?: string;
     "roleId"?: number;
+}
+
+export interface Shipper {
+    "name"?: string;
+    "phone"?: string;
+    "address"?: string;
+    "id"?: number;
+    "paymentId"?: number;
+    "createdAt"?: Date;
+    "updatedAt"?: Date;
 }
 
 export interface Tag {
@@ -7478,6 +7543,1153 @@ export const CategoryProductApiFactory = function (fetch?: FetchAPI, basePath?: 
 
 
 /**
+ * CommentApi - fetch parameter creator
+ */
+export const CommentApiFetchParamCreator = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    commentCount(params: {  "where"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments/count`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    commentCreate(params: {  "data"?: Comment; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    commentCreateChangeStreamGetCommentsChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "options": params["options"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    commentCreateChangeStreamPostCommentsChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/x-www-form-urlencoded" };
+        fetchOptions.body = querystring.stringify({
+            "options": params["options"],
+        });
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    commentDeleteById(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling commentDeleteById");
+        }
+        const baseUrl = `/Comments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    commentExistsGetCommentsidExists(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling commentExistsGetCommentsidExists");
+        }
+        const baseUrl = `/Comments/{id}/exists`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    commentExistsHeadCommentsid(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling commentExistsHeadCommentsid");
+        }
+        const baseUrl = `/Comments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "HEAD" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    commentFind(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    commentFindById(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling commentFindById");
+        }
+        const baseUrl = `/Comments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    commentFindOne(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments/findOne`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    commentPatchOrCreate(params: {  "data"?: Comment; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation account.
+     * @param id Comment id
+     * @param refresh 
+     */
+    commentPrototypeGetAccount(params: {  "id": string; "refresh"?: boolean; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling commentPrototypeGetAccount");
+        }
+        const baseUrl = `/Comments/{id}/account`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "refresh": params["refresh"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Comment id
+     * @param data An object of model property name/value pairs
+     */
+    commentPrototypePatchAttributes(params: {  "id": string; "data"?: Comment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling commentPrototypePatchAttributes");
+        }
+        const baseUrl = `/Comments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    commentReplaceByIdPostCommentsidReplace(params: {  "id": string; "data"?: Comment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling commentReplaceByIdPostCommentsidReplace");
+        }
+        const baseUrl = `/Comments/{id}/replace`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    commentReplaceByIdPutCommentsid(params: {  "id": string; "data"?: Comment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling commentReplaceByIdPutCommentsid");
+        }
+        const baseUrl = `/Comments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    commentReplaceOrCreatePostCommentsReplaceOrCreate(params: {  "data"?: Comment; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments/replaceOrCreate`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    commentReplaceOrCreatePutComments(params: {  "data"?: Comment; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    commentUpdateAll(params: {  "where"?: string; "data"?: Comment; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments/update`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    commentUpsertWithWhere(params: {  "where"?: string; "data"?: Comment; }, options?: any): FetchArgs {
+        const baseUrl = `/Comments/upsertWithWhere`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+};
+
+/**
+ * CommentApi - functional programming interface
+ */
+export const CommentApiFp = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    commentCount(params: { "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+        const fetchArgs = CommentApiFetchParamCreator.commentCount(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    commentCreate(params: { "data"?: Comment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    commentCreateChangeStreamGetCommentsChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = CommentApiFetchParamCreator.commentCreateChangeStreamGetCommentsChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    commentCreateChangeStreamPostCommentsChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = CommentApiFetchParamCreator.commentCreateChangeStreamPostCommentsChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    commentDeleteById(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = CommentApiFetchParamCreator.commentDeleteById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    commentExistsGetCommentsidExists(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = CommentApiFetchParamCreator.commentExistsGetCommentsidExists(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    commentExistsHeadCommentsid(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = CommentApiFetchParamCreator.commentExistsHeadCommentsid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    commentFind(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Comment>> {
+        const fetchArgs = CommentApiFetchParamCreator.commentFind(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    commentFindById(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentFindById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    commentFindOne(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentFindOne(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    commentPatchOrCreate(params: { "data"?: Comment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentPatchOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation account.
+     * @param id Comment id
+     * @param refresh 
+     */
+    commentPrototypeGetAccount(params: { "id": string; "refresh"?: boolean;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Account> {
+        const fetchArgs = CommentApiFetchParamCreator.commentPrototypeGetAccount(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Comment id
+     * @param data An object of model property name/value pairs
+     */
+    commentPrototypePatchAttributes(params: { "id": string; "data"?: Comment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentPrototypePatchAttributes(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    commentReplaceByIdPostCommentsidReplace(params: { "id": string; "data"?: Comment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentReplaceByIdPostCommentsidReplace(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    commentReplaceByIdPutCommentsid(params: { "id": string; "data"?: Comment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentReplaceByIdPutCommentsid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    commentReplaceOrCreatePostCommentsReplaceOrCreate(params: { "data"?: Comment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentReplaceOrCreatePostCommentsReplaceOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    commentReplaceOrCreatePutComments(params: { "data"?: Comment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentReplaceOrCreatePutComments(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    commentUpdateAll(params: { "where"?: string; "data"?: Comment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2004> {
+        const fetchArgs = CommentApiFetchParamCreator.commentUpdateAll(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    commentUpsertWithWhere(params: { "where"?: string; "data"?: Comment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Comment> {
+        const fetchArgs = CommentApiFetchParamCreator.commentUpsertWithWhere(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+};
+
+/**
+ * CommentApi - object-oriented interface
+ */
+export class CommentApi extends BaseAPI {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    commentCount(params: {  "where"?: string; }, options?: any) {
+        return CommentApiFp.commentCount(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    commentCreate(params: {  "data"?: Comment; }, options?: any) {
+        return CommentApiFp.commentCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    commentCreateChangeStreamGetCommentsChangeStream(params: {  "options"?: string; }, options?: any) {
+        return CommentApiFp.commentCreateChangeStreamGetCommentsChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    commentCreateChangeStreamPostCommentsChangeStream(params: {  "options"?: string; }, options?: any) {
+        return CommentApiFp.commentCreateChangeStreamPostCommentsChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    commentDeleteById(params: {  "id": string; }, options?: any) {
+        return CommentApiFp.commentDeleteById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    commentExistsGetCommentsidExists(params: {  "id": string; }, options?: any) {
+        return CommentApiFp.commentExistsGetCommentsidExists(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    commentExistsHeadCommentsid(params: {  "id": string; }, options?: any) {
+        return CommentApiFp.commentExistsHeadCommentsid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    commentFind(params: {  "filter"?: string; }, options?: any) {
+        return CommentApiFp.commentFind(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    commentFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+        return CommentApiFp.commentFindById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    commentFindOne(params: {  "filter"?: string; }, options?: any) {
+        return CommentApiFp.commentFindOne(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    commentPatchOrCreate(params: {  "data"?: Comment; }, options?: any) {
+        return CommentApiFp.commentPatchOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Fetches belongsTo relation account.
+     * @param id Comment id
+     * @param refresh 
+     */
+    commentPrototypeGetAccount(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+        return CommentApiFp.commentPrototypeGetAccount(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Comment id
+     * @param data An object of model property name/value pairs
+     */
+    commentPrototypePatchAttributes(params: {  "id": string; "data"?: Comment; }, options?: any) {
+        return CommentApiFp.commentPrototypePatchAttributes(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    commentReplaceByIdPostCommentsidReplace(params: {  "id": string; "data"?: Comment; }, options?: any) {
+        return CommentApiFp.commentReplaceByIdPostCommentsidReplace(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    commentReplaceByIdPutCommentsid(params: {  "id": string; "data"?: Comment; }, options?: any) {
+        return CommentApiFp.commentReplaceByIdPutCommentsid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    commentReplaceOrCreatePostCommentsReplaceOrCreate(params: {  "data"?: Comment; }, options?: any) {
+        return CommentApiFp.commentReplaceOrCreatePostCommentsReplaceOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    commentReplaceOrCreatePutComments(params: {  "data"?: Comment; }, options?: any) {
+        return CommentApiFp.commentReplaceOrCreatePutComments(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    commentUpdateAll(params: {  "where"?: string; "data"?: Comment; }, options?: any) {
+        return CommentApiFp.commentUpdateAll(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    commentUpsertWithWhere(params: {  "where"?: string; "data"?: Comment; }, options?: any) {
+        return CommentApiFp.commentUpsertWithWhere(params, options)(this.fetch, this.basePath);
+    }
+};
+
+/**
+ * CommentApi - factory interface
+ */
+export const CommentApiFactory = function (fetch?: FetchAPI, basePath?: string) {
+    return {
+        /**
+         * 
+         * @summary Count instances of the model matched by where from the data source.
+         * @param where Criteria to match model instances
+         */
+        commentCount(params: {  "where"?: string; }, options?: any) {
+            return CommentApiFp.commentCount(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a new instance of the model and persist it into the data source.
+         * @param data Model instance data
+         */
+        commentCreate(params: {  "data"?: Comment; }, options?: any) {
+            return CommentApiFp.commentCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        commentCreateChangeStreamGetCommentsChangeStream(params: {  "options"?: string; }, options?: any) {
+            return CommentApiFp.commentCreateChangeStreamGetCommentsChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        commentCreateChangeStreamPostCommentsChangeStream(params: {  "options"?: string; }, options?: any) {
+            return CommentApiFp.commentCreateChangeStreamPostCommentsChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Delete a model instance by {{id}} from the data source.
+         * @param id Model id
+         */
+        commentDeleteById(params: {  "id": string; }, options?: any) {
+            return CommentApiFp.commentDeleteById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        commentExistsGetCommentsidExists(params: {  "id": string; }, options?: any) {
+            return CommentApiFp.commentExistsGetCommentsidExists(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        commentExistsHeadCommentsid(params: {  "id": string; }, options?: any) {
+            return CommentApiFp.commentExistsHeadCommentsid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find all instances of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        commentFind(params: {  "filter"?: string; }, options?: any) {
+            return CommentApiFp.commentFind(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find a model instance by {{id}} from the data source.
+         * @param id Model id
+         * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+         */
+        commentFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+            return CommentApiFp.commentFindById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find first instance of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        commentFindOne(params: {  "filter"?: string; }, options?: any) {
+            return CommentApiFp.commentFindOne(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        commentPatchOrCreate(params: {  "data"?: Comment; }, options?: any) {
+            return CommentApiFp.commentPatchOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Fetches belongsTo relation account.
+         * @param id Comment id
+         * @param refresh 
+         */
+        commentPrototypeGetAccount(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+            return CommentApiFp.commentPrototypeGetAccount(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch attributes for a model instance and persist it into the data source.
+         * @param id Comment id
+         * @param data An object of model property name/value pairs
+         */
+        commentPrototypePatchAttributes(params: {  "id": string; "data"?: Comment; }, options?: any) {
+            return CommentApiFp.commentPrototypePatchAttributes(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        commentReplaceByIdPostCommentsidReplace(params: {  "id": string; "data"?: Comment; }, options?: any) {
+            return CommentApiFp.commentReplaceByIdPostCommentsidReplace(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        commentReplaceByIdPutCommentsid(params: {  "id": string; "data"?: Comment; }, options?: any) {
+            return CommentApiFp.commentReplaceByIdPutCommentsid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        commentReplaceOrCreatePostCommentsReplaceOrCreate(params: {  "data"?: Comment; }, options?: any) {
+            return CommentApiFp.commentReplaceOrCreatePostCommentsReplaceOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        commentReplaceOrCreatePutComments(params: {  "data"?: Comment; }, options?: any) {
+            return CommentApiFp.commentReplaceOrCreatePutComments(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update instances of the model matched by {{where}} from the data source.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        commentUpdateAll(params: {  "where"?: string; "data"?: Comment; }, options?: any) {
+            return CommentApiFp.commentUpdateAll(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        commentUpsertWithWhere(params: {  "where"?: string; "data"?: Comment; }, options?: any) {
+            return CommentApiFp.commentUpsertWithWhere(params, options)(fetch, basePath);
+        },
+    };
+};
+
+
+/**
  * ContactApi - fetch parameter creator
  */
 export const ContactApiFetchParamCreator = {
@@ -9082,6 +10294,2359 @@ export const ContainerApiFactory = function (fetch?: FetchAPI, basePath?: string
 
 
 /**
+ * DetailPaymentApi - fetch parameter creator
+ */
+export const DetailPaymentApiFetchParamCreator = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    detailPaymentCount(params: {  "where"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments/count`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentCreate(params: {  "data"?: DetailPayment; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    detailPaymentCreateChangeStreamGetDetailPaymentsChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "options": params["options"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    detailPaymentCreateChangeStreamPostDetailPaymentsChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/x-www-form-urlencoded" };
+        fetchOptions.body = querystring.stringify({
+            "options": params["options"],
+        });
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    detailPaymentDeleteById(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling detailPaymentDeleteById");
+        }
+        const baseUrl = `/DetailPayments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    detailPaymentExistsGetDetailPaymentsidExists(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling detailPaymentExistsGetDetailPaymentsidExists");
+        }
+        const baseUrl = `/DetailPayments/{id}/exists`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    detailPaymentExistsHeadDetailPaymentsid(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling detailPaymentExistsHeadDetailPaymentsid");
+        }
+        const baseUrl = `/DetailPayments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "HEAD" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    detailPaymentFind(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    detailPaymentFindById(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling detailPaymentFindById");
+        }
+        const baseUrl = `/DetailPayments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    detailPaymentFindOne(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments/findOne`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Get order product in cart by token
+     * @param user userId
+     */
+    detailPaymentGetOrder(params: {  "user": string; }, options?: any): FetchArgs {
+        // verify required parameter "user" is set
+        if (params["user"] == null) {
+            throw new Error("Missing required parameter user when calling detailPaymentGetOrder");
+        }
+        const baseUrl = `/DetailPayments/get-order-cart`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "user": params["user"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentPatchOrCreate(params: {  "data"?: DetailPayment; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation mobiphone.
+     * @param id DetailPayment id
+     * @param refresh 
+     */
+    detailPaymentPrototypeGetMobiphone(params: {  "id": string; "refresh"?: boolean; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling detailPaymentPrototypeGetMobiphone");
+        }
+        const baseUrl = `/DetailPayments/{id}/mobiphone`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "refresh": params["refresh"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation payment.
+     * @param id DetailPayment id
+     * @param refresh 
+     */
+    detailPaymentPrototypeGetPayment(params: {  "id": string; "refresh"?: boolean; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling detailPaymentPrototypeGetPayment");
+        }
+        const baseUrl = `/DetailPayments/{id}/payment`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "refresh": params["refresh"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id DetailPayment id
+     * @param data An object of model property name/value pairs
+     */
+    detailPaymentPrototypePatchAttributes(params: {  "id": string; "data"?: DetailPayment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling detailPaymentPrototypePatchAttributes");
+        }
+        const baseUrl = `/DetailPayments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    detailPaymentReplaceByIdPostDetailPaymentsidReplace(params: {  "id": string; "data"?: DetailPayment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling detailPaymentReplaceByIdPostDetailPaymentsidReplace");
+        }
+        const baseUrl = `/DetailPayments/{id}/replace`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    detailPaymentReplaceByIdPutDetailPaymentsid(params: {  "id": string; "data"?: DetailPayment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling detailPaymentReplaceByIdPutDetailPaymentsid");
+        }
+        const baseUrl = `/DetailPayments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentReplaceOrCreatePostDetailPaymentsReplaceOrCreate(params: {  "data"?: DetailPayment; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments/replaceOrCreate`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentReplaceOrCreatePutDetailPayments(params: {  "data"?: DetailPayment; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    detailPaymentUpdateAll(params: {  "where"?: string; "data"?: DetailPayment; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments/update`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    detailPaymentUpsertWithWhere(params: {  "where"?: string; "data"?: DetailPayment; }, options?: any): FetchArgs {
+        const baseUrl = `/DetailPayments/upsertWithWhere`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+};
+
+/**
+ * DetailPaymentApi - functional programming interface
+ */
+export const DetailPaymentApiFp = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    detailPaymentCount(params: { "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentCount(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentCreate(params: { "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    detailPaymentCreateChangeStreamGetDetailPaymentsChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentCreateChangeStreamGetDetailPaymentsChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    detailPaymentCreateChangeStreamPostDetailPaymentsChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentCreateChangeStreamPostDetailPaymentsChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    detailPaymentDeleteById(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentDeleteById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    detailPaymentExistsGetDetailPaymentsidExists(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentExistsGetDetailPaymentsidExists(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    detailPaymentExistsHeadDetailPaymentsid(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentExistsHeadDetailPaymentsid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    detailPaymentFind(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<DetailPayment>> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentFind(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    detailPaymentFindById(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentFindById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    detailPaymentFindOne(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentFindOne(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Get order product in cart by token
+     * @param user userId
+     */
+    detailPaymentGetOrder(params: { "user": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentGetOrder(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentPatchOrCreate(params: { "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentPatchOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation mobiphone.
+     * @param id DetailPayment id
+     * @param refresh 
+     */
+    detailPaymentPrototypeGetMobiphone(params: { "id": string; "refresh"?: boolean;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentPrototypeGetMobiphone(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation payment.
+     * @param id DetailPayment id
+     * @param refresh 
+     */
+    detailPaymentPrototypeGetPayment(params: { "id": string; "refresh"?: boolean;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentPrototypeGetPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id DetailPayment id
+     * @param data An object of model property name/value pairs
+     */
+    detailPaymentPrototypePatchAttributes(params: { "id": string; "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentPrototypePatchAttributes(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    detailPaymentReplaceByIdPostDetailPaymentsidReplace(params: { "id": string; "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentReplaceByIdPostDetailPaymentsidReplace(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    detailPaymentReplaceByIdPutDetailPaymentsid(params: { "id": string; "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentReplaceByIdPutDetailPaymentsid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentReplaceOrCreatePostDetailPaymentsReplaceOrCreate(params: { "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentReplaceOrCreatePostDetailPaymentsReplaceOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentReplaceOrCreatePutDetailPayments(params: { "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentReplaceOrCreatePutDetailPayments(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    detailPaymentUpdateAll(params: { "where"?: string; "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2004> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentUpdateAll(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    detailPaymentUpsertWithWhere(params: { "where"?: string; "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = DetailPaymentApiFetchParamCreator.detailPaymentUpsertWithWhere(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+};
+
+/**
+ * DetailPaymentApi - object-oriented interface
+ */
+export class DetailPaymentApi extends BaseAPI {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    detailPaymentCount(params: {  "where"?: string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentCount(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentCreate(params: {  "data"?: DetailPayment; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    detailPaymentCreateChangeStreamGetDetailPaymentsChangeStream(params: {  "options"?: string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentCreateChangeStreamGetDetailPaymentsChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    detailPaymentCreateChangeStreamPostDetailPaymentsChangeStream(params: {  "options"?: string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentCreateChangeStreamPostDetailPaymentsChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    detailPaymentDeleteById(params: {  "id": string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentDeleteById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    detailPaymentExistsGetDetailPaymentsidExists(params: {  "id": string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentExistsGetDetailPaymentsidExists(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    detailPaymentExistsHeadDetailPaymentsid(params: {  "id": string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentExistsHeadDetailPaymentsid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    detailPaymentFind(params: {  "filter"?: string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentFind(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    detailPaymentFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentFindById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    detailPaymentFindOne(params: {  "filter"?: string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentFindOne(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Get order product in cart by token
+     * @param user userId
+     */
+    detailPaymentGetOrder(params: {  "user": string; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentGetOrder(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentPatchOrCreate(params: {  "data"?: DetailPayment; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentPatchOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Fetches belongsTo relation mobiphone.
+     * @param id DetailPayment id
+     * @param refresh 
+     */
+    detailPaymentPrototypeGetMobiphone(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentPrototypeGetMobiphone(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Fetches belongsTo relation payment.
+     * @param id DetailPayment id
+     * @param refresh 
+     */
+    detailPaymentPrototypeGetPayment(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentPrototypeGetPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id DetailPayment id
+     * @param data An object of model property name/value pairs
+     */
+    detailPaymentPrototypePatchAttributes(params: {  "id": string; "data"?: DetailPayment; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentPrototypePatchAttributes(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    detailPaymentReplaceByIdPostDetailPaymentsidReplace(params: {  "id": string; "data"?: DetailPayment; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentReplaceByIdPostDetailPaymentsidReplace(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    detailPaymentReplaceByIdPutDetailPaymentsid(params: {  "id": string; "data"?: DetailPayment; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentReplaceByIdPutDetailPaymentsid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentReplaceOrCreatePostDetailPaymentsReplaceOrCreate(params: {  "data"?: DetailPayment; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentReplaceOrCreatePostDetailPaymentsReplaceOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    detailPaymentReplaceOrCreatePutDetailPayments(params: {  "data"?: DetailPayment; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentReplaceOrCreatePutDetailPayments(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    detailPaymentUpdateAll(params: {  "where"?: string; "data"?: DetailPayment; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentUpdateAll(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    detailPaymentUpsertWithWhere(params: {  "where"?: string; "data"?: DetailPayment; }, options?: any) {
+        return DetailPaymentApiFp.detailPaymentUpsertWithWhere(params, options)(this.fetch, this.basePath);
+    }
+};
+
+/**
+ * DetailPaymentApi - factory interface
+ */
+export const DetailPaymentApiFactory = function (fetch?: FetchAPI, basePath?: string) {
+    return {
+        /**
+         * 
+         * @summary Count instances of the model matched by where from the data source.
+         * @param where Criteria to match model instances
+         */
+        detailPaymentCount(params: {  "where"?: string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentCount(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a new instance of the model and persist it into the data source.
+         * @param data Model instance data
+         */
+        detailPaymentCreate(params: {  "data"?: DetailPayment; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        detailPaymentCreateChangeStreamGetDetailPaymentsChangeStream(params: {  "options"?: string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentCreateChangeStreamGetDetailPaymentsChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        detailPaymentCreateChangeStreamPostDetailPaymentsChangeStream(params: {  "options"?: string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentCreateChangeStreamPostDetailPaymentsChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Delete a model instance by {{id}} from the data source.
+         * @param id Model id
+         */
+        detailPaymentDeleteById(params: {  "id": string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentDeleteById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        detailPaymentExistsGetDetailPaymentsidExists(params: {  "id": string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentExistsGetDetailPaymentsidExists(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        detailPaymentExistsHeadDetailPaymentsid(params: {  "id": string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentExistsHeadDetailPaymentsid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find all instances of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        detailPaymentFind(params: {  "filter"?: string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentFind(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find a model instance by {{id}} from the data source.
+         * @param id Model id
+         * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+         */
+        detailPaymentFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentFindById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find first instance of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        detailPaymentFindOne(params: {  "filter"?: string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentFindOne(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Get order product in cart by token
+         * @param user userId
+         */
+        detailPaymentGetOrder(params: {  "user": string; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentGetOrder(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        detailPaymentPatchOrCreate(params: {  "data"?: DetailPayment; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentPatchOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Fetches belongsTo relation mobiphone.
+         * @param id DetailPayment id
+         * @param refresh 
+         */
+        detailPaymentPrototypeGetMobiphone(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentPrototypeGetMobiphone(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Fetches belongsTo relation payment.
+         * @param id DetailPayment id
+         * @param refresh 
+         */
+        detailPaymentPrototypeGetPayment(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentPrototypeGetPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch attributes for a model instance and persist it into the data source.
+         * @param id DetailPayment id
+         * @param data An object of model property name/value pairs
+         */
+        detailPaymentPrototypePatchAttributes(params: {  "id": string; "data"?: DetailPayment; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentPrototypePatchAttributes(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        detailPaymentReplaceByIdPostDetailPaymentsidReplace(params: {  "id": string; "data"?: DetailPayment; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentReplaceByIdPostDetailPaymentsidReplace(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        detailPaymentReplaceByIdPutDetailPaymentsid(params: {  "id": string; "data"?: DetailPayment; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentReplaceByIdPutDetailPaymentsid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        detailPaymentReplaceOrCreatePostDetailPaymentsReplaceOrCreate(params: {  "data"?: DetailPayment; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentReplaceOrCreatePostDetailPaymentsReplaceOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        detailPaymentReplaceOrCreatePutDetailPayments(params: {  "data"?: DetailPayment; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentReplaceOrCreatePutDetailPayments(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update instances of the model matched by {{where}} from the data source.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        detailPaymentUpdateAll(params: {  "where"?: string; "data"?: DetailPayment; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentUpdateAll(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        detailPaymentUpsertWithWhere(params: {  "where"?: string; "data"?: DetailPayment; }, options?: any) {
+            return DetailPaymentApiFp.detailPaymentUpsertWithWhere(params, options)(fetch, basePath);
+        },
+    };
+};
+
+
+/**
+ * FeeApi - fetch parameter creator
+ */
+export const FeeApiFetchParamCreator = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    feeCount(params: {  "where"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees/count`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    feeCreate(params: {  "data"?: Fee; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    feeCreateChangeStreamGetFeesChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "options": params["options"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    feeCreateChangeStreamPostFeesChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/x-www-form-urlencoded" };
+        fetchOptions.body = querystring.stringify({
+            "options": params["options"],
+        });
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    feeDeleteById(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling feeDeleteById");
+        }
+        const baseUrl = `/Fees/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    feeExistsGetFeesidExists(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling feeExistsGetFeesidExists");
+        }
+        const baseUrl = `/Fees/{id}/exists`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    feeExistsHeadFeesid(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling feeExistsHeadFeesid");
+        }
+        const baseUrl = `/Fees/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "HEAD" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    feeFind(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    feeFindById(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling feeFindById");
+        }
+        const baseUrl = `/Fees/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    feeFindOne(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees/findOne`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    feePatchOrCreate(params: {  "data"?: Fee; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Fee id
+     * @param data An object of model property name/value pairs
+     */
+    feePrototypePatchAttributes(params: {  "id": string; "data"?: Fee; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling feePrototypePatchAttributes");
+        }
+        const baseUrl = `/Fees/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    feeReplaceByIdPostFeesidReplace(params: {  "id": string; "data"?: Fee; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling feeReplaceByIdPostFeesidReplace");
+        }
+        const baseUrl = `/Fees/{id}/replace`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    feeReplaceByIdPutFeesid(params: {  "id": string; "data"?: Fee; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling feeReplaceByIdPutFeesid");
+        }
+        const baseUrl = `/Fees/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    feeReplaceOrCreatePostFeesReplaceOrCreate(params: {  "data"?: Fee; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees/replaceOrCreate`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    feeReplaceOrCreatePutFees(params: {  "data"?: Fee; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    feeUpdateAll(params: {  "where"?: string; "data"?: Fee; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees/update`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    feeUpsertWithWhere(params: {  "where"?: string; "data"?: Fee; }, options?: any): FetchArgs {
+        const baseUrl = `/Fees/upsertWithWhere`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+};
+
+/**
+ * FeeApi - functional programming interface
+ */
+export const FeeApiFp = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    feeCount(params: { "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+        const fetchArgs = FeeApiFetchParamCreator.feeCount(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    feeCreate(params: { "data"?: Fee;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feeCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    feeCreateChangeStreamGetFeesChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = FeeApiFetchParamCreator.feeCreateChangeStreamGetFeesChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    feeCreateChangeStreamPostFeesChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = FeeApiFetchParamCreator.feeCreateChangeStreamPostFeesChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    feeDeleteById(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = FeeApiFetchParamCreator.feeDeleteById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    feeExistsGetFeesidExists(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = FeeApiFetchParamCreator.feeExistsGetFeesidExists(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    feeExistsHeadFeesid(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = FeeApiFetchParamCreator.feeExistsHeadFeesid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    feeFind(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Fee>> {
+        const fetchArgs = FeeApiFetchParamCreator.feeFind(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    feeFindById(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feeFindById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    feeFindOne(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feeFindOne(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    feePatchOrCreate(params: { "data"?: Fee;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feePatchOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Fee id
+     * @param data An object of model property name/value pairs
+     */
+    feePrototypePatchAttributes(params: { "id": string; "data"?: Fee;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feePrototypePatchAttributes(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    feeReplaceByIdPostFeesidReplace(params: { "id": string; "data"?: Fee;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feeReplaceByIdPostFeesidReplace(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    feeReplaceByIdPutFeesid(params: { "id": string; "data"?: Fee;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feeReplaceByIdPutFeesid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    feeReplaceOrCreatePostFeesReplaceOrCreate(params: { "data"?: Fee;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feeReplaceOrCreatePostFeesReplaceOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    feeReplaceOrCreatePutFees(params: { "data"?: Fee;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feeReplaceOrCreatePutFees(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    feeUpdateAll(params: { "where"?: string; "data"?: Fee;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2004> {
+        const fetchArgs = FeeApiFetchParamCreator.feeUpdateAll(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    feeUpsertWithWhere(params: { "where"?: string; "data"?: Fee;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Fee> {
+        const fetchArgs = FeeApiFetchParamCreator.feeUpsertWithWhere(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+};
+
+/**
+ * FeeApi - object-oriented interface
+ */
+export class FeeApi extends BaseAPI {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    feeCount(params: {  "where"?: string; }, options?: any) {
+        return FeeApiFp.feeCount(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    feeCreate(params: {  "data"?: Fee; }, options?: any) {
+        return FeeApiFp.feeCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    feeCreateChangeStreamGetFeesChangeStream(params: {  "options"?: string; }, options?: any) {
+        return FeeApiFp.feeCreateChangeStreamGetFeesChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    feeCreateChangeStreamPostFeesChangeStream(params: {  "options"?: string; }, options?: any) {
+        return FeeApiFp.feeCreateChangeStreamPostFeesChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    feeDeleteById(params: {  "id": string; }, options?: any) {
+        return FeeApiFp.feeDeleteById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    feeExistsGetFeesidExists(params: {  "id": string; }, options?: any) {
+        return FeeApiFp.feeExistsGetFeesidExists(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    feeExistsHeadFeesid(params: {  "id": string; }, options?: any) {
+        return FeeApiFp.feeExistsHeadFeesid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    feeFind(params: {  "filter"?: string; }, options?: any) {
+        return FeeApiFp.feeFind(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    feeFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+        return FeeApiFp.feeFindById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    feeFindOne(params: {  "filter"?: string; }, options?: any) {
+        return FeeApiFp.feeFindOne(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    feePatchOrCreate(params: {  "data"?: Fee; }, options?: any) {
+        return FeeApiFp.feePatchOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Fee id
+     * @param data An object of model property name/value pairs
+     */
+    feePrototypePatchAttributes(params: {  "id": string; "data"?: Fee; }, options?: any) {
+        return FeeApiFp.feePrototypePatchAttributes(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    feeReplaceByIdPostFeesidReplace(params: {  "id": string; "data"?: Fee; }, options?: any) {
+        return FeeApiFp.feeReplaceByIdPostFeesidReplace(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    feeReplaceByIdPutFeesid(params: {  "id": string; "data"?: Fee; }, options?: any) {
+        return FeeApiFp.feeReplaceByIdPutFeesid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    feeReplaceOrCreatePostFeesReplaceOrCreate(params: {  "data"?: Fee; }, options?: any) {
+        return FeeApiFp.feeReplaceOrCreatePostFeesReplaceOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    feeReplaceOrCreatePutFees(params: {  "data"?: Fee; }, options?: any) {
+        return FeeApiFp.feeReplaceOrCreatePutFees(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    feeUpdateAll(params: {  "where"?: string; "data"?: Fee; }, options?: any) {
+        return FeeApiFp.feeUpdateAll(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    feeUpsertWithWhere(params: {  "where"?: string; "data"?: Fee; }, options?: any) {
+        return FeeApiFp.feeUpsertWithWhere(params, options)(this.fetch, this.basePath);
+    }
+};
+
+/**
+ * FeeApi - factory interface
+ */
+export const FeeApiFactory = function (fetch?: FetchAPI, basePath?: string) {
+    return {
+        /**
+         * 
+         * @summary Count instances of the model matched by where from the data source.
+         * @param where Criteria to match model instances
+         */
+        feeCount(params: {  "where"?: string; }, options?: any) {
+            return FeeApiFp.feeCount(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a new instance of the model and persist it into the data source.
+         * @param data Model instance data
+         */
+        feeCreate(params: {  "data"?: Fee; }, options?: any) {
+            return FeeApiFp.feeCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        feeCreateChangeStreamGetFeesChangeStream(params: {  "options"?: string; }, options?: any) {
+            return FeeApiFp.feeCreateChangeStreamGetFeesChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        feeCreateChangeStreamPostFeesChangeStream(params: {  "options"?: string; }, options?: any) {
+            return FeeApiFp.feeCreateChangeStreamPostFeesChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Delete a model instance by {{id}} from the data source.
+         * @param id Model id
+         */
+        feeDeleteById(params: {  "id": string; }, options?: any) {
+            return FeeApiFp.feeDeleteById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        feeExistsGetFeesidExists(params: {  "id": string; }, options?: any) {
+            return FeeApiFp.feeExistsGetFeesidExists(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        feeExistsHeadFeesid(params: {  "id": string; }, options?: any) {
+            return FeeApiFp.feeExistsHeadFeesid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find all instances of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        feeFind(params: {  "filter"?: string; }, options?: any) {
+            return FeeApiFp.feeFind(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find a model instance by {{id}} from the data source.
+         * @param id Model id
+         * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+         */
+        feeFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+            return FeeApiFp.feeFindById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find first instance of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        feeFindOne(params: {  "filter"?: string; }, options?: any) {
+            return FeeApiFp.feeFindOne(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        feePatchOrCreate(params: {  "data"?: Fee; }, options?: any) {
+            return FeeApiFp.feePatchOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch attributes for a model instance and persist it into the data source.
+         * @param id Fee id
+         * @param data An object of model property name/value pairs
+         */
+        feePrototypePatchAttributes(params: {  "id": string; "data"?: Fee; }, options?: any) {
+            return FeeApiFp.feePrototypePatchAttributes(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        feeReplaceByIdPostFeesidReplace(params: {  "id": string; "data"?: Fee; }, options?: any) {
+            return FeeApiFp.feeReplaceByIdPostFeesidReplace(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        feeReplaceByIdPutFeesid(params: {  "id": string; "data"?: Fee; }, options?: any) {
+            return FeeApiFp.feeReplaceByIdPutFeesid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        feeReplaceOrCreatePostFeesReplaceOrCreate(params: {  "data"?: Fee; }, options?: any) {
+            return FeeApiFp.feeReplaceOrCreatePostFeesReplaceOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        feeReplaceOrCreatePutFees(params: {  "data"?: Fee; }, options?: any) {
+            return FeeApiFp.feeReplaceOrCreatePutFees(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update instances of the model matched by {{where}} from the data source.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        feeUpdateAll(params: {  "where"?: string; "data"?: Fee; }, options?: any) {
+            return FeeApiFp.feeUpdateAll(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        feeUpsertWithWhere(params: {  "where"?: string; "data"?: Fee; }, options?: any) {
+            return FeeApiFp.feeUpsertWithWhere(params, options)(fetch, basePath);
+        },
+    };
+};
+
+
+/**
  * FeedbackApi - fetch parameter creator
  */
 export const FeedbackApiFetchParamCreator = {
@@ -10223,6 +13788,1815 @@ export const FeedbackApiFactory = function (fetch?: FetchAPI, basePath?: string)
          */
         feedbackUpsertWithWhere(params: {  "where"?: string; "data"?: Feedback; }, options?: any) {
             return FeedbackApiFp.feedbackUpsertWithWhere(params, options)(fetch, basePath);
+        },
+    };
+};
+
+
+/**
+ * MobiphoneApi - fetch parameter creator
+ */
+export const MobiphoneApiFetchParamCreator = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    mobiphoneCount(params: {  "where"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones/count`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    mobiphoneCreate(params: {  "data"?: Mobiphone; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    mobiphoneCreateChangeStreamGetMobiphonesChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "options": params["options"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    mobiphoneCreateChangeStreamPostMobiphonesChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/x-www-form-urlencoded" };
+        fetchOptions.body = querystring.stringify({
+            "options": params["options"],
+        });
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    mobiphoneDeleteById(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphoneDeleteById");
+        }
+        const baseUrl = `/Mobiphones/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    mobiphoneExistsGetMobiphonesidExists(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphoneExistsGetMobiphonesidExists");
+        }
+        const baseUrl = `/Mobiphones/{id}/exists`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    mobiphoneExistsHeadMobiphonesid(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphoneExistsHeadMobiphonesid");
+        }
+        const baseUrl = `/Mobiphones/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "HEAD" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    mobiphoneFind(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    mobiphoneFindById(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphoneFindById");
+        }
+        const baseUrl = `/Mobiphones/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    mobiphoneFindOne(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones/findOne`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    mobiphonePatchOrCreate(params: {  "data"?: Mobiphone; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Counts payment of Mobiphone.
+     * @param id Mobiphone id
+     * @param where Criteria to match model instances
+     */
+    mobiphonePrototypeCountPayment(params: {  "id": string; "where"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeCountPayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment/count`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Creates a new instance in payment of this model.
+     * @param id Mobiphone id
+     * @param data 
+     */
+    mobiphonePrototypeCreatePayment(params: {  "id": string; "data"?: Payment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeCreatePayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Deletes all payment of this model.
+     * @param id Mobiphone id
+     */
+    mobiphonePrototypeDeletePayment(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeDeletePayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Delete a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeDestroyByIdPayment(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeDestroyByIdPayment");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling mobiphonePrototypeDestroyByIdPayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check the existence of payment relation to an item by id.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeExistsPayment(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeExistsPayment");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling mobiphonePrototypeExistsPayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment/rel/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "HEAD" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeFindByIdPayment(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeFindByIdPayment");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling mobiphonePrototypeFindByIdPayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation categoryProduct.
+     * @param id Mobiphone id
+     * @param refresh 
+     */
+    mobiphonePrototypeGetCategoryProduct(params: {  "id": string; "refresh"?: boolean; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeGetCategoryProduct");
+        }
+        const baseUrl = `/Mobiphones/{id}/categoryProduct`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "refresh": params["refresh"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Queries payment of Mobiphone.
+     * @param id Mobiphone id
+     * @param filter 
+     */
+    mobiphonePrototypeGetPayment(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeGetPayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Add a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     * @param data 
+     */
+    mobiphonePrototypeLinkPayment(params: {  "id": string; "fk": string; "data"?: DetailPayment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeLinkPayment");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling mobiphonePrototypeLinkPayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment/rel/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Mobiphone id
+     * @param data An object of model property name/value pairs
+     */
+    mobiphonePrototypePatchAttributes(params: {  "id": string; "data"?: Mobiphone; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypePatchAttributes");
+        }
+        const baseUrl = `/Mobiphones/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Remove the payment relation to an item by id.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeUnlinkPayment(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeUnlinkPayment");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling mobiphonePrototypeUnlinkPayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment/rel/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     * @param data 
+     */
+    mobiphonePrototypeUpdateByIdPayment(params: {  "id": string; "fk": string; "data"?: Payment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphonePrototypeUpdateByIdPayment");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling mobiphonePrototypeUpdateByIdPayment");
+        }
+        const baseUrl = `/Mobiphones/{id}/payment/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    mobiphoneReplaceByIdPostMobiphonesidReplace(params: {  "id": string; "data"?: Mobiphone; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphoneReplaceByIdPostMobiphonesidReplace");
+        }
+        const baseUrl = `/Mobiphones/{id}/replace`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    mobiphoneReplaceByIdPutMobiphonesid(params: {  "id": string; "data"?: Mobiphone; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling mobiphoneReplaceByIdPutMobiphonesid");
+        }
+        const baseUrl = `/Mobiphones/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    mobiphoneReplaceOrCreatePostMobiphonesReplaceOrCreate(params: {  "data"?: Mobiphone; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones/replaceOrCreate`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    mobiphoneReplaceOrCreatePutMobiphones(params: {  "data"?: Mobiphone; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    mobiphoneUpdateAll(params: {  "where"?: string; "data"?: Mobiphone; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones/update`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    mobiphoneUpsertWithWhere(params: {  "where"?: string; "data"?: Mobiphone; }, options?: any): FetchArgs {
+        const baseUrl = `/Mobiphones/upsertWithWhere`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+};
+
+/**
+ * MobiphoneApi - functional programming interface
+ */
+export const MobiphoneApiFp = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    mobiphoneCount(params: { "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneCount(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    mobiphoneCreate(params: { "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    mobiphoneCreateChangeStreamGetMobiphonesChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneCreateChangeStreamGetMobiphonesChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    mobiphoneCreateChangeStreamPostMobiphonesChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneCreateChangeStreamPostMobiphonesChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    mobiphoneDeleteById(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneDeleteById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    mobiphoneExistsGetMobiphonesidExists(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneExistsGetMobiphonesidExists(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    mobiphoneExistsHeadMobiphonesid(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneExistsHeadMobiphonesid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    mobiphoneFind(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Mobiphone>> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneFind(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    mobiphoneFindById(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneFindById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    mobiphoneFindOne(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneFindOne(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    mobiphonePatchOrCreate(params: { "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePatchOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Counts payment of Mobiphone.
+     * @param id Mobiphone id
+     * @param where Criteria to match model instances
+     */
+    mobiphonePrototypeCountPayment(params: { "id": string; "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeCountPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Creates a new instance in payment of this model.
+     * @param id Mobiphone id
+     * @param data 
+     */
+    mobiphonePrototypeCreatePayment(params: { "id": string; "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeCreatePayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Deletes all payment of this model.
+     * @param id Mobiphone id
+     */
+    mobiphonePrototypeDeletePayment(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeDeletePayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Delete a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeDestroyByIdPayment(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeDestroyByIdPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check the existence of payment relation to an item by id.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeExistsPayment(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<boolean> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeExistsPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeFindByIdPayment(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeFindByIdPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation categoryProduct.
+     * @param id Mobiphone id
+     * @param refresh 
+     */
+    mobiphonePrototypeGetCategoryProduct(params: { "id": string; "refresh"?: boolean;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<CategoryProduct> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeGetCategoryProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Queries payment of Mobiphone.
+     * @param id Mobiphone id
+     * @param filter 
+     */
+    mobiphonePrototypeGetPayment(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Payment>> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeGetPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Add a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     * @param data 
+     */
+    mobiphonePrototypeLinkPayment(params: { "id": string; "fk": string; "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeLinkPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Mobiphone id
+     * @param data An object of model property name/value pairs
+     */
+    mobiphonePrototypePatchAttributes(params: { "id": string; "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypePatchAttributes(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Remove the payment relation to an item by id.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeUnlinkPayment(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeUnlinkPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     * @param data 
+     */
+    mobiphonePrototypeUpdateByIdPayment(params: { "id": string; "fk": string; "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphonePrototypeUpdateByIdPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    mobiphoneReplaceByIdPostMobiphonesidReplace(params: { "id": string; "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneReplaceByIdPostMobiphonesidReplace(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    mobiphoneReplaceByIdPutMobiphonesid(params: { "id": string; "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneReplaceByIdPutMobiphonesid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    mobiphoneReplaceOrCreatePostMobiphonesReplaceOrCreate(params: { "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneReplaceOrCreatePostMobiphonesReplaceOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    mobiphoneReplaceOrCreatePutMobiphones(params: { "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneReplaceOrCreatePutMobiphones(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    mobiphoneUpdateAll(params: { "where"?: string; "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2004> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneUpdateAll(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    mobiphoneUpsertWithWhere(params: { "where"?: string; "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = MobiphoneApiFetchParamCreator.mobiphoneUpsertWithWhere(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+};
+
+/**
+ * MobiphoneApi - object-oriented interface
+ */
+export class MobiphoneApi extends BaseAPI {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    mobiphoneCount(params: {  "where"?: string; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneCount(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    mobiphoneCreate(params: {  "data"?: Mobiphone; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    mobiphoneCreateChangeStreamGetMobiphonesChangeStream(params: {  "options"?: string; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneCreateChangeStreamGetMobiphonesChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    mobiphoneCreateChangeStreamPostMobiphonesChangeStream(params: {  "options"?: string; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneCreateChangeStreamPostMobiphonesChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    mobiphoneDeleteById(params: {  "id": string; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneDeleteById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    mobiphoneExistsGetMobiphonesidExists(params: {  "id": string; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneExistsGetMobiphonesidExists(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    mobiphoneExistsHeadMobiphonesid(params: {  "id": string; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneExistsHeadMobiphonesid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    mobiphoneFind(params: {  "filter"?: string; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneFind(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    mobiphoneFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneFindById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    mobiphoneFindOne(params: {  "filter"?: string; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneFindOne(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    mobiphonePatchOrCreate(params: {  "data"?: Mobiphone; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePatchOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Counts payment of Mobiphone.
+     * @param id Mobiphone id
+     * @param where Criteria to match model instances
+     */
+    mobiphonePrototypeCountPayment(params: {  "id": string; "where"?: string; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeCountPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Creates a new instance in payment of this model.
+     * @param id Mobiphone id
+     * @param data 
+     */
+    mobiphonePrototypeCreatePayment(params: {  "id": string; "data"?: Payment; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeCreatePayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Deletes all payment of this model.
+     * @param id Mobiphone id
+     */
+    mobiphonePrototypeDeletePayment(params: {  "id": string; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeDeletePayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Delete a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeDestroyByIdPayment(params: {  "id": string; "fk": string; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeDestroyByIdPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check the existence of payment relation to an item by id.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeExistsPayment(params: {  "id": string; "fk": string; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeExistsPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeFindByIdPayment(params: {  "id": string; "fk": string; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeFindByIdPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Fetches belongsTo relation categoryProduct.
+     * @param id Mobiphone id
+     * @param refresh 
+     */
+    mobiphonePrototypeGetCategoryProduct(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeGetCategoryProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Queries payment of Mobiphone.
+     * @param id Mobiphone id
+     * @param filter 
+     */
+    mobiphonePrototypeGetPayment(params: {  "id": string; "filter"?: string; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeGetPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Add a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     * @param data 
+     */
+    mobiphonePrototypeLinkPayment(params: {  "id": string; "fk": string; "data"?: DetailPayment; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeLinkPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Mobiphone id
+     * @param data An object of model property name/value pairs
+     */
+    mobiphonePrototypePatchAttributes(params: {  "id": string; "data"?: Mobiphone; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypePatchAttributes(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Remove the payment relation to an item by id.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     */
+    mobiphonePrototypeUnlinkPayment(params: {  "id": string; "fk": string; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeUnlinkPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update a related item by id for payment.
+     * @param id Mobiphone id
+     * @param fk Foreign key for payment
+     * @param data 
+     */
+    mobiphonePrototypeUpdateByIdPayment(params: {  "id": string; "fk": string; "data"?: Payment; }, options?: any) {
+        return MobiphoneApiFp.mobiphonePrototypeUpdateByIdPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    mobiphoneReplaceByIdPostMobiphonesidReplace(params: {  "id": string; "data"?: Mobiphone; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneReplaceByIdPostMobiphonesidReplace(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    mobiphoneReplaceByIdPutMobiphonesid(params: {  "id": string; "data"?: Mobiphone; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneReplaceByIdPutMobiphonesid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    mobiphoneReplaceOrCreatePostMobiphonesReplaceOrCreate(params: {  "data"?: Mobiphone; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneReplaceOrCreatePostMobiphonesReplaceOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    mobiphoneReplaceOrCreatePutMobiphones(params: {  "data"?: Mobiphone; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneReplaceOrCreatePutMobiphones(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    mobiphoneUpdateAll(params: {  "where"?: string; "data"?: Mobiphone; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneUpdateAll(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    mobiphoneUpsertWithWhere(params: {  "where"?: string; "data"?: Mobiphone; }, options?: any) {
+        return MobiphoneApiFp.mobiphoneUpsertWithWhere(params, options)(this.fetch, this.basePath);
+    }
+};
+
+/**
+ * MobiphoneApi - factory interface
+ */
+export const MobiphoneApiFactory = function (fetch?: FetchAPI, basePath?: string) {
+    return {
+        /**
+         * 
+         * @summary Count instances of the model matched by where from the data source.
+         * @param where Criteria to match model instances
+         */
+        mobiphoneCount(params: {  "where"?: string; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneCount(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a new instance of the model and persist it into the data source.
+         * @param data Model instance data
+         */
+        mobiphoneCreate(params: {  "data"?: Mobiphone; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        mobiphoneCreateChangeStreamGetMobiphonesChangeStream(params: {  "options"?: string; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneCreateChangeStreamGetMobiphonesChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        mobiphoneCreateChangeStreamPostMobiphonesChangeStream(params: {  "options"?: string; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneCreateChangeStreamPostMobiphonesChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Delete a model instance by {{id}} from the data source.
+         * @param id Model id
+         */
+        mobiphoneDeleteById(params: {  "id": string; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneDeleteById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        mobiphoneExistsGetMobiphonesidExists(params: {  "id": string; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneExistsGetMobiphonesidExists(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        mobiphoneExistsHeadMobiphonesid(params: {  "id": string; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneExistsHeadMobiphonesid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find all instances of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        mobiphoneFind(params: {  "filter"?: string; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneFind(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find a model instance by {{id}} from the data source.
+         * @param id Model id
+         * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+         */
+        mobiphoneFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneFindById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find first instance of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        mobiphoneFindOne(params: {  "filter"?: string; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneFindOne(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        mobiphonePatchOrCreate(params: {  "data"?: Mobiphone; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePatchOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Counts payment of Mobiphone.
+         * @param id Mobiphone id
+         * @param where Criteria to match model instances
+         */
+        mobiphonePrototypeCountPayment(params: {  "id": string; "where"?: string; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeCountPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Creates a new instance in payment of this model.
+         * @param id Mobiphone id
+         * @param data 
+         */
+        mobiphonePrototypeCreatePayment(params: {  "id": string; "data"?: Payment; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeCreatePayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Deletes all payment of this model.
+         * @param id Mobiphone id
+         */
+        mobiphonePrototypeDeletePayment(params: {  "id": string; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeDeletePayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Delete a related item by id for payment.
+         * @param id Mobiphone id
+         * @param fk Foreign key for payment
+         */
+        mobiphonePrototypeDestroyByIdPayment(params: {  "id": string; "fk": string; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeDestroyByIdPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check the existence of payment relation to an item by id.
+         * @param id Mobiphone id
+         * @param fk Foreign key for payment
+         */
+        mobiphonePrototypeExistsPayment(params: {  "id": string; "fk": string; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeExistsPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find a related item by id for payment.
+         * @param id Mobiphone id
+         * @param fk Foreign key for payment
+         */
+        mobiphonePrototypeFindByIdPayment(params: {  "id": string; "fk": string; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeFindByIdPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Fetches belongsTo relation categoryProduct.
+         * @param id Mobiphone id
+         * @param refresh 
+         */
+        mobiphonePrototypeGetCategoryProduct(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeGetCategoryProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Queries payment of Mobiphone.
+         * @param id Mobiphone id
+         * @param filter 
+         */
+        mobiphonePrototypeGetPayment(params: {  "id": string; "filter"?: string; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeGetPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Add a related item by id for payment.
+         * @param id Mobiphone id
+         * @param fk Foreign key for payment
+         * @param data 
+         */
+        mobiphonePrototypeLinkPayment(params: {  "id": string; "fk": string; "data"?: DetailPayment; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeLinkPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch attributes for a model instance and persist it into the data source.
+         * @param id Mobiphone id
+         * @param data An object of model property name/value pairs
+         */
+        mobiphonePrototypePatchAttributes(params: {  "id": string; "data"?: Mobiphone; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypePatchAttributes(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Remove the payment relation to an item by id.
+         * @param id Mobiphone id
+         * @param fk Foreign key for payment
+         */
+        mobiphonePrototypeUnlinkPayment(params: {  "id": string; "fk": string; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeUnlinkPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update a related item by id for payment.
+         * @param id Mobiphone id
+         * @param fk Foreign key for payment
+         * @param data 
+         */
+        mobiphonePrototypeUpdateByIdPayment(params: {  "id": string; "fk": string; "data"?: Payment; }, options?: any) {
+            return MobiphoneApiFp.mobiphonePrototypeUpdateByIdPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        mobiphoneReplaceByIdPostMobiphonesidReplace(params: {  "id": string; "data"?: Mobiphone; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneReplaceByIdPostMobiphonesidReplace(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        mobiphoneReplaceByIdPutMobiphonesid(params: {  "id": string; "data"?: Mobiphone; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneReplaceByIdPutMobiphonesid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        mobiphoneReplaceOrCreatePostMobiphonesReplaceOrCreate(params: {  "data"?: Mobiphone; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneReplaceOrCreatePostMobiphonesReplaceOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        mobiphoneReplaceOrCreatePutMobiphones(params: {  "data"?: Mobiphone; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneReplaceOrCreatePutMobiphones(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update instances of the model matched by {{where}} from the data source.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        mobiphoneUpdateAll(params: {  "where"?: string; "data"?: Mobiphone; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneUpdateAll(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        mobiphoneUpsertWithWhere(params: {  "where"?: string; "data"?: Mobiphone; }, options?: any) {
+            return MobiphoneApiFp.mobiphoneUpsertWithWhere(params, options)(fetch, basePath);
         },
     };
 };
@@ -13545,6 +18919,2052 @@ export const OrderProductApiFactory = function (fetch?: FetchAPI, basePath?: str
 
 
 /**
+ * PaymentApi - fetch parameter creator
+ */
+export const PaymentApiFetchParamCreator = {
+    /**
+     * 
+     * @summary check order by account token and product
+     * @param product product
+     */
+    paymentAddToCart(params: {  "product": string; }, options?: any): FetchArgs {
+        // verify required parameter "product" is set
+        if (params["product"] == null) {
+            throw new Error("Missing required parameter product when calling paymentAddToCart");
+        }
+        const baseUrl = `/Payments/add-to-cart`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "product": params["product"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    paymentCount(params: {  "where"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments/count`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    paymentCreate(params: {  "data"?: Payment; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    paymentCreateChangeStreamGetPaymentsChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "options": params["options"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    paymentCreateChangeStreamPostPaymentsChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/x-www-form-urlencoded" };
+        fetchOptions.body = querystring.stringify({
+            "options": params["options"],
+        });
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    paymentDeleteById(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentDeleteById");
+        }
+        const baseUrl = `/Payments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    paymentExistsGetPaymentsidExists(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentExistsGetPaymentsidExists");
+        }
+        const baseUrl = `/Payments/{id}/exists`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    paymentExistsHeadPaymentsid(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentExistsHeadPaymentsid");
+        }
+        const baseUrl = `/Payments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "HEAD" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    paymentFind(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    paymentFindById(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentFindById");
+        }
+        const baseUrl = `/Payments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    paymentFindOne(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments/findOne`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    paymentPatchOrCreate(params: {  "data"?: Payment; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary payment online
+     * @param data information payment
+     */
+    paymentPaymentOrder(params: {  "data": any; }, options?: any): FetchArgs {
+        // verify required parameter "data" is set
+        if (params["data"] == null) {
+            throw new Error("Missing required parameter data when calling paymentPaymentOrder");
+        }
+        const baseUrl = `/Payments/payment-order`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Counts product of Payment.
+     * @param id Payment id
+     * @param where Criteria to match model instances
+     */
+    paymentPrototypeCountProduct(params: {  "id": string; "where"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeCountProduct");
+        }
+        const baseUrl = `/Payments/{id}/product/count`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Creates a new instance in product of this model.
+     * @param id Payment id
+     * @param data 
+     */
+    paymentPrototypeCreateProduct(params: {  "id": string; "data"?: Product; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeCreateProduct");
+        }
+        const baseUrl = `/Payments/{id}/product`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Deletes all product of this model.
+     * @param id Payment id
+     */
+    paymentPrototypeDeleteProduct(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeDeleteProduct");
+        }
+        const baseUrl = `/Payments/{id}/product`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Delete a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeDestroyByIdProduct(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeDestroyByIdProduct");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling paymentPrototypeDestroyByIdProduct");
+        }
+        const baseUrl = `/Payments/{id}/product/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check the existence of product relation to an item by id.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeExistsProduct(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeExistsProduct");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling paymentPrototypeExistsProduct");
+        }
+        const baseUrl = `/Payments/{id}/product/rel/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "HEAD" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeFindByIdProduct(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeFindByIdProduct");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling paymentPrototypeFindByIdProduct");
+        }
+        const baseUrl = `/Payments/{id}/product/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation account.
+     * @param id Payment id
+     * @param refresh 
+     */
+    paymentPrototypeGetAccount(params: {  "id": string; "refresh"?: boolean; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeGetAccount");
+        }
+        const baseUrl = `/Payments/{id}/account`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "refresh": params["refresh"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Queries product of Payment.
+     * @param id Payment id
+     * @param filter 
+     */
+    paymentPrototypeGetProduct(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeGetProduct");
+        }
+        const baseUrl = `/Payments/{id}/product`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Add a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     * @param data 
+     */
+    paymentPrototypeLinkProduct(params: {  "id": string; "fk": string; "data"?: OrderProduct; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeLinkProduct");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling paymentPrototypeLinkProduct");
+        }
+        const baseUrl = `/Payments/{id}/product/rel/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Payment id
+     * @param data An object of model property name/value pairs
+     */
+    paymentPrototypePatchAttributes(params: {  "id": string; "data"?: Payment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypePatchAttributes");
+        }
+        const baseUrl = `/Payments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Remove the product relation to an item by id.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeUnlinkProduct(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeUnlinkProduct");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling paymentPrototypeUnlinkProduct");
+        }
+        const baseUrl = `/Payments/{id}/product/rel/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     * @param data 
+     */
+    paymentPrototypeUpdateByIdProduct(params: {  "id": string; "fk": string; "data"?: Product; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeUpdateByIdProduct");
+        }
+        // verify required parameter "fk" is set
+        if (params["fk"] == null) {
+            throw new Error("Missing required parameter fk when calling paymentPrototypeUpdateByIdProduct");
+        }
+        const baseUrl = `/Payments/{id}/product/{fk}`
+            .replace(`{${"id"}}`, `${ params["id"] }`)
+            .replace(`{${"fk"}}`, `${ params["fk"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    paymentReplaceByIdPostPaymentsidReplace(params: {  "id": string; "data"?: Payment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentReplaceByIdPostPaymentsidReplace");
+        }
+        const baseUrl = `/Payments/{id}/replace`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    paymentReplaceByIdPutPaymentsid(params: {  "id": string; "data"?: Payment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentReplaceByIdPutPaymentsid");
+        }
+        const baseUrl = `/Payments/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    paymentReplaceOrCreatePostPaymentsReplaceOrCreate(params: {  "data"?: Payment; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments/replaceOrCreate`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    paymentReplaceOrCreatePutPayments(params: {  "data"?: Payment; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary statistic order by year
+     * @param year year
+     */
+    paymentStatisticByAmount(params: {  "year": number; }, options?: any): FetchArgs {
+        // verify required parameter "year" is set
+        if (params["year"] == null) {
+            throw new Error("Missing required parameter year when calling paymentStatisticByAmount");
+        }
+        const baseUrl = `/Payments/statistic-amount`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "year": params["year"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary statistic order by year
+     * @param year year
+     */
+    paymentStatisticByRevenue(params: {  "year": number; }, options?: any): FetchArgs {
+        // verify required parameter "year" is set
+        if (params["year"] == null) {
+            throw new Error("Missing required parameter year when calling paymentStatisticByRevenue");
+        }
+        const baseUrl = `/Payments/statistic-revenue`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "year": params["year"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    paymentUpdateAll(params: {  "where"?: string; "data"?: Payment; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments/update`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    paymentUpsertWithWhere(params: {  "where"?: string; "data"?: Payment; }, options?: any): FetchArgs {
+        const baseUrl = `/Payments/upsertWithWhere`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+};
+
+/**
+ * PaymentApi - functional programming interface
+ */
+export const PaymentApiFp = {
+    /**
+     * 
+     * @summary check order by account token and product
+     * @param product product
+     */
+    paymentAddToCart(params: { "product": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<string> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentAddToCart(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    paymentCount(params: { "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentCount(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    paymentCreate(params: { "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    paymentCreateChangeStreamGetPaymentsChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentCreateChangeStreamGetPaymentsChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    paymentCreateChangeStreamPostPaymentsChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentCreateChangeStreamPostPaymentsChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    paymentDeleteById(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentDeleteById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    paymentExistsGetPaymentsidExists(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentExistsGetPaymentsidExists(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    paymentExistsHeadPaymentsid(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentExistsHeadPaymentsid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    paymentFind(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Payment>> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentFind(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    paymentFindById(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentFindById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    paymentFindOne(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentFindOne(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    paymentPatchOrCreate(params: { "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPatchOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary payment online
+     * @param data information payment
+     */
+    paymentPaymentOrder(params: { "data": any;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<string> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPaymentOrder(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Counts product of Payment.
+     * @param id Payment id
+     * @param where Criteria to match model instances
+     */
+    paymentPrototypeCountProduct(params: { "id": string; "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeCountProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Creates a new instance in product of this model.
+     * @param id Payment id
+     * @param data 
+     */
+    paymentPrototypeCreateProduct(params: { "id": string; "data"?: Product;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Product> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeCreateProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Deletes all product of this model.
+     * @param id Payment id
+     */
+    paymentPrototypeDeleteProduct(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeDeleteProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Delete a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeDestroyByIdProduct(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeDestroyByIdProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check the existence of product relation to an item by id.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeExistsProduct(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<boolean> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeExistsProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeFindByIdProduct(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Product> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeFindByIdProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation account.
+     * @param id Payment id
+     * @param refresh 
+     */
+    paymentPrototypeGetAccount(params: { "id": string; "refresh"?: boolean;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Account> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeGetAccount(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Queries product of Payment.
+     * @param id Payment id
+     * @param filter 
+     */
+    paymentPrototypeGetProduct(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Product>> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeGetProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Add a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     * @param data 
+     */
+    paymentPrototypeLinkProduct(params: { "id": string; "fk": string; "data"?: OrderProduct;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<OrderProduct> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeLinkProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Payment id
+     * @param data An object of model property name/value pairs
+     */
+    paymentPrototypePatchAttributes(params: { "id": string; "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypePatchAttributes(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Remove the product relation to an item by id.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeUnlinkProduct(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeUnlinkProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response;
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     * @param data 
+     */
+    paymentPrototypeUpdateByIdProduct(params: { "id": string; "fk": string; "data"?: Product;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Product> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeUpdateByIdProduct(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    paymentReplaceByIdPostPaymentsidReplace(params: { "id": string; "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentReplaceByIdPostPaymentsidReplace(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    paymentReplaceByIdPutPaymentsid(params: { "id": string; "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentReplaceByIdPutPaymentsid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    paymentReplaceOrCreatePostPaymentsReplaceOrCreate(params: { "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentReplaceOrCreatePostPaymentsReplaceOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    paymentReplaceOrCreatePutPayments(params: { "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentReplaceOrCreatePutPayments(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary statistic order by year
+     * @param year year
+     */
+    paymentStatisticByAmount(params: { "year": number;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentStatisticByAmount(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary statistic order by year
+     * @param year year
+     */
+    paymentStatisticByRevenue(params: { "year": number;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentStatisticByRevenue(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    paymentUpdateAll(params: { "where"?: string; "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2004> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentUpdateAll(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    paymentUpsertWithWhere(params: { "where"?: string; "data"?: Payment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentUpsertWithWhere(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+};
+
+/**
+ * PaymentApi - object-oriented interface
+ */
+export class PaymentApi extends BaseAPI {
+    /**
+     * 
+     * @summary check order by account token and product
+     * @param product product
+     */
+    paymentAddToCart(params: {  "product": string; }, options?: any) {
+        return PaymentApiFp.paymentAddToCart(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    paymentCount(params: {  "where"?: string; }, options?: any) {
+        return PaymentApiFp.paymentCount(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    paymentCreate(params: {  "data"?: Payment; }, options?: any) {
+        return PaymentApiFp.paymentCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    paymentCreateChangeStreamGetPaymentsChangeStream(params: {  "options"?: string; }, options?: any) {
+        return PaymentApiFp.paymentCreateChangeStreamGetPaymentsChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    paymentCreateChangeStreamPostPaymentsChangeStream(params: {  "options"?: string; }, options?: any) {
+        return PaymentApiFp.paymentCreateChangeStreamPostPaymentsChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    paymentDeleteById(params: {  "id": string; }, options?: any) {
+        return PaymentApiFp.paymentDeleteById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    paymentExistsGetPaymentsidExists(params: {  "id": string; }, options?: any) {
+        return PaymentApiFp.paymentExistsGetPaymentsidExists(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    paymentExistsHeadPaymentsid(params: {  "id": string; }, options?: any) {
+        return PaymentApiFp.paymentExistsHeadPaymentsid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    paymentFind(params: {  "filter"?: string; }, options?: any) {
+        return PaymentApiFp.paymentFind(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    paymentFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+        return PaymentApiFp.paymentFindById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    paymentFindOne(params: {  "filter"?: string; }, options?: any) {
+        return PaymentApiFp.paymentFindOne(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    paymentPatchOrCreate(params: {  "data"?: Payment; }, options?: any) {
+        return PaymentApiFp.paymentPatchOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary payment online
+     * @param data information payment
+     */
+    paymentPaymentOrder(params: {  "data": any; }, options?: any) {
+        return PaymentApiFp.paymentPaymentOrder(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Counts product of Payment.
+     * @param id Payment id
+     * @param where Criteria to match model instances
+     */
+    paymentPrototypeCountProduct(params: {  "id": string; "where"?: string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeCountProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Creates a new instance in product of this model.
+     * @param id Payment id
+     * @param data 
+     */
+    paymentPrototypeCreateProduct(params: {  "id": string; "data"?: Product; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeCreateProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Deletes all product of this model.
+     * @param id Payment id
+     */
+    paymentPrototypeDeleteProduct(params: {  "id": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeDeleteProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Delete a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeDestroyByIdProduct(params: {  "id": string; "fk": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeDestroyByIdProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check the existence of product relation to an item by id.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeExistsProduct(params: {  "id": string; "fk": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeExistsProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeFindByIdProduct(params: {  "id": string; "fk": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeFindByIdProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Fetches belongsTo relation account.
+     * @param id Payment id
+     * @param refresh 
+     */
+    paymentPrototypeGetAccount(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeGetAccount(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Queries product of Payment.
+     * @param id Payment id
+     * @param filter 
+     */
+    paymentPrototypeGetProduct(params: {  "id": string; "filter"?: string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeGetProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Add a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     * @param data 
+     */
+    paymentPrototypeLinkProduct(params: {  "id": string; "fk": string; "data"?: OrderProduct; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeLinkProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Payment id
+     * @param data An object of model property name/value pairs
+     */
+    paymentPrototypePatchAttributes(params: {  "id": string; "data"?: Payment; }, options?: any) {
+        return PaymentApiFp.paymentPrototypePatchAttributes(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Remove the product relation to an item by id.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     */
+    paymentPrototypeUnlinkProduct(params: {  "id": string; "fk": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeUnlinkProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update a related item by id for product.
+     * @param id Payment id
+     * @param fk Foreign key for product
+     * @param data 
+     */
+    paymentPrototypeUpdateByIdProduct(params: {  "id": string; "fk": string; "data"?: Product; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeUpdateByIdProduct(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    paymentReplaceByIdPostPaymentsidReplace(params: {  "id": string; "data"?: Payment; }, options?: any) {
+        return PaymentApiFp.paymentReplaceByIdPostPaymentsidReplace(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    paymentReplaceByIdPutPaymentsid(params: {  "id": string; "data"?: Payment; }, options?: any) {
+        return PaymentApiFp.paymentReplaceByIdPutPaymentsid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    paymentReplaceOrCreatePostPaymentsReplaceOrCreate(params: {  "data"?: Payment; }, options?: any) {
+        return PaymentApiFp.paymentReplaceOrCreatePostPaymentsReplaceOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    paymentReplaceOrCreatePutPayments(params: {  "data"?: Payment; }, options?: any) {
+        return PaymentApiFp.paymentReplaceOrCreatePutPayments(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary statistic order by year
+     * @param year year
+     */
+    paymentStatisticByAmount(params: {  "year": number; }, options?: any) {
+        return PaymentApiFp.paymentStatisticByAmount(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary statistic order by year
+     * @param year year
+     */
+    paymentStatisticByRevenue(params: {  "year": number; }, options?: any) {
+        return PaymentApiFp.paymentStatisticByRevenue(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    paymentUpdateAll(params: {  "where"?: string; "data"?: Payment; }, options?: any) {
+        return PaymentApiFp.paymentUpdateAll(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    paymentUpsertWithWhere(params: {  "where"?: string; "data"?: Payment; }, options?: any) {
+        return PaymentApiFp.paymentUpsertWithWhere(params, options)(this.fetch, this.basePath);
+    }
+};
+
+/**
+ * PaymentApi - factory interface
+ */
+export const PaymentApiFactory = function (fetch?: FetchAPI, basePath?: string) {
+    return {
+        /**
+         * 
+         * @summary check order by account token and product
+         * @param product product
+         */
+        paymentAddToCart(params: {  "product": string; }, options?: any) {
+            return PaymentApiFp.paymentAddToCart(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Count instances of the model matched by where from the data source.
+         * @param where Criteria to match model instances
+         */
+        paymentCount(params: {  "where"?: string; }, options?: any) {
+            return PaymentApiFp.paymentCount(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a new instance of the model and persist it into the data source.
+         * @param data Model instance data
+         */
+        paymentCreate(params: {  "data"?: Payment; }, options?: any) {
+            return PaymentApiFp.paymentCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        paymentCreateChangeStreamGetPaymentsChangeStream(params: {  "options"?: string; }, options?: any) {
+            return PaymentApiFp.paymentCreateChangeStreamGetPaymentsChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        paymentCreateChangeStreamPostPaymentsChangeStream(params: {  "options"?: string; }, options?: any) {
+            return PaymentApiFp.paymentCreateChangeStreamPostPaymentsChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Delete a model instance by {{id}} from the data source.
+         * @param id Model id
+         */
+        paymentDeleteById(params: {  "id": string; }, options?: any) {
+            return PaymentApiFp.paymentDeleteById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        paymentExistsGetPaymentsidExists(params: {  "id": string; }, options?: any) {
+            return PaymentApiFp.paymentExistsGetPaymentsidExists(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        paymentExistsHeadPaymentsid(params: {  "id": string; }, options?: any) {
+            return PaymentApiFp.paymentExistsHeadPaymentsid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find all instances of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        paymentFind(params: {  "filter"?: string; }, options?: any) {
+            return PaymentApiFp.paymentFind(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find a model instance by {{id}} from the data source.
+         * @param id Model id
+         * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+         */
+        paymentFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+            return PaymentApiFp.paymentFindById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find first instance of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        paymentFindOne(params: {  "filter"?: string; }, options?: any) {
+            return PaymentApiFp.paymentFindOne(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        paymentPatchOrCreate(params: {  "data"?: Payment; }, options?: any) {
+            return PaymentApiFp.paymentPatchOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary payment online
+         * @param data information payment
+         */
+        paymentPaymentOrder(params: {  "data": any; }, options?: any) {
+            return PaymentApiFp.paymentPaymentOrder(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Counts product of Payment.
+         * @param id Payment id
+         * @param where Criteria to match model instances
+         */
+        paymentPrototypeCountProduct(params: {  "id": string; "where"?: string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeCountProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Creates a new instance in product of this model.
+         * @param id Payment id
+         * @param data 
+         */
+        paymentPrototypeCreateProduct(params: {  "id": string; "data"?: Product; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeCreateProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Deletes all product of this model.
+         * @param id Payment id
+         */
+        paymentPrototypeDeleteProduct(params: {  "id": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeDeleteProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Delete a related item by id for product.
+         * @param id Payment id
+         * @param fk Foreign key for product
+         */
+        paymentPrototypeDestroyByIdProduct(params: {  "id": string; "fk": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeDestroyByIdProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check the existence of product relation to an item by id.
+         * @param id Payment id
+         * @param fk Foreign key for product
+         */
+        paymentPrototypeExistsProduct(params: {  "id": string; "fk": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeExistsProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find a related item by id for product.
+         * @param id Payment id
+         * @param fk Foreign key for product
+         */
+        paymentPrototypeFindByIdProduct(params: {  "id": string; "fk": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeFindByIdProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Fetches belongsTo relation account.
+         * @param id Payment id
+         * @param refresh 
+         */
+        paymentPrototypeGetAccount(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeGetAccount(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Queries product of Payment.
+         * @param id Payment id
+         * @param filter 
+         */
+        paymentPrototypeGetProduct(params: {  "id": string; "filter"?: string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeGetProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Add a related item by id for product.
+         * @param id Payment id
+         * @param fk Foreign key for product
+         * @param data 
+         */
+        paymentPrototypeLinkProduct(params: {  "id": string; "fk": string; "data"?: OrderProduct; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeLinkProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch attributes for a model instance and persist it into the data source.
+         * @param id Payment id
+         * @param data An object of model property name/value pairs
+         */
+        paymentPrototypePatchAttributes(params: {  "id": string; "data"?: Payment; }, options?: any) {
+            return PaymentApiFp.paymentPrototypePatchAttributes(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Remove the product relation to an item by id.
+         * @param id Payment id
+         * @param fk Foreign key for product
+         */
+        paymentPrototypeUnlinkProduct(params: {  "id": string; "fk": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeUnlinkProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update a related item by id for product.
+         * @param id Payment id
+         * @param fk Foreign key for product
+         * @param data 
+         */
+        paymentPrototypeUpdateByIdProduct(params: {  "id": string; "fk": string; "data"?: Product; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeUpdateByIdProduct(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        paymentReplaceByIdPostPaymentsidReplace(params: {  "id": string; "data"?: Payment; }, options?: any) {
+            return PaymentApiFp.paymentReplaceByIdPostPaymentsidReplace(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        paymentReplaceByIdPutPaymentsid(params: {  "id": string; "data"?: Payment; }, options?: any) {
+            return PaymentApiFp.paymentReplaceByIdPutPaymentsid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        paymentReplaceOrCreatePostPaymentsReplaceOrCreate(params: {  "data"?: Payment; }, options?: any) {
+            return PaymentApiFp.paymentReplaceOrCreatePostPaymentsReplaceOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        paymentReplaceOrCreatePutPayments(params: {  "data"?: Payment; }, options?: any) {
+            return PaymentApiFp.paymentReplaceOrCreatePutPayments(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary statistic order by year
+         * @param year year
+         */
+        paymentStatisticByAmount(params: {  "year": number; }, options?: any) {
+            return PaymentApiFp.paymentStatisticByAmount(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary statistic order by year
+         * @param year year
+         */
+        paymentStatisticByRevenue(params: {  "year": number; }, options?: any) {
+            return PaymentApiFp.paymentStatisticByRevenue(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update instances of the model matched by {{where}} from the data source.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        paymentUpdateAll(params: {  "where"?: string; "data"?: Payment; }, options?: any) {
+            return PaymentApiFp.paymentUpdateAll(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        paymentUpsertWithWhere(params: {  "where"?: string; "data"?: Payment; }, options?: any) {
+            return PaymentApiFp.paymentUpsertWithWhere(params, options)(fetch, basePath);
+        },
+    };
+};
+
+
+/**
  * ProductApi - fetch parameter creator
  */
 export const ProductApiFetchParamCreator = {
@@ -15348,6 +22768,1153 @@ export const ProductApiFactory = function (fetch?: FetchAPI, basePath?: string) 
          */
         productUpsertWithWhere(params: {  "where"?: string; "data"?: Product; }, options?: any) {
             return ProductApiFp.productUpsertWithWhere(params, options)(fetch, basePath);
+        },
+    };
+};
+
+
+/**
+ * ShipperApi - fetch parameter creator
+ */
+export const ShipperApiFetchParamCreator = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    shipperCount(params: {  "where"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers/count`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    shipperCreate(params: {  "data"?: Shipper; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    shipperCreateChangeStreamGetShippersChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "options": params["options"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    shipperCreateChangeStreamPostShippersChangeStream(params: {  "options"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers/change-stream`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/x-www-form-urlencoded" };
+        fetchOptions.body = querystring.stringify({
+            "options": params["options"],
+        });
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    shipperDeleteById(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling shipperDeleteById");
+        }
+        const baseUrl = `/Shippers/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    shipperExistsGetShippersidExists(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling shipperExistsGetShippersidExists");
+        }
+        const baseUrl = `/Shippers/{id}/exists`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    shipperExistsHeadShippersid(params: {  "id": string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling shipperExistsHeadShippersid");
+        }
+        const baseUrl = `/Shippers/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "HEAD" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    shipperFind(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    shipperFindById(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling shipperFindById");
+        }
+        const baseUrl = `/Shippers/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    shipperFindOne(params: {  "filter"?: string; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers/findOne`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "filter": params["filter"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    shipperPatchOrCreate(params: {  "data"?: Shipper; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation payment.
+     * @param id Shipper id
+     * @param refresh 
+     */
+    shipperPrototypeGetPayment(params: {  "id": string; "refresh"?: boolean; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling shipperPrototypeGetPayment");
+        }
+        const baseUrl = `/Shippers/{id}/payment`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "refresh": params["refresh"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Shipper id
+     * @param data An object of model property name/value pairs
+     */
+    shipperPrototypePatchAttributes(params: {  "id": string; "data"?: Shipper; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling shipperPrototypePatchAttributes");
+        }
+        const baseUrl = `/Shippers/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PATCH" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    shipperReplaceByIdPostShippersidReplace(params: {  "id": string; "data"?: Shipper; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling shipperReplaceByIdPostShippersidReplace");
+        }
+        const baseUrl = `/Shippers/{id}/replace`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    shipperReplaceByIdPutShippersid(params: {  "id": string; "data"?: Shipper; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling shipperReplaceByIdPutShippersid");
+        }
+        const baseUrl = `/Shippers/{id}`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    shipperReplaceOrCreatePostShippersReplaceOrCreate(params: {  "data"?: Shipper; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers/replaceOrCreate`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    shipperReplaceOrCreatePutShippers(params: {  "data"?: Shipper; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers`;
+        let urlObj = url.parse(baseUrl, true);
+        let fetchOptions: RequestInit = assign({}, { method: "PUT" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    shipperUpdateAll(params: {  "where"?: string; "data"?: Shipper; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers/update`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    shipperUpsertWithWhere(params: {  "where"?: string; "data"?: Shipper; }, options?: any): FetchArgs {
+        const baseUrl = `/Shippers/upsertWithWhere`;
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "where": params["where"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        contentTypeHeader = { "Content-Type": "application/json" };
+        if (params["data"]) {
+            fetchOptions.body = JSON.stringify(params["data"] || {});
+        }
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+};
+
+/**
+ * ShipperApi - functional programming interface
+ */
+export const ShipperApiFp = {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    shipperCount(params: { "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperCount(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    shipperCreate(params: { "data"?: Shipper;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    shipperCreateChangeStreamGetShippersChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperCreateChangeStreamGetShippersChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    shipperCreateChangeStreamPostShippersChangeStream(params: { "options"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperCreateChangeStreamPostShippersChangeStream(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    shipperDeleteById(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperDeleteById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    shipperExistsGetShippersidExists(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperExistsGetShippersidExists(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    shipperExistsHeadShippersid(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2003> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperExistsHeadShippersid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    shipperFind(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Shipper>> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperFind(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    shipperFindById(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperFindById(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    shipperFindOne(params: { "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperFindOne(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    shipperPatchOrCreate(params: { "data"?: Shipper;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperPatchOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Fetches belongsTo relation payment.
+     * @param id Shipper id
+     * @param refresh 
+     */
+    shipperPrototypeGetPayment(params: { "id": string; "refresh"?: boolean;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Payment> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperPrototypeGetPayment(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Shipper id
+     * @param data An object of model property name/value pairs
+     */
+    shipperPrototypePatchAttributes(params: { "id": string; "data"?: Shipper;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperPrototypePatchAttributes(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    shipperReplaceByIdPostShippersidReplace(params: { "id": string; "data"?: Shipper;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperReplaceByIdPostShippersidReplace(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    shipperReplaceByIdPutShippersid(params: { "id": string; "data"?: Shipper;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperReplaceByIdPutShippersid(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    shipperReplaceOrCreatePostShippersReplaceOrCreate(params: { "data"?: Shipper;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperReplaceOrCreatePostShippersReplaceOrCreate(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    shipperReplaceOrCreatePutShippers(params: { "data"?: Shipper;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperReplaceOrCreatePutShippers(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    shipperUpdateAll(params: { "where"?: string; "data"?: Shipper;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2004> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperUpdateAll(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    shipperUpsertWithWhere(params: { "where"?: string; "data"?: Shipper;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = ShipperApiFetchParamCreator.shipperUpsertWithWhere(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+};
+
+/**
+ * ShipperApi - object-oriented interface
+ */
+export class ShipperApi extends BaseAPI {
+    /**
+     * 
+     * @summary Count instances of the model matched by where from the data source.
+     * @param where Criteria to match model instances
+     */
+    shipperCount(params: {  "where"?: string; }, options?: any) {
+        return ShipperApiFp.shipperCount(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a new instance of the model and persist it into the data source.
+     * @param data Model instance data
+     */
+    shipperCreate(params: {  "data"?: Shipper; }, options?: any) {
+        return ShipperApiFp.shipperCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    shipperCreateChangeStreamGetShippersChangeStream(params: {  "options"?: string; }, options?: any) {
+        return ShipperApiFp.shipperCreateChangeStreamGetShippersChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Create a change stream.
+     * @param options 
+     */
+    shipperCreateChangeStreamPostShippersChangeStream(params: {  "options"?: string; }, options?: any) {
+        return ShipperApiFp.shipperCreateChangeStreamPostShippersChangeStream(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Delete a model instance by {{id}} from the data source.
+     * @param id Model id
+     */
+    shipperDeleteById(params: {  "id": string; }, options?: any) {
+        return ShipperApiFp.shipperDeleteById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    shipperExistsGetShippersidExists(params: {  "id": string; }, options?: any) {
+        return ShipperApiFp.shipperExistsGetShippersidExists(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Check whether a model instance exists in the data source.
+     * @param id Model id
+     */
+    shipperExistsHeadShippersid(params: {  "id": string; }, options?: any) {
+        return ShipperApiFp.shipperExistsHeadShippersid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find all instances of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    shipperFind(params: {  "filter"?: string; }, options?: any) {
+        return ShipperApiFp.shipperFind(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find a model instance by {{id}} from the data source.
+     * @param id Model id
+     * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+     */
+    shipperFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+        return ShipperApiFp.shipperFindById(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Find first instance of the model matched by filter from the data source.
+     * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+     */
+    shipperFindOne(params: {  "filter"?: string; }, options?: any) {
+        return ShipperApiFp.shipperFindOne(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    shipperPatchOrCreate(params: {  "data"?: Shipper; }, options?: any) {
+        return ShipperApiFp.shipperPatchOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Fetches belongsTo relation payment.
+     * @param id Shipper id
+     * @param refresh 
+     */
+    shipperPrototypeGetPayment(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+        return ShipperApiFp.shipperPrototypeGetPayment(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Patch attributes for a model instance and persist it into the data source.
+     * @param id Shipper id
+     * @param data An object of model property name/value pairs
+     */
+    shipperPrototypePatchAttributes(params: {  "id": string; "data"?: Shipper; }, options?: any) {
+        return ShipperApiFp.shipperPrototypePatchAttributes(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    shipperReplaceByIdPostShippersidReplace(params: {  "id": string; "data"?: Shipper; }, options?: any) {
+        return ShipperApiFp.shipperReplaceByIdPostShippersidReplace(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace attributes for a model instance and persist it into the data source.
+     * @param id Model id
+     * @param data Model instance data
+     */
+    shipperReplaceByIdPutShippersid(params: {  "id": string; "data"?: Shipper; }, options?: any) {
+        return ShipperApiFp.shipperReplaceByIdPutShippersid(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    shipperReplaceOrCreatePostShippersReplaceOrCreate(params: {  "data"?: Shipper; }, options?: any) {
+        return ShipperApiFp.shipperReplaceOrCreatePostShippersReplaceOrCreate(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Replace an existing model instance or insert a new one into the data source.
+     * @param data Model instance data
+     */
+    shipperReplaceOrCreatePutShippers(params: {  "data"?: Shipper; }, options?: any) {
+        return ShipperApiFp.shipperReplaceOrCreatePutShippers(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update instances of the model matched by {{where}} from the data source.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    shipperUpdateAll(params: {  "where"?: string; "data"?: Shipper; }, options?: any) {
+        return ShipperApiFp.shipperUpdateAll(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+     * @param where Criteria to match model instances
+     * @param data An object of model property name/value pairs
+     */
+    shipperUpsertWithWhere(params: {  "where"?: string; "data"?: Shipper; }, options?: any) {
+        return ShipperApiFp.shipperUpsertWithWhere(params, options)(this.fetch, this.basePath);
+    }
+};
+
+/**
+ * ShipperApi - factory interface
+ */
+export const ShipperApiFactory = function (fetch?: FetchAPI, basePath?: string) {
+    return {
+        /**
+         * 
+         * @summary Count instances of the model matched by where from the data source.
+         * @param where Criteria to match model instances
+         */
+        shipperCount(params: {  "where"?: string; }, options?: any) {
+            return ShipperApiFp.shipperCount(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a new instance of the model and persist it into the data source.
+         * @param data Model instance data
+         */
+        shipperCreate(params: {  "data"?: Shipper; }, options?: any) {
+            return ShipperApiFp.shipperCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        shipperCreateChangeStreamGetShippersChangeStream(params: {  "options"?: string; }, options?: any) {
+            return ShipperApiFp.shipperCreateChangeStreamGetShippersChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Create a change stream.
+         * @param options 
+         */
+        shipperCreateChangeStreamPostShippersChangeStream(params: {  "options"?: string; }, options?: any) {
+            return ShipperApiFp.shipperCreateChangeStreamPostShippersChangeStream(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Delete a model instance by {{id}} from the data source.
+         * @param id Model id
+         */
+        shipperDeleteById(params: {  "id": string; }, options?: any) {
+            return ShipperApiFp.shipperDeleteById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        shipperExistsGetShippersidExists(params: {  "id": string; }, options?: any) {
+            return ShipperApiFp.shipperExistsGetShippersidExists(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Check whether a model instance exists in the data source.
+         * @param id Model id
+         */
+        shipperExistsHeadShippersid(params: {  "id": string; }, options?: any) {
+            return ShipperApiFp.shipperExistsHeadShippersid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find all instances of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        shipperFind(params: {  "filter"?: string; }, options?: any) {
+            return ShipperApiFp.shipperFind(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find a model instance by {{id}} from the data source.
+         * @param id Model id
+         * @param filter Filter defining fields and include - must be a JSON-encoded string ({\&quot;something\&quot;:\&quot;value\&quot;})
+         */
+        shipperFindById(params: {  "id": string; "filter"?: string; }, options?: any) {
+            return ShipperApiFp.shipperFindById(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Find first instance of the model matched by filter from the data source.
+         * @param filter Filter defining fields, where, include, order, offset, and limit - must be a JSON-encoded string (&#x60;{\&quot;where\&quot;:{\&quot;something\&quot;:\&quot;value\&quot;}}&#x60;).  See https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries for more details.
+         */
+        shipperFindOne(params: {  "filter"?: string; }, options?: any) {
+            return ShipperApiFp.shipperFindOne(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        shipperPatchOrCreate(params: {  "data"?: Shipper; }, options?: any) {
+            return ShipperApiFp.shipperPatchOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Fetches belongsTo relation payment.
+         * @param id Shipper id
+         * @param refresh 
+         */
+        shipperPrototypeGetPayment(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+            return ShipperApiFp.shipperPrototypeGetPayment(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Patch attributes for a model instance and persist it into the data source.
+         * @param id Shipper id
+         * @param data An object of model property name/value pairs
+         */
+        shipperPrototypePatchAttributes(params: {  "id": string; "data"?: Shipper; }, options?: any) {
+            return ShipperApiFp.shipperPrototypePatchAttributes(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        shipperReplaceByIdPostShippersidReplace(params: {  "id": string; "data"?: Shipper; }, options?: any) {
+            return ShipperApiFp.shipperReplaceByIdPostShippersidReplace(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace attributes for a model instance and persist it into the data source.
+         * @param id Model id
+         * @param data Model instance data
+         */
+        shipperReplaceByIdPutShippersid(params: {  "id": string; "data"?: Shipper; }, options?: any) {
+            return ShipperApiFp.shipperReplaceByIdPutShippersid(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        shipperReplaceOrCreatePostShippersReplaceOrCreate(params: {  "data"?: Shipper; }, options?: any) {
+            return ShipperApiFp.shipperReplaceOrCreatePostShippersReplaceOrCreate(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Replace an existing model instance or insert a new one into the data source.
+         * @param data Model instance data
+         */
+        shipperReplaceOrCreatePutShippers(params: {  "data"?: Shipper; }, options?: any) {
+            return ShipperApiFp.shipperReplaceOrCreatePutShippers(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update instances of the model matched by {{where}} from the data source.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        shipperUpdateAll(params: {  "where"?: string; "data"?: Shipper; }, options?: any) {
+            return ShipperApiFp.shipperUpdateAll(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Update an existing model instance or insert a new one into the data source based on the where criteria.
+         * @param where Criteria to match model instances
+         * @param data An object of model property name/value pairs
+         */
+        shipperUpsertWithWhere(params: {  "where"?: string; "data"?: Shipper; }, options?: any) {
+            return ShipperApiFp.shipperUpsertWithWhere(params, options)(fetch, basePath);
         },
     };
 };

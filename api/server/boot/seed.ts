@@ -1,4 +1,4 @@
-import { App, PersistedModelStatic } from '../../common/helpers/loopback';
+import { App, PersistedModelStatic } from "../../common/helpers/loopback";
 import {
   Account,
   Role,
@@ -12,7 +12,13 @@ import {
   Order,
   OrderProduct,
   Banner,
-} from '../../codegen/api/fetch/api';
+  Fee,
+  Payment,
+  DetailPayment,
+  Mobiphone,
+  Shipper,
+  Comment,
+} from "../../codegen/api/fetch/api";
 
 module.exports = function (app: App) {
   const withoutId = (it: any) => Object.assign({}, it, { id: undefined });
@@ -56,42 +62,53 @@ module.exports = function (app: App) {
       Product,
       Order,
       OrderProduct,
-      Banner
-
+      Banner,
+      Fee,
+      Payment,
+      DetailPayment,
+      Mobiphone,
+      Shipper,
+      Comment,
     ] = await Promise.all(
       [
-        'ACL',
-        'AccountToken',
-        'RoleMapping',
-        'Role',
-        'Account',
-        'Tag',
-        'Blog',
-        'Contact',
-        'Feedback',
-        'CategoryProduct',
-        'Product',
-        'Order',
-        'OrderProduct',
-        'Banner'
+        "ACL",
+        "AccountToken",
+        "RoleMapping",
+        "Role",
+        "Account",
+        "Tag",
+        "Blog",
+        "Contact",
+        "Feedback",
+        "CategoryProduct",
+        "Product",
+        "Order",
+        "OrderProduct",
+        "Banner",
+        "Fee",
+        "Payment",
+        "DetailPayment",
+        "Mobiphone",
+        "Shipper",
+        "Comment",
       ].map(
-        process.env.NODE_ENV === 'production'
-          ? autoupdate('postgres')
-          : autoupdate('postgres'),
-      ),
+        process.env.NODE_ENV === "production"
+          ? autoupdate("postgres")
+          : autoupdate("postgres")
+      )
     );
 
     // return;
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === "production") {
       return;
     }
-    console.log('Seeding start...');
+    console.log("Seeding start...");
 
     const roles: Role[] = [
-      { id: 1, name: 'SUPERADMIN', description: '' },
-      { id: 2, name: 'ADMIN', description: '' },
-      { id: 3, name: 'USER', description: '' },
-      { id: 4, name: 'UNKNOWN', description: '' },
+      { id: 1, name: "SUPERADMIN", description: "" },
+      { id: 2, name: "ADMIN", description: "" },
+      { id: 3, name: "USER", description: "" },
+      { id: 4, name: "UNKNOWN", description: "" },
     ];
 
     for (const role of roles) {
@@ -102,52 +119,49 @@ module.exports = function (app: App) {
     accounts.push({
       id: 1,
       username: `super-admin`,
-      email: 'super-admin@bfast-vn.net',
-      password: '1',
-      firstName: 'Adams',
-      lastName: 'Ansel',
+      email: "super-admin@bfast-vn.net",
+      password: "1",
+      firstName: "Adams",
+      lastName: "Ansel",
       city: 1,
       district: 1,
-      phoneNumber: 123456789
+      phoneNumber: 123456789,
     } as Account);
 
     accounts.push({
       id: 2,
       username: `admin`,
-      email: 'admin@bfast-vn.net',
-      password: '1',
-      firstName: 'Elizabeth',
-      lastName: 'Queen',
+      email: "admin@bfast-vn.net",
+      password: "1",
+      firstName: "Elizabeth",
+      lastName: "Queen",
       city: 1,
       district: 1,
-      phoneNumber: 123456789
-
+      phoneNumber: 123456789,
     } as Account);
 
     accounts.push({
       id: 3,
       username: `userstandard`,
-      email: 'userstandard@bfast-vn.net',
-      password: '1',
-      firstName: 'Great',
-      lastName: 'Britain',
+      email: "userstandard@bfast-vn.net",
+      password: "1",
+      firstName: "Great",
+      lastName: "Britain",
       city: 1,
       district: 1,
-      phoneNumber: 123456789
-
+      phoneNumber: 123456789,
     } as Account);
 
     accounts.push({
       id: 4,
       username: `minhvu`,
-      email: 'minhvu@bfast-vn.net',
-      password: '1',
-      firstName: 'Minh',
-      lastName: 'Vu',
+      email: "minhvu@bfast-vn.net",
+      password: "1",
+      firstName: "Minh",
+      lastName: "Vu",
       city: 1,
       district: 1,
-      phoneNumber: 123456789
-
+      phoneNumber: 123456789,
     } as Account);
 
     for (let account of accounts) {
@@ -168,13 +182,13 @@ module.exports = function (app: App) {
 
       const roleMapping: RoleMapping = {
         principalId: item.id,
-        principalType: 'USER',
+        principalType: "USER",
         roleId: roleId,
       };
       await RoleMapping.create(roleMapping);
     }
 
-    console.log('Seeding end!!!');
+    console.log("Seeding end!!!");
   })().catch((e) => {
     console.log(e);
   });

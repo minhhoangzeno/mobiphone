@@ -88,5 +88,29 @@
   "Banner": {
     "dataSource": "postgres",
     "public": true
+  },
+  "Payment": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "Mobiphone": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "DetailPayment": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "Fee": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "Comment": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "Shipper": {
+    "dataSource": "postgres",
+    "public": true
   }
 }

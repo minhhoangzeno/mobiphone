@@ -6153,6 +6153,3258 @@ paths:
           schema:
             type: file
       deprecated: false
+  '/Payments/{id}/account':
+    get:
+      tags:
+        - Payment
+      summary: Fetches belongsTo relation account.
+      operationId: Payment.prototype.__get__account
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: refresh
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Account'
+      deprecated: false
+  '/Payments/{id}/product/{fk}':
+    get:
+      tags:
+        - Payment
+      summary: Find a related item by id for product.
+      operationId: Payment.prototype.__findById__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for product
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Product'
+      deprecated: false
+    delete:
+      tags:
+        - Payment
+      summary: Delete a related item by id for product.
+      operationId: Payment.prototype.__destroyById__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for product
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+    put:
+      tags:
+        - Payment
+      summary: Update a related item by id for product.
+      operationId: Payment.prototype.__updateById__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for product
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Product'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Product'
+      deprecated: false
+  '/Payments/{id}/product/rel/{fk}':
+    put:
+      tags:
+        - Payment
+      summary: Add a related item by id for product.
+      operationId: Payment.prototype.__link__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for product
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/OrderProduct'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/OrderProduct'
+      deprecated: false
+    delete:
+      tags:
+        - Payment
+      summary: Remove the product relation to an item by id.
+      operationId: Payment.prototype.__unlink__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for product
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+    head:
+      tags:
+        - Payment
+      summary: Check the existence of product relation to an item by id.
+      operationId: Payment.prototype.__exists__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for product
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: boolean
+      deprecated: false
+  '/Payments/{id}/product':
+    get:
+      tags:
+        - Payment
+      summary: Queries product of Payment.
+      operationId: Payment.prototype.__get__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+      deprecated: false
+    post:
+      tags:
+        - Payment
+      summary: Creates a new instance in product of this model.
+      operationId: Payment.prototype.__create__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Product'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Product'
+      deprecated: false
+    delete:
+      tags:
+        - Payment
+      summary: Deletes all product of this model.
+      operationId: Payment.prototype.__delete__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  '/Payments/{id}/product/count':
+    get:
+      tags:
+        - Payment
+      summary: Counts product of Payment.
+      operationId: Payment.prototype.__count__product
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  /Payments:
+    post:
+      tags:
+        - Payment
+      summary: Create a new instance of the model and persist it into the data source.
+      operationId: Payment.create
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+    patch:
+      tags:
+        - Payment
+      summary: >-
+        Patch an existing model instance or insert a new one into the data
+        source.
+      operationId: Payment.patchOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+    put:
+      tags:
+        - Payment
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Payment.replaceOrCreate__put_Payments
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+    get:
+      tags:
+        - Payment
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: Payment.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Payment'
+      deprecated: false
+  /Payments/replaceOrCreate:
+    post:
+      tags:
+        - Payment
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Payment.replaceOrCreate__post_Payments_replaceOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+  /Payments/upsertWithWhere:
+    post:
+      tags:
+        - Payment
+      summary: >-
+        Update an existing model instance or insert a new one into the data
+        source based on the where criteria.
+      operationId: Payment.upsertWithWhere
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+  '/Payments/{id}/exists':
+    get:
+      tags:
+        - Payment
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Payment.exists__get_Payments_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/Payments/{id}':
+    head:
+      tags:
+        - Payment
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Payment.exists__head_Payments_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - Payment
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: Payment.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+    put:
+      tags:
+        - Payment
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Payment.replaceById__put_Payments_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+    delete:
+      tags:
+        - Payment
+      summary: 'Delete a model instance by {{id}} from the data source.'
+      operationId: Payment.deleteById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+    patch:
+      tags:
+        - Payment
+      summary: >-
+        Patch attributes for a model instance and persist it into the data
+        source.
+      operationId: Payment.prototype.patchAttributes
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+  '/Payments/{id}/replace':
+    post:
+      tags:
+        - Payment
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Payment.replaceById__post_Payments_{id}_replace'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+  /Payments/findOne:
+    get:
+      tags:
+        - Payment
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: Payment.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+  /Payments/update:
+    post:
+      tags:
+        - Payment
+      summary: 'Update instances of the model matched by {{where}} from the data source.'
+      operationId: Payment.updateAll
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            description: Information related to the outcome of the operation
+            type: object
+            properties:
+              count:
+                description: The number of instances updated
+                type: number
+                format: double
+      deprecated: false
+  /Payments/count:
+    get:
+      tags:
+        - Payment
+      summary: Count instances of the model matched by where from the data source.
+      operationId: Payment.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  /Payments/change-stream:
+    post:
+      tags:
+        - Payment
+      summary: Create a change stream.
+      operationId: Payment.createChangeStream__post_Payments_change-stream
+      parameters:
+        - name: options
+          in: formData
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+    get:
+      tags:
+        - Payment
+      summary: Create a change stream.
+      operationId: Payment.createChangeStream__get_Payments_change-stream
+      parameters:
+        - name: options
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+  /Payments/add-to-cart:
+    post:
+      tags:
+        - Payment
+      summary: check order by account token and product
+      operationId: Payment.addToCart
+      parameters:
+        - name: product
+          in: query
+          description: product
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: string
+      deprecated: false
+  /Payments/statistic-amount:
+    get:
+      tags:
+        - Payment
+      summary: statistic order by year
+      operationId: Payment.statisticByAmount
+      parameters:
+        - name: year
+          in: query
+          description: year
+          required: true
+          type: number
+          format: double
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/x-any'
+      deprecated: false
+  /Payments/statistic-revenue:
+    get:
+      tags:
+        - Payment
+      summary: statistic order by year
+      operationId: Payment.statisticByRevenue
+      parameters:
+        - name: year
+          in: query
+          description: year
+          required: true
+          type: number
+          format: double
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/x-any'
+      deprecated: false
+  /Payments/payment-order:
+    post:
+      tags:
+        - Payment
+      summary: payment online
+      operationId: Payment.paymentOrder
+      parameters:
+        - name: data
+          in: body
+          description: information payment
+          required: true
+          schema:
+            description: information payment
+            $ref: '#/definitions/x-any'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: string
+      deprecated: false
+  '/Mobiphones/{id}/categoryProduct':
+    get:
+      tags:
+        - Mobiphone
+      summary: Fetches belongsTo relation categoryProduct.
+      operationId: Mobiphone.prototype.__get__categoryProduct
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: refresh
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/CategoryProduct'
+      deprecated: false
+  '/Mobiphones/{id}/payment/{fk}':
+    get:
+      tags:
+        - Mobiphone
+      summary: Find a related item by id for payment.
+      operationId: Mobiphone.prototype.__findById__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for payment
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+    delete:
+      tags:
+        - Mobiphone
+      summary: Delete a related item by id for payment.
+      operationId: Mobiphone.prototype.__destroyById__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for payment
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+    put:
+      tags:
+        - Mobiphone
+      summary: Update a related item by id for payment.
+      operationId: Mobiphone.prototype.__updateById__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for payment
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+  '/Mobiphones/{id}/payment/rel/{fk}':
+    put:
+      tags:
+        - Mobiphone
+      summary: Add a related item by id for payment.
+      operationId: Mobiphone.prototype.__link__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for payment
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+    delete:
+      tags:
+        - Mobiphone
+      summary: Remove the payment relation to an item by id.
+      operationId: Mobiphone.prototype.__unlink__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for payment
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+    head:
+      tags:
+        - Mobiphone
+      summary: Check the existence of payment relation to an item by id.
+      operationId: Mobiphone.prototype.__exists__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: fk
+          in: path
+          description: Foreign key for payment
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: boolean
+      deprecated: false
+  '/Mobiphones/{id}/payment':
+    get:
+      tags:
+        - Mobiphone
+      summary: Queries payment of Mobiphone.
+      operationId: Mobiphone.prototype.__get__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Payment'
+      deprecated: false
+    post:
+      tags:
+        - Mobiphone
+      summary: Creates a new instance in payment of this model.
+      operationId: Mobiphone.prototype.__create__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/Payment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+    delete:
+      tags:
+        - Mobiphone
+      summary: Deletes all payment of this model.
+      operationId: Mobiphone.prototype.__delete__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '204':
+          description: Request was successful
+      deprecated: false
+  '/Mobiphones/{id}/payment/count':
+    get:
+      tags:
+        - Mobiphone
+      summary: Counts payment of Mobiphone.
+      operationId: Mobiphone.prototype.__count__payment
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  /Mobiphones:
+    post:
+      tags:
+        - Mobiphone
+      summary: Create a new instance of the model and persist it into the data source.
+      operationId: Mobiphone.create
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Mobiphone'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+    patch:
+      tags:
+        - Mobiphone
+      summary: >-
+        Patch an existing model instance or insert a new one into the data
+        source.
+      operationId: Mobiphone.patchOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Mobiphone'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+    put:
+      tags:
+        - Mobiphone
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Mobiphone.replaceOrCreate__put_Mobiphones
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Mobiphone'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+    get:
+      tags:
+        - Mobiphone
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: Mobiphone.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Mobiphone'
+      deprecated: false
+  /Mobiphones/replaceOrCreate:
+    post:
+      tags:
+        - Mobiphone
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Mobiphone.replaceOrCreate__post_Mobiphones_replaceOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Mobiphone'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+  /Mobiphones/upsertWithWhere:
+    post:
+      tags:
+        - Mobiphone
+      summary: >-
+        Update an existing model instance or insert a new one into the data
+        source based on the where criteria.
+      operationId: Mobiphone.upsertWithWhere
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Mobiphone'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+  '/Mobiphones/{id}/exists':
+    get:
+      tags:
+        - Mobiphone
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Mobiphone.exists__get_Mobiphones_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/Mobiphones/{id}':
+    head:
+      tags:
+        - Mobiphone
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Mobiphone.exists__head_Mobiphones_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - Mobiphone
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: Mobiphone.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+    put:
+      tags:
+        - Mobiphone
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Mobiphone.replaceById__put_Mobiphones_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Mobiphone'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+    delete:
+      tags:
+        - Mobiphone
+      summary: 'Delete a model instance by {{id}} from the data source.'
+      operationId: Mobiphone.deleteById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+    patch:
+      tags:
+        - Mobiphone
+      summary: >-
+        Patch attributes for a model instance and persist it into the data
+        source.
+      operationId: Mobiphone.prototype.patchAttributes
+      parameters:
+        - name: id
+          in: path
+          description: Mobiphone id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Mobiphone'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+  '/Mobiphones/{id}/replace':
+    post:
+      tags:
+        - Mobiphone
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Mobiphone.replaceById__post_Mobiphones_{id}_replace'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Mobiphone'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+  /Mobiphones/findOne:
+    get:
+      tags:
+        - Mobiphone
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: Mobiphone.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+  /Mobiphones/update:
+    post:
+      tags:
+        - Mobiphone
+      summary: 'Update instances of the model matched by {{where}} from the data source.'
+      operationId: Mobiphone.updateAll
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Mobiphone'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            description: Information related to the outcome of the operation
+            type: object
+            properties:
+              count:
+                description: The number of instances updated
+                type: number
+                format: double
+      deprecated: false
+  /Mobiphones/count:
+    get:
+      tags:
+        - Mobiphone
+      summary: Count instances of the model matched by where from the data source.
+      operationId: Mobiphone.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  /Mobiphones/change-stream:
+    post:
+      tags:
+        - Mobiphone
+      summary: Create a change stream.
+      operationId: Mobiphone.createChangeStream__post_Mobiphones_change-stream
+      parameters:
+        - name: options
+          in: formData
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+    get:
+      tags:
+        - Mobiphone
+      summary: Create a change stream.
+      operationId: Mobiphone.createChangeStream__get_Mobiphones_change-stream
+      parameters:
+        - name: options
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+  '/DetailPayments/{id}/payment':
+    get:
+      tags:
+        - DetailPayment
+      summary: Fetches belongsTo relation payment.
+      operationId: DetailPayment.prototype.__get__payment
+      parameters:
+        - name: id
+          in: path
+          description: DetailPayment id
+          required: true
+          type: string
+          format: JSON
+        - name: refresh
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+  '/DetailPayments/{id}/mobiphone':
+    get:
+      tags:
+        - DetailPayment
+      summary: Fetches belongsTo relation mobiphone.
+      operationId: DetailPayment.prototype.__get__mobiphone
+      parameters:
+        - name: id
+          in: path
+          description: DetailPayment id
+          required: true
+          type: string
+          format: JSON
+        - name: refresh
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Mobiphone'
+      deprecated: false
+  /DetailPayments:
+    post:
+      tags:
+        - DetailPayment
+      summary: Create a new instance of the model and persist it into the data source.
+      operationId: DetailPayment.create
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+    patch:
+      tags:
+        - DetailPayment
+      summary: >-
+        Patch an existing model instance or insert a new one into the data
+        source.
+      operationId: DetailPayment.patchOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+    put:
+      tags:
+        - DetailPayment
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: DetailPayment.replaceOrCreate__put_DetailPayments
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+    get:
+      tags:
+        - DetailPayment
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: DetailPayment.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/DetailPayment'
+      deprecated: false
+  /DetailPayments/replaceOrCreate:
+    post:
+      tags:
+        - DetailPayment
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: DetailPayment.replaceOrCreate__post_DetailPayments_replaceOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+  /DetailPayments/upsertWithWhere:
+    post:
+      tags:
+        - DetailPayment
+      summary: >-
+        Update an existing model instance or insert a new one into the data
+        source based on the where criteria.
+      operationId: DetailPayment.upsertWithWhere
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+  '/DetailPayments/{id}/exists':
+    get:
+      tags:
+        - DetailPayment
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'DetailPayment.exists__get_DetailPayments_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/DetailPayments/{id}':
+    head:
+      tags:
+        - DetailPayment
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'DetailPayment.exists__head_DetailPayments_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - DetailPayment
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: DetailPayment.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+    put:
+      tags:
+        - DetailPayment
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'DetailPayment.replaceById__put_DetailPayments_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+    delete:
+      tags:
+        - DetailPayment
+      summary: 'Delete a model instance by {{id}} from the data source.'
+      operationId: DetailPayment.deleteById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+    patch:
+      tags:
+        - DetailPayment
+      summary: >-
+        Patch attributes for a model instance and persist it into the data
+        source.
+      operationId: DetailPayment.prototype.patchAttributes
+      parameters:
+        - name: id
+          in: path
+          description: DetailPayment id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+  '/DetailPayments/{id}/replace':
+    post:
+      tags:
+        - DetailPayment
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'DetailPayment.replaceById__post_DetailPayments_{id}_replace'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+  /DetailPayments/findOne:
+    get:
+      tags:
+        - DetailPayment
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: DetailPayment.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/DetailPayment'
+      deprecated: false
+  /DetailPayments/update:
+    post:
+      tags:
+        - DetailPayment
+      summary: 'Update instances of the model matched by {{where}} from the data source.'
+      operationId: DetailPayment.updateAll
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/DetailPayment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            description: Information related to the outcome of the operation
+            type: object
+            properties:
+              count:
+                description: The number of instances updated
+                type: number
+                format: double
+      deprecated: false
+  /DetailPayments/count:
+    get:
+      tags:
+        - DetailPayment
+      summary: Count instances of the model matched by where from the data source.
+      operationId: DetailPayment.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  /DetailPayments/change-stream:
+    post:
+      tags:
+        - DetailPayment
+      summary: Create a change stream.
+      operationId: DetailPayment.createChangeStream__post_DetailPayments_change-stream
+      parameters:
+        - name: options
+          in: formData
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+    get:
+      tags:
+        - DetailPayment
+      summary: Create a change stream.
+      operationId: DetailPayment.createChangeStream__get_DetailPayments_change-stream
+      parameters:
+        - name: options
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+  /DetailPayments/get-order-cart:
+    get:
+      tags:
+        - DetailPayment
+      summary: Get order product in cart by token
+      operationId: DetailPayment.getOrder
+      parameters:
+        - name: user
+          in: query
+          description: userId
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+  /Fees:
+    post:
+      tags:
+        - Fee
+      summary: Create a new instance of the model and persist it into the data source.
+      operationId: Fee.create
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Fee'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+    patch:
+      tags:
+        - Fee
+      summary: >-
+        Patch an existing model instance or insert a new one into the data
+        source.
+      operationId: Fee.patchOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Fee'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+    put:
+      tags:
+        - Fee
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Fee.replaceOrCreate__put_Fees
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Fee'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+    get:
+      tags:
+        - Fee
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: Fee.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Fee'
+      deprecated: false
+  /Fees/replaceOrCreate:
+    post:
+      tags:
+        - Fee
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Fee.replaceOrCreate__post_Fees_replaceOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Fee'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+  /Fees/upsertWithWhere:
+    post:
+      tags:
+        - Fee
+      summary: >-
+        Update an existing model instance or insert a new one into the data
+        source based on the where criteria.
+      operationId: Fee.upsertWithWhere
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Fee'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+  '/Fees/{id}/exists':
+    get:
+      tags:
+        - Fee
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Fee.exists__get_Fees_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/Fees/{id}':
+    head:
+      tags:
+        - Fee
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Fee.exists__head_Fees_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - Fee
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: Fee.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+    put:
+      tags:
+        - Fee
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Fee.replaceById__put_Fees_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Fee'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+    delete:
+      tags:
+        - Fee
+      summary: 'Delete a model instance by {{id}} from the data source.'
+      operationId: Fee.deleteById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+    patch:
+      tags:
+        - Fee
+      summary: >-
+        Patch attributes for a model instance and persist it into the data
+        source.
+      operationId: Fee.prototype.patchAttributes
+      parameters:
+        - name: id
+          in: path
+          description: Fee id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Fee'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+  '/Fees/{id}/replace':
+    post:
+      tags:
+        - Fee
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Fee.replaceById__post_Fees_{id}_replace'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Fee'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+  /Fees/findOne:
+    get:
+      tags:
+        - Fee
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: Fee.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Fee'
+      deprecated: false
+  /Fees/update:
+    post:
+      tags:
+        - Fee
+      summary: 'Update instances of the model matched by {{where}} from the data source.'
+      operationId: Fee.updateAll
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Fee'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            description: Information related to the outcome of the operation
+            type: object
+            properties:
+              count:
+                description: The number of instances updated
+                type: number
+                format: double
+      deprecated: false
+  /Fees/count:
+    get:
+      tags:
+        - Fee
+      summary: Count instances of the model matched by where from the data source.
+      operationId: Fee.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  /Fees/change-stream:
+    post:
+      tags:
+        - Fee
+      summary: Create a change stream.
+      operationId: Fee.createChangeStream__post_Fees_change-stream
+      parameters:
+        - name: options
+          in: formData
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+    get:
+      tags:
+        - Fee
+      summary: Create a change stream.
+      operationId: Fee.createChangeStream__get_Fees_change-stream
+      parameters:
+        - name: options
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+  '/Comments/{id}/account':
+    get:
+      tags:
+        - Comment
+      summary: Fetches belongsTo relation account.
+      operationId: Comment.prototype.__get__account
+      parameters:
+        - name: id
+          in: path
+          description: Comment id
+          required: true
+          type: string
+          format: JSON
+        - name: refresh
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Account'
+      deprecated: false
+  /Comments:
+    post:
+      tags:
+        - Comment
+      summary: Create a new instance of the model and persist it into the data source.
+      operationId: Comment.create
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Comment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+    patch:
+      tags:
+        - Comment
+      summary: >-
+        Patch an existing model instance or insert a new one into the data
+        source.
+      operationId: Comment.patchOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Comment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+    put:
+      tags:
+        - Comment
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Comment.replaceOrCreate__put_Comments
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Comment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+    get:
+      tags:
+        - Comment
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: Comment.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Comment'
+      deprecated: false
+  /Comments/replaceOrCreate:
+    post:
+      tags:
+        - Comment
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Comment.replaceOrCreate__post_Comments_replaceOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Comment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+  /Comments/upsertWithWhere:
+    post:
+      tags:
+        - Comment
+      summary: >-
+        Update an existing model instance or insert a new one into the data
+        source based on the where criteria.
+      operationId: Comment.upsertWithWhere
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Comment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+  '/Comments/{id}/exists':
+    get:
+      tags:
+        - Comment
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Comment.exists__get_Comments_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/Comments/{id}':
+    head:
+      tags:
+        - Comment
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Comment.exists__head_Comments_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - Comment
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: Comment.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+    put:
+      tags:
+        - Comment
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Comment.replaceById__put_Comments_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Comment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+    delete:
+      tags:
+        - Comment
+      summary: 'Delete a model instance by {{id}} from the data source.'
+      operationId: Comment.deleteById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+    patch:
+      tags:
+        - Comment
+      summary: >-
+        Patch attributes for a model instance and persist it into the data
+        source.
+      operationId: Comment.prototype.patchAttributes
+      parameters:
+        - name: id
+          in: path
+          description: Comment id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Comment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+  '/Comments/{id}/replace':
+    post:
+      tags:
+        - Comment
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Comment.replaceById__post_Comments_{id}_replace'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Comment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+  /Comments/findOne:
+    get:
+      tags:
+        - Comment
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: Comment.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Comment'
+      deprecated: false
+  /Comments/update:
+    post:
+      tags:
+        - Comment
+      summary: 'Update instances of the model matched by {{where}} from the data source.'
+      operationId: Comment.updateAll
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Comment'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            description: Information related to the outcome of the operation
+            type: object
+            properties:
+              count:
+                description: The number of instances updated
+                type: number
+                format: double
+      deprecated: false
+  /Comments/count:
+    get:
+      tags:
+        - Comment
+      summary: Count instances of the model matched by where from the data source.
+      operationId: Comment.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  /Comments/change-stream:
+    post:
+      tags:
+        - Comment
+      summary: Create a change stream.
+      operationId: Comment.createChangeStream__post_Comments_change-stream
+      parameters:
+        - name: options
+          in: formData
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+    get:
+      tags:
+        - Comment
+      summary: Create a change stream.
+      operationId: Comment.createChangeStream__get_Comments_change-stream
+      parameters:
+        - name: options
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+  '/Shippers/{id}/payment':
+    get:
+      tags:
+        - Shipper
+      summary: Fetches belongsTo relation payment.
+      operationId: Shipper.prototype.__get__payment
+      parameters:
+        - name: id
+          in: path
+          description: Shipper id
+          required: true
+          type: string
+          format: JSON
+        - name: refresh
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Payment'
+      deprecated: false
+  /Shippers:
+    post:
+      tags:
+        - Shipper
+      summary: Create a new instance of the model and persist it into the data source.
+      operationId: Shipper.create
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Shipper'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+    patch:
+      tags:
+        - Shipper
+      summary: >-
+        Patch an existing model instance or insert a new one into the data
+        source.
+      operationId: Shipper.patchOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Shipper'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+    put:
+      tags:
+        - Shipper
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Shipper.replaceOrCreate__put_Shippers
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Shipper'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+    get:
+      tags:
+        - Shipper
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: Shipper.find
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Shipper'
+      deprecated: false
+  /Shippers/replaceOrCreate:
+    post:
+      tags:
+        - Shipper
+      summary: >-
+        Replace an existing model instance or insert a new one into the data
+        source.
+      operationId: Shipper.replaceOrCreate__post_Shippers_replaceOrCreate
+      parameters:
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Shipper'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+  /Shippers/upsertWithWhere:
+    post:
+      tags:
+        - Shipper
+      summary: >-
+        Update an existing model instance or insert a new one into the data
+        source based on the where criteria.
+      operationId: Shipper.upsertWithWhere
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Shipper'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+  '/Shippers/{id}/exists':
+    get:
+      tags:
+        - Shipper
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Shipper.exists__get_Shippers_{id}_exists'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+  '/Shippers/{id}':
+    head:
+      tags:
+        - Shipper
+      summary: Check whether a model instance exists in the data source.
+      operationId: 'Shipper.exists__head_Shippers_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              exists:
+                type: boolean
+      deprecated: false
+    get:
+      tags:
+        - Shipper
+      summary: 'Find a model instance by {{id}} from the data source.'
+      operationId: Shipper.findById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields and include - must be a JSON-encoded string
+            ({"something":"value"})
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+    put:
+      tags:
+        - Shipper
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Shipper.replaceById__put_Shippers_{id}'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Shipper'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+    delete:
+      tags:
+        - Shipper
+      summary: 'Delete a model instance by {{id}} from the data source.'
+      operationId: Shipper.deleteById
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+      deprecated: false
+    patch:
+      tags:
+        - Shipper
+      summary: >-
+        Patch attributes for a model instance and persist it into the data
+        source.
+      operationId: Shipper.prototype.patchAttributes
+      parameters:
+        - name: id
+          in: path
+          description: Shipper id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Shipper'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+  '/Shippers/{id}/replace':
+    post:
+      tags:
+        - Shipper
+      summary: >-
+        Replace attributes for a model instance and persist it into the data
+        source.
+      operationId: 'Shipper.replaceById__post_Shippers_{id}_replace'
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: Model instance data
+          required: false
+          schema:
+            description: Model instance data
+            $ref: '#/definitions/Shipper'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+  /Shippers/findOne:
+    get:
+      tags:
+        - Shipper
+      summary: Find first instance of the model matched by filter from the data source.
+      operationId: Shipper.findOne
+      parameters:
+        - name: filter
+          in: query
+          description: >-
+            Filter defining fields, where, include, order, offset, and limit -
+            must be a JSON-encoded string (`{"where":{"something":"value"}}`). 
+            See
+            https://loopback.io/doc/en/lb3/Querying-data.html#using-stringified-json-in-rest-queries
+            for more details.
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+  /Shippers/update:
+    post:
+      tags:
+        - Shipper
+      summary: 'Update instances of the model matched by {{where}} from the data source.'
+      operationId: Shipper.updateAll
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+        - name: data
+          in: body
+          description: An object of model property name/value pairs
+          required: false
+          schema:
+            description: An object of model property name/value pairs
+            $ref: '#/definitions/Shipper'
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            description: Information related to the outcome of the operation
+            type: object
+            properties:
+              count:
+                description: The number of instances updated
+                type: number
+                format: double
+      deprecated: false
+  /Shippers/count:
+    get:
+      tags:
+        - Shipper
+      summary: Count instances of the model matched by where from the data source.
+      operationId: Shipper.count
+      parameters:
+        - name: where
+          in: query
+          description: Criteria to match model instances
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: object
+            properties:
+              count:
+                type: number
+                format: double
+      deprecated: false
+  /Shippers/change-stream:
+    post:
+      tags:
+        - Shipper
+      summary: Create a change stream.
+      operationId: Shipper.createChangeStream__post_Shippers_change-stream
+      parameters:
+        - name: options
+          in: formData
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
+    get:
+      tags:
+        - Shipper
+      summary: Create a change stream.
+      operationId: Shipper.createChangeStream__get_Shippers_change-stream
+      parameters:
+        - name: options
+          in: query
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: file
+      deprecated: false
 tags:
   - name: Container
   - name: Account
@@ -6166,6 +9418,12 @@ tags:
   - name: OrderProduct
   - name: Order
   - name: Banner
+  - name: Payment
+  - name: Mobiphone
+  - name: DetailPayment
+  - name: Fee
+  - name: Comment
+  - name: Shipper
 consumes:
   - application/json
   - application/x-www-form-urlencoded
@@ -6475,6 +9733,149 @@ definitions:
       photoURL:
         type: string
       id:
+        type: number
+        format: double
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    additionalProperties: false
+  Payment:
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+      phone:
+        type: number
+        format: double
+      email:
+        type: string
+      address:
+        type: string
+      city:
+        type: number
+        format: double
+      district:
+        type: number
+        format: double
+      note:
+        type: string
+      status:
+        type: string
+      price:
+        type: number
+        format: double
+      id:
+        type: number
+        format: double
+      accountId:
+        type: number
+        format: double
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    additionalProperties: false
+  DetailPayment:
+    properties:
+      amount:
+        type: number
+        format: double
+      price:
+        type: number
+        format: double
+      id:
+        type: number
+        format: double
+      paymentId:
+        type: number
+        format: double
+      mobiphoneId:
+        type: number
+        format: double
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    additionalProperties: false
+  Mobiphone:
+    properties:
+      name:
+        type: string
+      price:
+        type: number
+        format: double
+      promotion:
+        type: string
+      photoURL:
+        type: string
+      characteristic:
+        type: string
+      id:
+        type: number
+        format: double
+      categoryProductId:
+        type: number
+        format: double
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    additionalProperties: false
+  Fee:
+    properties:
+      name:
+        type: string
+      price:
+        type: string
+      id:
+        type: number
+        format: double
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    additionalProperties: false
+  Comment:
+    properties:
+      content:
+        type: string
+      id:
+        type: number
+        format: double
+      accountId:
+        type: number
+        format: double
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    additionalProperties: false
+  Shipper:
+    properties:
+      name:
+        type: string
+      phone:
+        type: string
+      address:
+        type: string
+      id:
+        type: number
+        format: double
+      paymentId:
         type: number
         format: double
       createdAt:

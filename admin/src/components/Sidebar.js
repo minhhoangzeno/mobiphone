@@ -85,11 +85,14 @@ export default (props = {}) => {
               <NavItem title="Sản phẩm" icon={faTags} link={Routes.Product.path} />
               <Dropdown.Divider className="my-3 border-indigo" />
               <NavItem title="Thẻ tag" icon={faTags} link={Routes.Tag.path} />
+              <NavItem title="Phí ship" icon={faTags} link={Routes.Fee.path} />
+              <NavItem title="Shipper" icon={faTags} link={Routes.Shipper.path} />
               <NavItem title="Bài viết" icon={faTags} link={Routes.Blog.path} />
               <Dropdown.Divider className="my-3 border-indigo" />
               <NavItem title="Banner" icon={faTags} link={Routes.Banner.path} />
               <NavItem title="Liên hệ" icon={faTags} link={Routes.Contact.path} />
               <NavItem title="Phản hồi" icon={faTags} link={Routes.Feedback.path} />
+              <NavItem title="Bình luận" icon={faTags} link={Routes.Comment.path} />
 
             </Nav>
           </div>

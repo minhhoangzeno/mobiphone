@@ -32,7 +32,7 @@
     "@types/core-js": "^2.5.5",
     "@types/isomorphic-fetch": "^0.0.36",
     "@types/loopback": "^3.2.10",
-    "@types/node": "^18.0.0",
+    "@types/node": "^18.11.10",
     "eslint": "^3.17.1",
     "eslint-config-loopback": "^8.0.0",
     "tsc-watch": "^5.0.3"
