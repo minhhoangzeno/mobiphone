@@ -89,7 +89,6 @@ export default (props = {}) => {
               <NavItem title="Shipper" icon={faTags} link={Routes.Shipper.path} />
               <NavItem title="Bài viết" icon={faTags} link={Routes.Blog.path} />
               <Dropdown.Divider className="my-3 border-indigo" />
-              <NavItem title="Banner" icon={faTags} link={Routes.Banner.path} />
               <NavItem title="Liên hệ" icon={faTags} link={Routes.Contact.path} />
               <NavItem title="Phản hồi" icon={faTags} link={Routes.Feedback.path} />
               <NavItem title="Bình luận" icon={faTags} link={Routes.Comment.path} />

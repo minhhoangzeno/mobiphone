@@ -2,7 +2,7 @@
   "postgres": {
     "host": "localhost",
     "port": 5433,
-    "database": "phone1",
+    "database": "phone2",
     "password": "Dalecarnegie521985",
     "name": "postgres",
     "user": "postgres",

@@ -20,16 +20,17 @@ export default function Checkout() {
   } = useForm();
   let { addToast } = useToasts();
   const location = useLocation();
+  const [fees, setFees] = useState([]);
+  const [feePrice, setFeePrice] = useState(0);
   const data = location.state;
   const [city, setCity] = useState([]);
   const [district, setDistrict] = useState([]);
-  const [citySelect, setCitySelect] = useState();
+  const [citySelect, setCitySelect] = useState(1);
   const [districtSelect, setDistrictSelect] = useState();
   const [show, setShow] = useState(false);
   const [code, setCode] = useState();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [checkPayment, setCheckPayment] = useState(false);
   const user = useSelector((state) => state.auth.data);
   function makeid(length) {
     var text = "";
@@ -43,8 +44,39 @@ export default function Checkout() {
   }
   useEffect(() => {
     searchLocation(); // eslint-disable-next-line react-hooks/exhaustive-deps
+    searchFees();
   }, []);
+  useEffect(() => {
+    changeFeePrice();
+  }, [citySelect, fees.length]);
+  const searchFees = () => {
+    axios({
+      method: "GET",
+      url: `${apiUrl}/Fees`,
+      params: {
+        access_token,
+      },
+    })
+      .then((result) => {
+        setFees(result.data.data);
+      })
+      .catch((err) => console.log(err));
+  };
   const history = useHistory();
+  const changeFeePrice = () => {
+    if (fees.length > 0) {
+      let priceFee = 0;
+      if (citySelect < 39) {
+        priceFee = fees.filter((el) => el.name == "Nội Thành")[0]?.price;
+      } else if (38 < citySelect < 53) {
+        priceFee = fees.filter((el) => el.name == "Miền Trung")[0]?.price;
+      } else {
+        priceFee = fees.filter((el) => el.name == "Miền Nam")[0]?.price;
+      }
+
+      setFeePrice(priceFee);
+    }
+  };
   let searchLocation = async () => {
     if (user) {
       let responsive = await axios.get(
@@ -76,7 +108,7 @@ export default function Checkout() {
   const checkout = async (form) => {
     axios({
       method: "PATCH",
-      url: `${apiUrl}/Orders/${data?.orderId}`,
+      url: `${apiUrl}/Payments/${data?.orderId}`,
       params: {
         access_token,
       },
@@ -85,35 +117,16 @@ export default function Checkout() {
         price: data?.price,
         code: makeid(4),
         city: citySelect,
+        fee: Number(data?.price) + Number(feePrice),
         district: districtSelect,
         ...form,
       },
     })
       .then((result) => {
-        if (!checkPayment) {
-          setCode(result.data.code);
-          setShow(true);
-        } else if (checkPayment) {
-          axios({
-            method: "POST",
-            url: `${apiUrl}/Orders/payment-order`,
-            params: {
-              access_token,
-            },
-            data: {
-              amount: data?.price,
-              orderType: "Thanh toán tiền hàng",
-              orderDescription: "Thanh toán tiền hàng online qua ngân hàng NCB",
-              bankCode: "NCB",
-              language: "vn",
-              idOrder: result.data.id,
-            },
-          })
-            .then((res) => {
-              window.open(res.data, "_self");
-            })
-            .catch((err) => console.log(err));
-        }
+        history.push({
+          pathname: Routes.PaymentSuccess.path,
+          state: result.data,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -132,10 +145,10 @@ export default function Checkout() {
                 <form action="#" method="post">
                   <div className="row">
                     <div className="col-md-6 mb-4">
-                      <label>Họ *</label>
+                      <label>Họ và tên *</label>
                       <Controller
                         control={control}
-                        name="firstName"
+                        name="name"
                         render={({ field: { onChange, onBlur, value } }) => (
                           <input
                             className={
@@ -151,33 +164,10 @@ export default function Checkout() {
                           />
                         )}
                         rules={{ required: true }}
-                        defaultValue={user?.firstName}
+                        defaultValue={`${user?.firstName} ${user?.lastName}`}
                       />
                     </div>
                     <div className="col-md-6 mb-4">
-                      <label>Tên *</label>
-                      <Controller
-                        control={control}
-                        name="lastName"
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <input
-                            className={
-                              errors.lastName
-                                ? "errorInput form-control"
-                                : "form-control"
-                            }
-                            type="text"
-                            name="lastName"
-                            onChange={(e) => onChange(e.target.value)}
-                            onBlur={onBlur}
-                            value={value}
-                          />
-                        )}
-                        rules={{ required: true }}
-                        defaultValue={user?.lastName}
-                      />
-                    </div>
-                    <div className="col-12 mb-4">
                       <label>Email *</label>
                       <Controller
                         control={control}
@@ -201,11 +191,12 @@ export default function Checkout() {
                         defaultValue={user?.email}
                       />
                     </div>
+
                     <div className="col-12 mb-4">
                       <label>Số điện thoại *</label>
                       <Controller
                         control={control}
-                        name="phoneNumber"
+                        name="phone"
                         render={({ field: { onChange, onBlur, value } }) => (
                           <input
                             className={
@@ -279,7 +270,7 @@ export default function Checkout() {
                       </select>
                     </div>
                     <div className="col-md-12 mb-4">
-                      <label>Ghi chú</label>
+                      <label>Lời nhắn</label>
                       <Controller
                         control={control}
                         name="note"
@@ -312,12 +303,14 @@ export default function Checkout() {
                           className="single-products d-flex justify-content-between align-items-center mt-3"
                         >
                           <div>
-                            {orderProduct.product.title} x {orderProduct.amount}
+                            {orderProduct.mobiphone.name} x{" "}
+                            {orderProduct.amount}
                           </div>
                           <div className="font-bold">
                             {currencyFormat(
                               Number(
-                                orderProduct.amount * orderProduct.product.price
+                                orderProduct.amount *
+                                  orderProduct.mobiphone.price
                               )
                             )}
                           </div>
@@ -326,30 +319,22 @@ export default function Checkout() {
                     })}
                   </div>
                 </div>
-                <div className="order-total d-flex justify-content-between align-items-center mt-8">
-                  <div>Tổng tiền</div>
+                <div className="order-total d-flex justify-content-between align-items-center mt-4">
+                  <div>Tạm tính</div>
                   <div className="font-bold">
                     {currencyFormat(Number(data?.price))}
                   </div>
                 </div>
-                <div className="order-total d-flex justify-content-between align-items-center mt-8">
-                  <div>Hình thức thanh toán</div>
+                <div className="order-total d-flex justify-content-between align-items-center mt-2">
+                  <div>Phí ship</div>
                   <div className="font-bold">
-                    <input
-                      onClick={() => setCheckPayment(false)}
-                      type="radio"
-                      checked={!checkPayment}
-                      name="payment"
-                    />{" "}
-                    Tiền mặt
-                    <br />
-                    <input
-                      onClick={() => setCheckPayment(true)}
-                      type="radio"
-                      checked={checkPayment}
-                      name="payment"
-                    />{" "}
-                    Thanh toán trực tuyến
+                    {currencyFormat(Number(feePrice))}
+                  </div>
+                </div>
+                <div className="order-total d-flex justify-content-between align-items-center mt-2">
+                  <div>Tổng</div>
+                  <div className="font-bold">
+                    {currencyFormat(Number(data?.price) + Number(feePrice))}
                   </div>
                 </div>
                 <div className="checkout-btn mt-4 mb-4">

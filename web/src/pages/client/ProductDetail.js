@@ -19,7 +19,7 @@ export default function ProductDetail() {
     if (productId) {
       axios({
         method: "GET",
-        url: `${apiUrl}/Products/${productId}`,
+        url: `${apiUrl}/Mobiphones/${productId}`,
         params: {
           filter: {
             include: "categoryProduct",
@@ -67,7 +67,7 @@ export default function ProductDetail() {
                     )}
                     <h4 style={{ marginTop: 20 }}>Mô tả:</h4>
                     <div
-                      dangerouslySetInnerHTML={{ __html: product?.content }}
+                      dangerouslySetInnerHTML={{ __html: product?.characteristic }}
                     ></div>
                   </div>
                 </div>
@@ -75,7 +75,7 @@ export default function ProductDetail() {
             </div>
             <div className="col-lg-5 col-xl-4">
               <div className="s_product_text">
-                <h3>{product?.title}</h3>
+                <h3>{product?.name}</h3>
                 <h2>{currencyFormat(product?.price)}</h2>
                 <ul className="list">
                   <li>
@@ -85,12 +85,8 @@ export default function ProductDetail() {
                   </li>
                   <li>
                     <a className="active" href="/#">
-                      <span>Xuất xứ</span> : {product?.origin}
-                    </a>
-                  </li>
-                  <li>
-                    <a className="active" href="/#">
-                      <span>Màu sắc</span> : {product?.color}
+                      <span>Khuyến mãi</span>
+                      <div dangerouslySetInnerHTML={{__html: product?.promotion}}></div>
                     </a>
                   </li>
                 </ul>
@@ -102,7 +98,7 @@ export default function ProductDetail() {
                     style={{ cursor: "pointer" }}
                     onClick={() => addCart(product)}
                   >
-                    add to cart
+                    Thêm vào giỏ hàng
                   </div>
                 </div>
               </div>

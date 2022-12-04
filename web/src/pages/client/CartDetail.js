@@ -15,7 +15,6 @@ export default function Cart() {
   const [price, setPrice] = useState();
   const history = useHistory();
   const user = useSelector((state) => state.auth.data);
-  console.log(user);
   useEffect(() => {
     search();
   }, [user]);
@@ -23,7 +22,7 @@ export default function Cart() {
     if (user) {
       axios({
         method: "GET",
-        url: `${apiUrl}/OrderProducts/get-order-cart`,
+        url: `${apiUrl}/DetailPayments/get-order-cart`,
         params: {
           access_token,
           user: user?.id,
@@ -52,7 +51,7 @@ export default function Cart() {
       state: {
         price,
         orderProducts,
-        orderId: orderProducts[0].orderId,
+        orderId: orderProducts[0].paymentId,
       },
     });
   };
@@ -105,7 +104,7 @@ export default function Cart() {
                   <div className="cart-totals-area mt-70">
                     <h5 className="title--">Giỏ hàng</h5>
                     <div className="total d-flex justify-content-between">
-                      <h5>Tổng</h5>
+                      <h5>Tạm tính</h5>
                       <h5>{currencyFormat(price)}</h5>
                     </div>
                     <div className="checkout-btn mb-4 mt-4">
@@ -141,7 +140,7 @@ const OrderProduct = ({ orderProduct, search, price, setPrice }) => {
   const deleteOrderProduct = async () => {
     axios({
       method: "DELETE",
-      url: `${apiUrl}/OrderProducts/${orderProduct.id}`,
+      url: `${apiUrl}/DetailPayments/${orderProduct.id}`,
       params: {
         access_token,
       },
@@ -156,7 +155,7 @@ const OrderProduct = ({ orderProduct, search, price, setPrice }) => {
   const updateOrderProduct = async (num) => {
     axios({
       method: "PATCH",
-      url: `${apiUrl}/OrderProducts/${orderProduct.id}`,
+      url: `${apiUrl}/DetailPayments/${orderProduct.id}`,
       params: {
         access_token,
       },
@@ -188,12 +187,12 @@ const OrderProduct = ({ orderProduct, search, price, setPrice }) => {
     <tr>
       <td className="cart_product_img">
         <img
-          src={orderProduct?.product?.photoURL}
+          src={orderProduct?.mobiphone?.photoURL}
           alt="Product"
           style={{ width: 150, height: "auto", objectFit: "contain" }}
         />
         <h5 style={{ marginTop: 15 }} className="font-bold">
-          {orderProduct?.product?.title}
+          {orderProduct?.mobiphone?.name}
         </h5>
       </td>
       <td className="qty">
@@ -204,7 +203,7 @@ const OrderProduct = ({ orderProduct, search, price, setPrice }) => {
           >
             -
           </button>
-          <div>{orderProduct.amount}</div>
+          <div>{orderProduct?.amount}</div>
           <button
             style={{ background: "transparent", boxShadow: "none", border: 1 }}
             onClick={addPrice}
@@ -214,12 +213,12 @@ const OrderProduct = ({ orderProduct, search, price, setPrice }) => {
         </div>
       </td>
       <td className="price">
-        <span>{currencyFormat(orderProduct?.product?.price)}</span>
+        <span>{currencyFormat(orderProduct?.mobiphone?.price)}</span>
       </td>
       <td className="total_price">
         <span>
           {currencyFormat(
-            Number(orderProduct.product.price * Number(orderProduct.amount))
+            Number(orderProduct.mobiphone.price * Number(orderProduct.amount))
           )}
         </span>
       </td>

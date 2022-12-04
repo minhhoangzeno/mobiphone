@@ -37,7 +37,7 @@ export default function Product() {
     if (categoryId) {
       axios({
         method: "GET",
-        url: `${apiUrl}/Products`,
+        url: `${apiUrl}/Mobiphones`,
         params: {
           filter: {
             where: {
@@ -123,7 +123,7 @@ export default function Product() {
                               )}
                             </div>
                             <div className="single_product_text">
-                              <h4>{item?.title}</h4>
+                              <h4>{item?.name}</h4>
                               <h3>{currencyFormat(item?.price)}</h3>
                               <div className="add_cart">
                                 Xem

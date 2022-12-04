@@ -215,10 +215,12 @@ export interface Payment {
     "note"?: string;
     "status"?: string;
     "price"?: number;
+    "fee"?: number;
     "id"?: number;
     "accountId"?: number;
     "createdAt"?: Date;
     "updatedAt"?: Date;
+    "shipperId"?: number;
 }
 
 export interface Product {
@@ -19207,43 +19209,16 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary payment online
-     * @param data information payment
-     */
-    paymentPaymentOrder(params: {  "data": any; }, options?: any): FetchArgs {
-        // verify required parameter "data" is set
-        if (params["data"] == null) {
-            throw new Error("Missing required parameter data when calling paymentPaymentOrder");
-        }
-        const baseUrl = `/Payments/payment-order`;
-        let urlObj = url.parse(baseUrl, true);
-        let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
-
-        let contentTypeHeader: Dictionary<string> = {};
-        contentTypeHeader = { "Content-Type": "application/json" };
-        if (params["data"]) {
-            fetchOptions.body = JSON.stringify(params["data"] || {});
-        }
-        if (contentTypeHeader) {
-            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
-        }
-        return {
-            url: url.format(urlObj),
-            options: fetchOptions,
-        };
-    },
-    /**
-     * 
-     * @summary Counts product of Payment.
+     * @summary Counts mobiphone of Payment.
      * @param id Payment id
      * @param where Criteria to match model instances
      */
-    paymentPrototypeCountProduct(params: {  "id": string; "where"?: string; }, options?: any): FetchArgs {
+    paymentPrototypeCountMobiphone(params: {  "id": string; "where"?: string; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeCountProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeCountMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product/count`
+        const baseUrl = `/Payments/{id}/mobiphone/count`
             .replace(`{${"id"}}`, `${ params["id"] }`);
         let urlObj = url.parse(baseUrl, true);
         urlObj.query = assign({}, urlObj.query, {
@@ -19262,16 +19237,16 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary Creates a new instance in product of this model.
+     * @summary Creates a new instance in mobiphone of this model.
      * @param id Payment id
      * @param data 
      */
-    paymentPrototypeCreateProduct(params: {  "id": string; "data"?: Product; }, options?: any): FetchArgs {
+    paymentPrototypeCreateMobiphone(params: {  "id": string; "data"?: Mobiphone; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeCreateProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeCreateMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product`
+        const baseUrl = `/Payments/{id}/mobiphone`
             .replace(`{${"id"}}`, `${ params["id"] }`);
         let urlObj = url.parse(baseUrl, true);
         let fetchOptions: RequestInit = assign({}, { method: "POST" }, options);
@@ -19291,15 +19266,15 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary Deletes all product of this model.
+     * @summary Deletes all mobiphone of this model.
      * @param id Payment id
      */
-    paymentPrototypeDeleteProduct(params: {  "id": string; }, options?: any): FetchArgs {
+    paymentPrototypeDeleteMobiphone(params: {  "id": string; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeDeleteProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeDeleteMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product`
+        const baseUrl = `/Payments/{id}/mobiphone`
             .replace(`{${"id"}}`, `${ params["id"] }`);
         let urlObj = url.parse(baseUrl, true);
         let fetchOptions: RequestInit = assign({}, { method: "DELETE" }, options);
@@ -19315,20 +19290,20 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary Delete a related item by id for product.
+     * @summary Delete a related item by id for mobiphone.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeDestroyByIdProduct(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+    paymentPrototypeDestroyByIdMobiphone(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeDestroyByIdProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeDestroyByIdMobiphone");
         }
         // verify required parameter "fk" is set
         if (params["fk"] == null) {
-            throw new Error("Missing required parameter fk when calling paymentPrototypeDestroyByIdProduct");
+            throw new Error("Missing required parameter fk when calling paymentPrototypeDestroyByIdMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product/{fk}`
+        const baseUrl = `/Payments/{id}/mobiphone/{fk}`
             .replace(`{${"id"}}`, `${ params["id"] }`)
             .replace(`{${"fk"}}`, `${ params["fk"] }`);
         let urlObj = url.parse(baseUrl, true);
@@ -19345,20 +19320,20 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary Check the existence of product relation to an item by id.
+     * @summary Check the existence of mobiphone relation to an item by id.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeExistsProduct(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+    paymentPrototypeExistsMobiphone(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeExistsProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeExistsMobiphone");
         }
         // verify required parameter "fk" is set
         if (params["fk"] == null) {
-            throw new Error("Missing required parameter fk when calling paymentPrototypeExistsProduct");
+            throw new Error("Missing required parameter fk when calling paymentPrototypeExistsMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product/rel/{fk}`
+        const baseUrl = `/Payments/{id}/mobiphone/rel/{fk}`
             .replace(`{${"id"}}`, `${ params["id"] }`)
             .replace(`{${"fk"}}`, `${ params["fk"] }`);
         let urlObj = url.parse(baseUrl, true);
@@ -19375,20 +19350,20 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary Find a related item by id for product.
+     * @summary Find a related item by id for mobiphone.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeFindByIdProduct(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+    paymentPrototypeFindByIdMobiphone(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeFindByIdProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeFindByIdMobiphone");
         }
         // verify required parameter "fk" is set
         if (params["fk"] == null) {
-            throw new Error("Missing required parameter fk when calling paymentPrototypeFindByIdProduct");
+            throw new Error("Missing required parameter fk when calling paymentPrototypeFindByIdMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product/{fk}`
+        const baseUrl = `/Payments/{id}/mobiphone/{fk}`
             .replace(`{${"id"}}`, `${ params["id"] }`)
             .replace(`{${"fk"}}`, `${ params["fk"] }`);
         let urlObj = url.parse(baseUrl, true);
@@ -19433,16 +19408,16 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary Queries product of Payment.
+     * @summary Queries mobiphone of Payment.
      * @param id Payment id
      * @param filter 
      */
-    paymentPrototypeGetProduct(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
+    paymentPrototypeGetMobiphone(params: {  "id": string; "filter"?: string; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeGetProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeGetMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product`
+        const baseUrl = `/Payments/{id}/mobiphone`
             .replace(`{${"id"}}`, `${ params["id"] }`);
         let urlObj = url.parse(baseUrl, true);
         urlObj.query = assign({}, urlObj.query, {
@@ -19461,21 +19436,49 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary Add a related item by id for product.
+     * @summary Fetches belongsTo relation shipper.
      * @param id Payment id
-     * @param fk Foreign key for product
-     * @param data 
+     * @param refresh 
      */
-    paymentPrototypeLinkProduct(params: {  "id": string; "fk": string; "data"?: OrderProduct; }, options?: any): FetchArgs {
+    paymentPrototypeGetShipper(params: {  "id": string; "refresh"?: boolean; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeLinkProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeGetShipper");
+        }
+        const baseUrl = `/Payments/{id}/shipper`
+            .replace(`{${"id"}}`, `${ params["id"] }`);
+        let urlObj = url.parse(baseUrl, true);
+        urlObj.query = assign({}, urlObj.query, {
+            "refresh": params["refresh"],
+        });
+        let fetchOptions: RequestInit = assign({}, { method: "GET" }, options);
+
+        let contentTypeHeader: Dictionary<string> = {};
+        if (contentTypeHeader) {
+            fetchOptions.headers = assign({}, contentTypeHeader, fetchOptions.headers);
+        }
+        return {
+            url: url.format(urlObj),
+            options: fetchOptions,
+        };
+    },
+    /**
+     * 
+     * @summary Add a related item by id for mobiphone.
+     * @param id Payment id
+     * @param fk Foreign key for mobiphone
+     * @param data 
+     */
+    paymentPrototypeLinkMobiphone(params: {  "id": string; "fk": string; "data"?: DetailPayment; }, options?: any): FetchArgs {
+        // verify required parameter "id" is set
+        if (params["id"] == null) {
+            throw new Error("Missing required parameter id when calling paymentPrototypeLinkMobiphone");
         }
         // verify required parameter "fk" is set
         if (params["fk"] == null) {
-            throw new Error("Missing required parameter fk when calling paymentPrototypeLinkProduct");
+            throw new Error("Missing required parameter fk when calling paymentPrototypeLinkMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product/rel/{fk}`
+        const baseUrl = `/Payments/{id}/mobiphone/rel/{fk}`
             .replace(`{${"id"}}`, `${ params["id"] }`)
             .replace(`{${"fk"}}`, `${ params["fk"] }`);
         let urlObj = url.parse(baseUrl, true);
@@ -19525,20 +19528,20 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary Remove the product relation to an item by id.
+     * @summary Remove the mobiphone relation to an item by id.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeUnlinkProduct(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
+    paymentPrototypeUnlinkMobiphone(params: {  "id": string; "fk": string; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeUnlinkProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeUnlinkMobiphone");
         }
         // verify required parameter "fk" is set
         if (params["fk"] == null) {
-            throw new Error("Missing required parameter fk when calling paymentPrototypeUnlinkProduct");
+            throw new Error("Missing required parameter fk when calling paymentPrototypeUnlinkMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product/rel/{fk}`
+        const baseUrl = `/Payments/{id}/mobiphone/rel/{fk}`
             .replace(`{${"id"}}`, `${ params["id"] }`)
             .replace(`{${"fk"}}`, `${ params["fk"] }`);
         let urlObj = url.parse(baseUrl, true);
@@ -19555,21 +19558,21 @@ export const PaymentApiFetchParamCreator = {
     },
     /**
      * 
-     * @summary Update a related item by id for product.
+     * @summary Update a related item by id for mobiphone.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      * @param data 
      */
-    paymentPrototypeUpdateByIdProduct(params: {  "id": string; "fk": string; "data"?: Product; }, options?: any): FetchArgs {
+    paymentPrototypeUpdateByIdMobiphone(params: {  "id": string; "fk": string; "data"?: Mobiphone; }, options?: any): FetchArgs {
         // verify required parameter "id" is set
         if (params["id"] == null) {
-            throw new Error("Missing required parameter id when calling paymentPrototypeUpdateByIdProduct");
+            throw new Error("Missing required parameter id when calling paymentPrototypeUpdateByIdMobiphone");
         }
         // verify required parameter "fk" is set
         if (params["fk"] == null) {
-            throw new Error("Missing required parameter fk when calling paymentPrototypeUpdateByIdProduct");
+            throw new Error("Missing required parameter fk when calling paymentPrototypeUpdateByIdMobiphone");
         }
-        const baseUrl = `/Payments/{id}/product/{fk}`
+        const baseUrl = `/Payments/{id}/mobiphone/{fk}`
             .replace(`{${"id"}}`, `${ params["id"] }`)
             .replace(`{${"fk"}}`, `${ params["fk"] }`);
         let urlObj = url.parse(baseUrl, true);
@@ -20011,29 +20014,12 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary payment online
-     * @param data information payment
-     */
-    paymentPaymentOrder(params: { "data": any;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<string> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPaymentOrder(params, options);
-        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
-            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
-                if (response.status >= 200 && response.status < 300) {
-                    return response.json();
-                } else {
-                    throw response;
-                }
-            });
-        };
-    },
-    /**
-     * 
-     * @summary Counts product of Payment.
+     * @summary Counts mobiphone of Payment.
      * @param id Payment id
      * @param where Criteria to match model instances
      */
-    paymentPrototypeCountProduct(params: { "id": string; "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeCountProduct(params, options);
+    paymentPrototypeCountMobiphone(params: { "id": string; "where"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InlineResponse2002> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeCountMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20046,12 +20032,12 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary Creates a new instance in product of this model.
+     * @summary Creates a new instance in mobiphone of this model.
      * @param id Payment id
      * @param data 
      */
-    paymentPrototypeCreateProduct(params: { "id": string; "data"?: Product;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Product> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeCreateProduct(params, options);
+    paymentPrototypeCreateMobiphone(params: { "id": string; "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeCreateMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20064,11 +20050,11 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary Deletes all product of this model.
+     * @summary Deletes all mobiphone of this model.
      * @param id Payment id
      */
-    paymentPrototypeDeleteProduct(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeDeleteProduct(params, options);
+    paymentPrototypeDeleteMobiphone(params: { "id": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeDeleteMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20081,12 +20067,12 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary Delete a related item by id for product.
+     * @summary Delete a related item by id for mobiphone.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeDestroyByIdProduct(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeDestroyByIdProduct(params, options);
+    paymentPrototypeDestroyByIdMobiphone(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeDestroyByIdMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20099,12 +20085,12 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary Check the existence of product relation to an item by id.
+     * @summary Check the existence of mobiphone relation to an item by id.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeExistsProduct(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<boolean> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeExistsProduct(params, options);
+    paymentPrototypeExistsMobiphone(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<boolean> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeExistsMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20117,12 +20103,12 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary Find a related item by id for product.
+     * @summary Find a related item by id for mobiphone.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeFindByIdProduct(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Product> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeFindByIdProduct(params, options);
+    paymentPrototypeFindByIdMobiphone(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeFindByIdMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20153,12 +20139,12 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary Queries product of Payment.
+     * @summary Queries mobiphone of Payment.
      * @param id Payment id
      * @param filter 
      */
-    paymentPrototypeGetProduct(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Product>> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeGetProduct(params, options);
+    paymentPrototypeGetMobiphone(params: { "id": string; "filter"?: string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Array<Mobiphone>> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeGetMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20171,13 +20157,31 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary Add a related item by id for product.
+     * @summary Fetches belongsTo relation shipper.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param refresh 
+     */
+    paymentPrototypeGetShipper(params: { "id": string; "refresh"?: boolean;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Shipper> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeGetShipper(params, options);
+        return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
+            return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
+                if (response.status >= 200 && response.status < 300) {
+                    return response.json();
+                } else {
+                    throw response;
+                }
+            });
+        };
+    },
+    /**
+     * 
+     * @summary Add a related item by id for mobiphone.
+     * @param id Payment id
+     * @param fk Foreign key for mobiphone
      * @param data 
      */
-    paymentPrototypeLinkProduct(params: { "id": string; "fk": string; "data"?: OrderProduct;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<OrderProduct> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeLinkProduct(params, options);
+    paymentPrototypeLinkMobiphone(params: { "id": string; "fk": string; "data"?: DetailPayment;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<DetailPayment> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeLinkMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20208,12 +20212,12 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary Remove the product relation to an item by id.
+     * @summary Remove the mobiphone relation to an item by id.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeUnlinkProduct(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeUnlinkProduct(params, options);
+    paymentPrototypeUnlinkMobiphone(params: { "id": string; "fk": string;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<any> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeUnlinkMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20226,13 +20230,13 @@ export const PaymentApiFp = {
     },
     /**
      * 
-     * @summary Update a related item by id for product.
+     * @summary Update a related item by id for mobiphone.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      * @param data 
      */
-    paymentPrototypeUpdateByIdProduct(params: { "id": string; "fk": string; "data"?: Product;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Product> {
-        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeUpdateByIdProduct(params, options);
+    paymentPrototypeUpdateByIdMobiphone(params: { "id": string; "fk": string; "data"?: Mobiphone;  }, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Mobiphone> {
+        const fetchArgs = PaymentApiFetchParamCreator.paymentPrototypeUpdateByIdMobiphone(params, options);
         return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
             return fetch(basePath + fetchArgs.url, fetchArgs.options).then((response) => {
                 if (response.status >= 200 && response.status < 300) {
@@ -20488,64 +20492,56 @@ export class PaymentApi extends BaseAPI {
     }
     /**
      * 
-     * @summary payment online
-     * @param data information payment
-     */
-    paymentPaymentOrder(params: {  "data": any; }, options?: any) {
-        return PaymentApiFp.paymentPaymentOrder(params, options)(this.fetch, this.basePath);
-    }
-    /**
-     * 
-     * @summary Counts product of Payment.
+     * @summary Counts mobiphone of Payment.
      * @param id Payment id
      * @param where Criteria to match model instances
      */
-    paymentPrototypeCountProduct(params: {  "id": string; "where"?: string; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeCountProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeCountMobiphone(params: {  "id": string; "where"?: string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeCountMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
-     * @summary Creates a new instance in product of this model.
+     * @summary Creates a new instance in mobiphone of this model.
      * @param id Payment id
      * @param data 
      */
-    paymentPrototypeCreateProduct(params: {  "id": string; "data"?: Product; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeCreateProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeCreateMobiphone(params: {  "id": string; "data"?: Mobiphone; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeCreateMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
-     * @summary Deletes all product of this model.
+     * @summary Deletes all mobiphone of this model.
      * @param id Payment id
      */
-    paymentPrototypeDeleteProduct(params: {  "id": string; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeDeleteProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeDeleteMobiphone(params: {  "id": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeDeleteMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
-     * @summary Delete a related item by id for product.
+     * @summary Delete a related item by id for mobiphone.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeDestroyByIdProduct(params: {  "id": string; "fk": string; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeDestroyByIdProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeDestroyByIdMobiphone(params: {  "id": string; "fk": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeDestroyByIdMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
-     * @summary Check the existence of product relation to an item by id.
+     * @summary Check the existence of mobiphone relation to an item by id.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeExistsProduct(params: {  "id": string; "fk": string; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeExistsProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeExistsMobiphone(params: {  "id": string; "fk": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeExistsMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
-     * @summary Find a related item by id for product.
+     * @summary Find a related item by id for mobiphone.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeFindByIdProduct(params: {  "id": string; "fk": string; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeFindByIdProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeFindByIdMobiphone(params: {  "id": string; "fk": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeFindByIdMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
@@ -20558,22 +20554,31 @@ export class PaymentApi extends BaseAPI {
     }
     /**
      * 
-     * @summary Queries product of Payment.
+     * @summary Queries mobiphone of Payment.
      * @param id Payment id
      * @param filter 
      */
-    paymentPrototypeGetProduct(params: {  "id": string; "filter"?: string; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeGetProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeGetMobiphone(params: {  "id": string; "filter"?: string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeGetMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
-     * @summary Add a related item by id for product.
+     * @summary Fetches belongsTo relation shipper.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param refresh 
+     */
+    paymentPrototypeGetShipper(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeGetShipper(params, options)(this.fetch, this.basePath);
+    }
+    /**
+     * 
+     * @summary Add a related item by id for mobiphone.
+     * @param id Payment id
+     * @param fk Foreign key for mobiphone
      * @param data 
      */
-    paymentPrototypeLinkProduct(params: {  "id": string; "fk": string; "data"?: OrderProduct; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeLinkProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeLinkMobiphone(params: {  "id": string; "fk": string; "data"?: DetailPayment; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeLinkMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
@@ -20586,22 +20591,22 @@ export class PaymentApi extends BaseAPI {
     }
     /**
      * 
-     * @summary Remove the product relation to an item by id.
+     * @summary Remove the mobiphone relation to an item by id.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      */
-    paymentPrototypeUnlinkProduct(params: {  "id": string; "fk": string; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeUnlinkProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeUnlinkMobiphone(params: {  "id": string; "fk": string; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeUnlinkMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
-     * @summary Update a related item by id for product.
+     * @summary Update a related item by id for mobiphone.
      * @param id Payment id
-     * @param fk Foreign key for product
+     * @param fk Foreign key for mobiphone
      * @param data 
      */
-    paymentPrototypeUpdateByIdProduct(params: {  "id": string; "fk": string; "data"?: Product; }, options?: any) {
-        return PaymentApiFp.paymentPrototypeUpdateByIdProduct(params, options)(this.fetch, this.basePath);
+    paymentPrototypeUpdateByIdMobiphone(params: {  "id": string; "fk": string; "data"?: Mobiphone; }, options?: any) {
+        return PaymentApiFp.paymentPrototypeUpdateByIdMobiphone(params, options)(this.fetch, this.basePath);
     }
     /**
      * 
@@ -20777,64 +20782,56 @@ export const PaymentApiFactory = function (fetch?: FetchAPI, basePath?: string) 
         },
         /**
          * 
-         * @summary payment online
-         * @param data information payment
-         */
-        paymentPaymentOrder(params: {  "data": any; }, options?: any) {
-            return PaymentApiFp.paymentPaymentOrder(params, options)(fetch, basePath);
-        },
-        /**
-         * 
-         * @summary Counts product of Payment.
+         * @summary Counts mobiphone of Payment.
          * @param id Payment id
          * @param where Criteria to match model instances
          */
-        paymentPrototypeCountProduct(params: {  "id": string; "where"?: string; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeCountProduct(params, options)(fetch, basePath);
+        paymentPrototypeCountMobiphone(params: {  "id": string; "where"?: string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeCountMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 
-         * @summary Creates a new instance in product of this model.
+         * @summary Creates a new instance in mobiphone of this model.
          * @param id Payment id
          * @param data 
          */
-        paymentPrototypeCreateProduct(params: {  "id": string; "data"?: Product; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeCreateProduct(params, options)(fetch, basePath);
+        paymentPrototypeCreateMobiphone(params: {  "id": string; "data"?: Mobiphone; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeCreateMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 
-         * @summary Deletes all product of this model.
+         * @summary Deletes all mobiphone of this model.
          * @param id Payment id
          */
-        paymentPrototypeDeleteProduct(params: {  "id": string; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeDeleteProduct(params, options)(fetch, basePath);
+        paymentPrototypeDeleteMobiphone(params: {  "id": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeDeleteMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 
-         * @summary Delete a related item by id for product.
+         * @summary Delete a related item by id for mobiphone.
          * @param id Payment id
-         * @param fk Foreign key for product
+         * @param fk Foreign key for mobiphone
          */
-        paymentPrototypeDestroyByIdProduct(params: {  "id": string; "fk": string; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeDestroyByIdProduct(params, options)(fetch, basePath);
+        paymentPrototypeDestroyByIdMobiphone(params: {  "id": string; "fk": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeDestroyByIdMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 
-         * @summary Check the existence of product relation to an item by id.
+         * @summary Check the existence of mobiphone relation to an item by id.
          * @param id Payment id
-         * @param fk Foreign key for product
+         * @param fk Foreign key for mobiphone
          */
-        paymentPrototypeExistsProduct(params: {  "id": string; "fk": string; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeExistsProduct(params, options)(fetch, basePath);
+        paymentPrototypeExistsMobiphone(params: {  "id": string; "fk": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeExistsMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 
-         * @summary Find a related item by id for product.
+         * @summary Find a related item by id for mobiphone.
          * @param id Payment id
-         * @param fk Foreign key for product
+         * @param fk Foreign key for mobiphone
          */
-        paymentPrototypeFindByIdProduct(params: {  "id": string; "fk": string; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeFindByIdProduct(params, options)(fetch, basePath);
+        paymentPrototypeFindByIdMobiphone(params: {  "id": string; "fk": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeFindByIdMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 
@@ -20847,22 +20844,31 @@ export const PaymentApiFactory = function (fetch?: FetchAPI, basePath?: string) 
         },
         /**
          * 
-         * @summary Queries product of Payment.
+         * @summary Queries mobiphone of Payment.
          * @param id Payment id
          * @param filter 
          */
-        paymentPrototypeGetProduct(params: {  "id": string; "filter"?: string; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeGetProduct(params, options)(fetch, basePath);
+        paymentPrototypeGetMobiphone(params: {  "id": string; "filter"?: string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeGetMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 
-         * @summary Add a related item by id for product.
+         * @summary Fetches belongsTo relation shipper.
          * @param id Payment id
-         * @param fk Foreign key for product
+         * @param refresh 
+         */
+        paymentPrototypeGetShipper(params: {  "id": string; "refresh"?: boolean; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeGetShipper(params, options)(fetch, basePath);
+        },
+        /**
+         * 
+         * @summary Add a related item by id for mobiphone.
+         * @param id Payment id
+         * @param fk Foreign key for mobiphone
          * @param data 
          */
-        paymentPrototypeLinkProduct(params: {  "id": string; "fk": string; "data"?: OrderProduct; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeLinkProduct(params, options)(fetch, basePath);
+        paymentPrototypeLinkMobiphone(params: {  "id": string; "fk": string; "data"?: DetailPayment; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeLinkMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 
@@ -20875,22 +20881,22 @@ export const PaymentApiFactory = function (fetch?: FetchAPI, basePath?: string) 
         },
         /**
          * 
-         * @summary Remove the product relation to an item by id.
+         * @summary Remove the mobiphone relation to an item by id.
          * @param id Payment id
-         * @param fk Foreign key for product
+         * @param fk Foreign key for mobiphone
          */
-        paymentPrototypeUnlinkProduct(params: {  "id": string; "fk": string; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeUnlinkProduct(params, options)(fetch, basePath);
+        paymentPrototypeUnlinkMobiphone(params: {  "id": string; "fk": string; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeUnlinkMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 
-         * @summary Update a related item by id for product.
+         * @summary Update a related item by id for mobiphone.
          * @param id Payment id
-         * @param fk Foreign key for product
+         * @param fk Foreign key for mobiphone
          * @param data 
          */
-        paymentPrototypeUpdateByIdProduct(params: {  "id": string; "fk": string; "data"?: Product; }, options?: any) {
-            return PaymentApiFp.paymentPrototypeUpdateByIdProduct(params, options)(fetch, basePath);
+        paymentPrototypeUpdateByIdMobiphone(params: {  "id": string; "fk": string; "data"?: Mobiphone; }, options?: any) {
+            return PaymentApiFp.paymentPrototypeUpdateByIdMobiphone(params, options)(fetch, basePath);
         },
         /**
          * 

@@ -1,41 +1,12 @@
-import axios from "axios";
-import { useEffect } from "react";
+import moment from "moment";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import icon from "../../assets/img/success-1.png";
-import React from 'react';
-import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
-import { apiUrl } from "../../enviroment";
-const access_token = localStorage.getItem("token");
-const userId = localStorage.getItem("userId");
+import Header from "../../components/layout/Header";
 export default function PaymentSuccess() {
   const location = useLocation();
-  const orderId = new URLSearchParams(location.search).get("orderId");
-  const vnp_BankTranNo = new URLSearchParams(location.search).get(
-    "vnp_BankTranNo"
-  );
-  const vnp_Amount = new URLSearchParams(location.search).get("vnp_Amount");
-  const vnp_OrderInfo = new URLSearchParams(location.search).get(
-    "vnp_OrderInfo"
-  );
-  // const vnp_PayDate = new URLSearchParams(location.search).get("vnp_PayDate");
-
-  useEffect(() => {
-    if (orderId) {
-      axios({
-        method: "PATCH",
-        url: `${apiUrl}/Orders/${orderId}`,
-        params: {
-          access_token,
-        },
-        data: {
-          status: "Thành công",
-        },
-      })
-        .then(() => {})
-        .catch((err) => console.log(err));
-    }
-  }, [orderId]);
+  const data = location.state;
   const currencyFormat = (num) => {
     return num?.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.") + " VNĐ";
   };
@@ -43,33 +14,57 @@ export default function PaymentSuccess() {
     <>
       <Header />
       <div style={{ background: "#f7f7f7" }} className="p-5">
-        <h3 className="text-center">Thanh toán thành công</h3>
-        <div className="flex justify-content-center" style={{display:'flex'}} >
+        <h3 className="text-center">Cảm ơn bạn đã đặt hàng</h3>
+        <div
+          className="flex justify-content-center"
+          style={{ display: "flex" }}
+        >
           <img src={icon} alt="" width={150} />
         </div>
-        <h3 className="text-center">Thông tin giao dịch</h3>
-        <div className="flex justify-content-center mt-3" style={{display:'flex'}}>
+        <h3 className="text-center">Thông tin đơn hàng</h3>
+        <div
+          className="flex justify-content-center mt-3"
+          style={{ display: "flex" }}
+        >
           <ul className="w-50">
-            <li className="flex justify-content-between mt-4" style={{display:'flex'}}>
-              <label htmlFor="">Ngân hàng:</label>
-              <div>NCB - Ngân hàng TMCP Quốc Dân</div>
+            <li
+              className="flex justify-content-between mt-4"
+              style={{ display: "flex" }}
+            >
+              <label htmlFor="">Mã đơn hàng:</label>
+              <div>{data?.code}</div>
             </li>
-            <li className="flex justify-content-between mt-4" style={{display:'flex'}}>
-              <label htmlFor="">Mã giao dịch:</label>
-              <div>{vnp_BankTranNo}</div>
+
+            <li
+              className="flex justify-content-between mt-4"
+              style={{ display: "flex" }}
+            >
+              <label htmlFor="">Tạm tính thanh toán:</label>
+              <div>{currencyFormat(Number(data?.price))}</div>
             </li>
-            <li className="flex justify-content-between mt-4" style={{display:'flex'}}>
-              <label htmlFor="">Số tiền:</label>
-              <div>{currencyFormat(Number(vnp_Amount) / 100)}</div>
+            <li
+              className="flex justify-content-between mt-4"
+              style={{ display: "flex" }}
+            >
+              <label htmlFor="">Phí ship:</label>
+              <div>{currencyFormat(Number(data?.fee))}</div>
             </li>
-            <li className="flex justify-content-between mt-4" style={{display:'flex'}}>
-              <label htmlFor="">Nội dung:</label>
-              <div>{vnp_OrderInfo}</div>
+            <li
+              className="flex justify-content-between mt-4"
+              style={{ display: "flex" }}
+            >
+              <label htmlFor="">Thanh toán:</label>
+              <div>
+                {currencyFormat(Number(data?.price) + Number(data?.fee))}
+              </div>
             </li>
-            {/* <li className="flex justify-content-between mt-4">
-              <label htmlFor="">Ngày giao dịch:</label>
-              <div>{moment(vnp_PayDate,"YYYYMMDDHHMMSS").format("HH:mm DD/MM/YYYY")}</div>
-            </li> */}
+            <li
+              className="flex justify-content-between mt-4"
+              style={{ display: "flex" }}
+            >
+              <label htmlFor="">Thời gian</label>
+              <div>{moment(data?.createdAt).format("HH:mm DD/MM/YYYY")}</div>
+            </li>
           </ul>
         </div>
       </div>

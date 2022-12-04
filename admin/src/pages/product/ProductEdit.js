@@ -47,7 +47,7 @@ export default () => {
     } else {
       request({
         method: 'PATCH',
-        url: `${apiUrl}/Products/${product.id}`,
+        url: `${apiUrl}/Mobiphones/${product.id}`,
         data: { ...form, categoryProductId: categoryProductId },
       }).then(() => {
         setLoading(false);
@@ -82,10 +82,10 @@ export default () => {
         <Loading loading={loading} />
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Tiêu đề</Form.Label>
+            <Form.Label>Tên sản phẩm</Form.Label>
             <Controller
               control={control}
-              name="title"
+              name="name"
               render={({
                 field: { onChange, onBlur, value }
               }) => (
@@ -98,7 +98,7 @@ export default () => {
               rules={{
                 required: true
               }}
-              defaultValue={product?.title}
+              defaultValue={product?.name}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -121,46 +121,7 @@ export default () => {
               defaultValue={product?.price}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Màu sắc</Form.Label>
-            <Controller
-              control={control}
-              name="color"
-              render={({
-                field: { onChange, onBlur, value }
-              }) => (
-                <InputGroup style={{ border: errors.size?.type === "required" && '1px solid red' }}>
-                  <Form.Control autoFocus required type="text" onChange={e => onChange(e.target.value)}
-                    onBlur={onBlur} value={value}
-                  />
-                </InputGroup>
-              )}
-              rules={{
-                required: true
-              }}
-              defaultValue={product?.color}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Xuất xứ</Form.Label>
-            <Controller
-              control={control}
-              name="origin"
-              render={({
-                field: { onChange, onBlur, value }
-              }) => (
-                <InputGroup style={{ border: errors.weight?.type === "required" && '1px solid red' }}>
-                  <Form.Control autoFocus required type="text" onChange={e => onChange(e.target.value)}
-                    onBlur={onBlur} value={value}
-                  />
-                </InputGroup>
-              )}
-              rules={{
-                required: true
-              }}
-              defaultValue={product?.origin}
-            />
-          </Form.Group>
+          
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Category &nbsp; </Form.Label>
             <select value={categoryProductId} onChange={e => setCategoryProductId(e.target.value)} >
@@ -173,7 +134,7 @@ export default () => {
           </Form.Group>
           
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Nội dung</Form.Label>
+            <Form.Label>Đặc điểm</Form.Label>
             <Controller
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
@@ -185,8 +146,27 @@ export default () => {
                   style={{ height: 200 }}
                 />
               )}
-              name="content"
-              defaultValue={product?.content}
+              name="characteristic"
+              defaultValue={product?.characteristic}
+              rules={{ required: true }}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Khuyến mãi</Form.Label>
+            <Controller
+              control={control}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <textarea
+                  className="form-control "
+                  value={value}
+                  onChange={e => onChange(e.target.value)}
+                  onBlur={onBlur}
+                  style={{ height: 200 }}
+                />
+              )}
+              name="promotion"
+              defaultValue={product?.promotion}
               rules={{ required: true }}
             />
           </Form.Group>

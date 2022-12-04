@@ -51,7 +51,7 @@ export default () => {
     setLoading(true);
     axios({
       method: "GET",
-      url: `${apiUrl}/Orders`,
+      url: `${apiUrl}/Payments`,
       params: {
         access_token: access_token,
         filter: {
@@ -197,7 +197,7 @@ function TableItem({ index, order, routerDetailOrder, search, locationData }) {
     } else {
       axios({
         method: "DELETE",
-        url: `${apiUrl}/Orders/${order.id}`,
+        url: `${apiUrl}/Payments/${order.id}`,
         params: {
           access_token: access_token,
           filter: {
@@ -233,7 +233,7 @@ function TableItem({ index, order, routerDetailOrder, search, locationData }) {
         <td>
           {city?.name} - {district}
         </td>
-        <td>{currencyFormat(order.price)}</td>
+        <td>{currencyFormat(Number(order.price) + Number(order.fee))}</td>
         <td>{order.status}</td>
         <td>{moment(order?.updatedAt).format("HH:mm DD-MM-YYYY")}</td>
         <td>

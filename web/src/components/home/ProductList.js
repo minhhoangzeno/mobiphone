@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { apiUrl } from "../../enviroment";
+import { Routes } from "../../routes";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ export default function ProductList() {
   const search = async () => {
     axios({
       method: "GET",
-      url: `${apiUrl}/Products`,
+      url: `${apiUrl}/Mobiphones`,
       params: {
         filter: {
           limit: 8,
@@ -46,8 +47,18 @@ export default function ProductList() {
                   {products.length > 0 &&
                     products.map((item, index) => {
                       return (
-                        <div className="col-lg-3 col-sm-6" key={index}>
-                          <Link to={"/product/detail"}>
+                        <div
+                          className="col-lg-3 col-sm-6"
+                          key={index}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            history.push({
+                              pathname: Routes.ProductDetail.path,
+                              state: products[0],
+                            });
+                          }}
+                        >
+                          <div>
                             <div className="single_product_item bg-white">
                               <div className="p-4">
                                 {item?.photoURL && (
@@ -63,11 +74,11 @@ export default function ProductList() {
                                 )}
                               </div>
                               <div className="single_product_text">
-                                <h4>{item?.title}</h4>
+                                <h4>{item?.name}</h4>
                                 <h3>{currencyFormat(item?.price)}</h3>
                               </div>
                             </div>
-                          </Link>
+                          </div>
                         </div>
                       );
                     })}

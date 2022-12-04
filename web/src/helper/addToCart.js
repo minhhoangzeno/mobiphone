@@ -8,7 +8,7 @@ export const addToCart = async (props) => {
   if (userId) {
     return axios({
       method: "POST",
-      url: `${apiUrl}/Orders/add-to-cart`,
+      url: `${apiUrl}/Payments/add-to-cart`,
       params: {
         access_token,
         product: {

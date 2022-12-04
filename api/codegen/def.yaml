@@ -6176,12 +6176,12 @@ paths:
           schema:
             $ref: '#/definitions/Account'
       deprecated: false
-  '/Payments/{id}/product/{fk}':
+  '/Payments/{id}/mobiphone/{fk}':
     get:
       tags:
         - Payment
-      summary: Find a related item by id for product.
-      operationId: Payment.prototype.__findById__product
+      summary: Find a related item by id for mobiphone.
+      operationId: Payment.prototype.__findById__mobiphone
       parameters:
         - name: id
           in: path
@@ -6191,7 +6191,7 @@ paths:
           format: JSON
         - name: fk
           in: path
-          description: Foreign key for product
+          description: Foreign key for mobiphone
           required: true
           type: string
           format: JSON
@@ -6199,13 +6199,13 @@ paths:
         '200':
           description: Request was successful
           schema:
-            $ref: '#/definitions/Product'
+            $ref: '#/definitions/Mobiphone'
       deprecated: false
     delete:
       tags:
         - Payment
-      summary: Delete a related item by id for product.
-      operationId: Payment.prototype.__destroyById__product
+      summary: Delete a related item by id for mobiphone.
+      operationId: Payment.prototype.__destroyById__mobiphone
       parameters:
         - name: id
           in: path
@@ -6215,7 +6215,7 @@ paths:
           format: JSON
         - name: fk
           in: path
-          description: Foreign key for product
+          description: Foreign key for mobiphone
           required: true
           type: string
           format: JSON
@@ -6226,8 +6226,8 @@ paths:
     put:
       tags:
         - Payment
-      summary: Update a related item by id for product.
-      operationId: Payment.prototype.__updateById__product
+      summary: Update a related item by id for mobiphone.
+      operationId: Payment.prototype.__updateById__mobiphone
       parameters:
         - name: id
           in: path
@@ -6237,7 +6237,7 @@ paths:
           format: JSON
         - name: fk
           in: path
-          description: Foreign key for product
+          description: Foreign key for mobiphone
           required: true
           type: string
           format: JSON
@@ -6245,19 +6245,19 @@ paths:
           in: body
           required: false
           schema:
-            $ref: '#/definitions/Product'
+            $ref: '#/definitions/Mobiphone'
       responses:
         '200':
           description: Request was successful
           schema:
-            $ref: '#/definitions/Product'
+            $ref: '#/definitions/Mobiphone'
       deprecated: false
-  '/Payments/{id}/product/rel/{fk}':
+  '/Payments/{id}/mobiphone/rel/{fk}':
     put:
       tags:
         - Payment
-      summary: Add a related item by id for product.
-      operationId: Payment.prototype.__link__product
+      summary: Add a related item by id for mobiphone.
+      operationId: Payment.prototype.__link__mobiphone
       parameters:
         - name: id
           in: path
@@ -6267,7 +6267,7 @@ paths:
           format: JSON
         - name: fk
           in: path
-          description: Foreign key for product
+          description: Foreign key for mobiphone
           required: true
           type: string
           format: JSON
@@ -6275,18 +6275,18 @@ paths:
           in: body
           required: false
           schema:
-            $ref: '#/definitions/OrderProduct'
+            $ref: '#/definitions/DetailPayment'
       responses:
         '200':
           description: Request was successful
           schema:
-            $ref: '#/definitions/OrderProduct'
+            $ref: '#/definitions/DetailPayment'
       deprecated: false
     delete:
       tags:
         - Payment
-      summary: Remove the product relation to an item by id.
-      operationId: Payment.prototype.__unlink__product
+      summary: Remove the mobiphone relation to an item by id.
+      operationId: Payment.prototype.__unlink__mobiphone
       parameters:
         - name: id
           in: path
@@ -6296,7 +6296,7 @@ paths:
           format: JSON
         - name: fk
           in: path
-          description: Foreign key for product
+          description: Foreign key for mobiphone
           required: true
           type: string
           format: JSON
@@ -6307,8 +6307,8 @@ paths:
     head:
       tags:
         - Payment
-      summary: Check the existence of product relation to an item by id.
-      operationId: Payment.prototype.__exists__product
+      summary: Check the existence of mobiphone relation to an item by id.
+      operationId: Payment.prototype.__exists__mobiphone
       parameters:
         - name: id
           in: path
@@ -6318,7 +6318,7 @@ paths:
           format: JSON
         - name: fk
           in: path
-          description: Foreign key for product
+          description: Foreign key for mobiphone
           required: true
           type: string
           format: JSON
@@ -6328,12 +6328,35 @@ paths:
           schema:
             type: boolean
       deprecated: false
-  '/Payments/{id}/product':
+  '/Payments/{id}/shipper':
     get:
       tags:
         - Payment
-      summary: Queries product of Payment.
-      operationId: Payment.prototype.__get__product
+      summary: Fetches belongsTo relation shipper.
+      operationId: Payment.prototype.__get__shipper
+      parameters:
+        - name: id
+          in: path
+          description: Payment id
+          required: true
+          type: string
+          format: JSON
+        - name: refresh
+          in: query
+          required: false
+          type: boolean
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Shipper'
+      deprecated: false
+  '/Payments/{id}/mobiphone':
+    get:
+      tags:
+        - Payment
+      summary: Queries mobiphone of Payment.
+      operationId: Payment.prototype.__get__mobiphone
       parameters:
         - name: id
           in: path
@@ -6352,13 +6375,13 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Product'
+              $ref: '#/definitions/Mobiphone'
       deprecated: false
     post:
       tags:
         - Payment
-      summary: Creates a new instance in product of this model.
-      operationId: Payment.prototype.__create__product
+      summary: Creates a new instance in mobiphone of this model.
+      operationId: Payment.prototype.__create__mobiphone
       parameters:
         - name: id
           in: path
@@ -6370,18 +6393,18 @@ paths:
           in: body
           required: false
           schema:
-            $ref: '#/definitions/Product'
+            $ref: '#/definitions/Mobiphone'
       responses:
         '200':
           description: Request was successful
           schema:
-            $ref: '#/definitions/Product'
+            $ref: '#/definitions/Mobiphone'
       deprecated: false
     delete:
       tags:
         - Payment
-      summary: Deletes all product of this model.
-      operationId: Payment.prototype.__delete__product
+      summary: Deletes all mobiphone of this model.
+      operationId: Payment.prototype.__delete__mobiphone
       parameters:
         - name: id
           in: path
@@ -6393,12 +6416,12 @@ paths:
         '204':
           description: Request was successful
       deprecated: false
-  '/Payments/{id}/product/count':
+  '/Payments/{id}/mobiphone/count':
     get:
       tags:
         - Payment
-      summary: Counts product of Payment.
-      operationId: Payment.prototype.__count__product
+      summary: Counts mobiphone of Payment.
+      operationId: Payment.prototype.__count__mobiphone
       parameters:
         - name: id
           in: path
@@ -6899,26 +6922,6 @@ paths:
           description: Request was successful
           schema:
             $ref: '#/definitions/x-any'
-      deprecated: false
-  /Payments/payment-order:
-    post:
-      tags:
-        - Payment
-      summary: payment online
-      operationId: Payment.paymentOrder
-      parameters:
-        - name: data
-          in: body
-          description: information payment
-          required: true
-          schema:
-            description: information payment
-            $ref: '#/definitions/x-any'
-      responses:
-        '200':
-          description: Request was successful
-          schema:
-            type: string
       deprecated: false
   '/Mobiphones/{id}/categoryProduct':
     get:
@@ -9742,36 +9745,23 @@ definitions:
         type: string
         format: date-time
     additionalProperties: false
-  Payment:
+  Mobiphone:
     properties:
-      code:
-        type: string
       name:
-        type: string
-      phone:
-        type: number
-        format: double
-      email:
-        type: string
-      address:
-        type: string
-      city:
-        type: number
-        format: double
-      district:
-        type: number
-        format: double
-      note:
-        type: string
-      status:
         type: string
       price:
         type: number
         format: double
+      promotion:
+        type: string
+      photoURL:
+        type: string
+      characteristic:
+        type: string
       id:
         type: number
         format: double
-      accountId:
+      categoryProductId:
         type: number
         format: double
       createdAt:
@@ -9805,23 +9795,18 @@ definitions:
         type: string
         format: date-time
     additionalProperties: false
-  Mobiphone:
+  Shipper:
     properties:
       name:
         type: string
-      price:
-        type: number
-        format: double
-      promotion:
+      phone:
         type: string
-      photoURL:
-        type: string
-      characteristic:
+      address:
         type: string
       id:
         type: number
         format: double
-      categoryProductId:
+      paymentId:
         type: number
         format: double
       createdAt:
@@ -9830,6 +9815,51 @@ definitions:
       updatedAt:
         type: string
         format: date-time
+    additionalProperties: false
+  Payment:
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+      phone:
+        type: number
+        format: double
+      email:
+        type: string
+      address:
+        type: string
+      city:
+        type: number
+        format: double
+      district:
+        type: number
+        format: double
+      note:
+        type: string
+      status:
+        type: string
+      price:
+        type: number
+        format: double
+      fee:
+        type: number
+        format: double
+      id:
+        type: number
+        format: double
+      accountId:
+        type: number
+        format: double
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+      shipperId:
+        type: number
+        format: double
     additionalProperties: false
   Fee:
     properties:
@@ -9855,27 +9885,6 @@ definitions:
         type: number
         format: double
       accountId:
-        type: number
-        format: double
-      createdAt:
-        type: string
-        format: date-time
-      updatedAt:
-        type: string
-        format: date-time
-    additionalProperties: false
-  Shipper:
-    properties:
-      name:
-        type: string
-      phone:
-        type: string
-      address:
-        type: string
-      id:
-        type: number
-        format: double
-      paymentId:
         type: number
         format: double
       createdAt:

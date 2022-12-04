@@ -39,14 +39,14 @@ export default () => {
   const search = () => {
     axios({
       method: "GET",
-      url: `${apiUrl}/OrderProducts`,
+      url: `${apiUrl}/DetailPayments`,
       params: {
         access_token,
         filter: {
           where: {
-            orderId: orderId,
+            paymentId: orderId,
           },
-          include: "product",
+          include: "mobiphone",
         },
       },
     })
@@ -59,11 +59,11 @@ export default () => {
   const searchOrder = () => {
     axios({
       method: "GET",
-      url: `${apiUrl}/Orders/${orderId}`,
+      url: `${apiUrl}/Payments/${orderId}`,
       params: {
         access_token,
         filter: {
-          include: ["product", "account"],
+          include: ["mobiphone", "account"],
         },
       },
     })
@@ -99,9 +99,9 @@ export default () => {
                 </thead>
                 <tbody>
                   <td>
-                    {order?.firstName} - {order?.lastName}
+                    {order?.name}
                   </td>
-                  <td>{order?.phoneNumber}</td>
+                  <td>{order?.phone}</td>
                   <td>{order?.email}</td>
                   <td>
                     {city?.name} - {district}
@@ -113,9 +113,7 @@ export default () => {
               <label>Thông tin sản phẩm</label>
               <table>
                 <thead>
-                  <th>Tên hàng</th>
-                  <th>Xuất xứ</th>
-                  <th>Màu sắc</th>
+                  <th>Tên sản phẩm</th>
                   <th>Hình ảnh</th>
                   <th>Đơn giá</th>
                   <th>Số lượng</th>
@@ -125,22 +123,20 @@ export default () => {
                   {orderProducts?.map((orderProduct, index) => {
                     return (
                       <tr key={index}>
-                        <td>{orderProduct?.product?.title}</td>
-                        <td>{orderProduct?.product?.origin}</td>
-                        <td>{orderProduct?.product?.color}</td>
+                        <td>{orderProduct?.mobiphone?.name}</td>
                         <td>
                           <Image
-                            src={orderProduct?.product?.photoURL}
+                            src={orderProduct?.mobiphone?.photoURL}
                             alt="photoURL"
                             className="user-avatar xl-avatar"
                           />
                         </td>
-                        <td>{currencyFormat(orderProduct?.product?.price)}</td>
+                        <td>{currencyFormat(orderProduct?.mobiphone?.price)}</td>
                         <td>{orderProduct?.amount}</td>
                         <td>
                           {currencyFormat(
                             Number(
-                              orderProduct?.product?.price *
+                              orderProduct?.mobiphone?.price *
                                 orderProduct?.amount
                             )
                           )}
@@ -163,13 +159,13 @@ export default () => {
               />
             </InputGroup>
             <div style={{ height: 50 }}></div>
-            <label>Tổng Tiền</label>
+            <label>Tổng Tiền (Đã bao gồm cả phí ship)</label>
             <InputGroup>
               <Form.Control
                 autoFocus
                 required
                 type="text"
-                value={currencyFormat(Number(order?.price))}
+                value={currencyFormat(Number(order?.price) + Number(order?.fee))}
                 disabled
               />
             </InputGroup>

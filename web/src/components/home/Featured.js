@@ -10,7 +10,7 @@ export default function Featured() {
   const search = async () => {
     axios({
       method: "GET",
-      url: `${apiUrl}/Products`,
+      url: `${apiUrl}/Mobiphones`,
       params: {
         filter: {
           limit: 4,
@@ -43,7 +43,7 @@ export default function Featured() {
           <div className="col-lg-7 col-sm-6">
             <div className="single_feature_post_text bg-white">
               <div>
-                <p>{products[0]?.title}</p>
+                <p>{products[0]?.name}</p>
                 <h3>{currencyFormat(products[0]?.price)}</h3>
                 <div
                   className="feature_btn"
@@ -55,7 +55,7 @@ export default function Featured() {
                     });
                   }}
                 >
-                  EXPLORE NOW
+                  Khám phá ngay
                   <svg
                     style={{ width: "24px", height: "24px" }}
                     viewBox="0 0 24 24"

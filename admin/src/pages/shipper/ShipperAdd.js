@@ -41,7 +41,7 @@ export default () => {
   return (
     <Container>
       <Row>
-        <h3 className="mb-3">Thêm thẻ tag</h3>
+        <h3 className="mb-3">Thêm shipper</h3>
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Tên</Form.Label>

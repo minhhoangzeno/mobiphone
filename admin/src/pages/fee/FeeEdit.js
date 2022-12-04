@@ -38,7 +38,7 @@ export default () => {
             <Form.Label>Mô tả</Form.Label>
             <Controller
               control={control}
-              name="title"
+              name="name"
               render={({
                 field: { onChange, onBlur, value }
               }) => (
